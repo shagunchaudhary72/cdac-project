@@ -7,6 +7,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="university_tbl")
 public class University extends BaseEntity{
-	@Column(name="university_name")
+	@Column(name="university_name", unique=true)
 	private String universityName;
 }
