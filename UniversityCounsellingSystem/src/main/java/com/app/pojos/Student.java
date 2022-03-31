@@ -1,6 +1,7 @@
 package com.app.pojos;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -24,13 +25,13 @@ public class Student extends BaseEntity{
 	private String email;
 	@Column(name="age", nullable= false)
 	private int age;
-	@Column(name="address", nullable= false)
-	private String address;
+	@Embedded
+	private Address address;
 	@Column(name = "rank_in_comp")
 	private int rankInComp;
 	@Column(name = "marks", nullable = false, precision = 2)
 	private double marksInComp;
-	@Column(name = "qualification", nullable = false)
-	private String eduQualification;
+	@Embedded
+	private EducationQualification eduQualification;
 	
 }
