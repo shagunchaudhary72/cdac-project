@@ -18,6 +18,7 @@ public class EducationQualification {
 	@Column(length=20,name="edu_type")
 	private EducationType type;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(length = 20,name="stream_name")
 	private StreamName streamName;
 	
