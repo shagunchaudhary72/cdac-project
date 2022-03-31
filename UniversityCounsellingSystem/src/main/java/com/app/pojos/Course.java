@@ -16,6 +16,4 @@ import lombok.NoArgsConstructor;
 public class Course extends BaseEntity{
 	@Column(name="course_name",length = 20,nullable = false)
 	private String courseName;
-	
-
 }
