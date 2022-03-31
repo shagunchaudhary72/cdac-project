@@ -5,21 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
+@Table(name="courses_tbl")
 @Entity
-@Table(name = "courses_tbl")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
-public class Course extends BaseEntity {
-
-	@Column(name = "course_name", nullable= false)
+@Data
+public class Course extends BaseEntity{
+	@Column(name="course_name",length = 20,nullable = false)
 	private String courseName;
-	
 }
