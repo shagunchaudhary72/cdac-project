@@ -29,25 +29,23 @@ public class CollegeServiceImpl implements ICollegeService {
 	@Autowired
 	CollegeRepository collegeRepo;
 
-
 	@Autowired
 	UniversityRepository universityRepo;
-	
+
 	@Autowired
 	CoureseRepository courseRepo;
-	
+
 	@Autowired
 	UserRepository userRepo;
-	
-	
+
 	@Override
 	public String deleteCollege(int id) {
-		//getting college object from datatbase
+		// getting college object from datatbase
 		College college = collegeRepo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("College Not Found , CollegeId : " + id));
 		String collegeName = college.getName();
-		
-		//deleting college
+
+		// deleting college
 		collegeRepo.deleteById(id);
 		return "College Deleted-> CollegeName : " + collegeName + ", CollegeId : " + id;
 	}
@@ -59,12 +57,12 @@ public class CollegeServiceImpl implements ICollegeService {
 
 	@Override
 	public College getCollegeDetails(int id) {
-		//getting college object from datatbase
+		// getting college object from datatbase
 		College college = collegeRepo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("College Not Found , CollegeId : " + id));
 		return college;
 	}
-	
+
 	@Override
 	public College regCollege(College collegeData) {
 		return collegeRepo.save(collegeData);
@@ -76,14 +74,13 @@ public class CollegeServiceImpl implements ICollegeService {
 	}
 
 	@Override
-	public Set<Course> addCollegeCourse(int id, String addCourse) {
-		Course course = new Course(addCourse);
+	public Set<Course> addCollegeCourse(int id, int courseid) {
+		Course course = courseRepo.findById(courseid).orElseThrow(() -> new ResourceNotFoundException("Invalid Course Id ") );
 		System.out.println(course);
 		College collegeData = collegeRepo.findById(id).orElseThrow(() -> {
 			throw new RuntimeException("Invalid Id");
 		});
 		Set<Course> courseSet = collegeData.getCourses();
-		courseRepo.save(course);
 		collegeData.getCourses().add(course);
 		collegeData.setCourses(courseSet);
 		collegeRepo.save(collegeData);
@@ -99,12 +96,12 @@ public class CollegeServiceImpl implements ICollegeService {
 			throw new RuntimeException("Invalid CourseId");
 		});
 		collegeData.getCourses().remove(course);
-		return collegeRepo.save(collegeData).getCourses();
+		return collegeData.getCourses();
 	}
 
 	@Override
 	public User regUserAsCollege(CollegeUserDTO collegeUserData) {
-		University uni = universityRepo.findById(collegeUserData.getUniversity()).orElseThrow(() -> {
+		University uni = universityRepo.findById(1).orElseThrow(() -> {
 			throw new RuntimeException("Invalid UniversityId");
 		});
 		User userData = new User(collegeUserData.getName(), collegeUserData.getEmail(), collegeUserData.getPassword(),
@@ -116,9 +113,18 @@ public class CollegeServiceImpl implements ICollegeService {
 	}
 
 	@Override
-	public College getCollegeRegisterationForm(userDTO userSigninData) {
-		return collegeRepo.findByEmail(userSigninData.getEmail());
+	public College authenticateCollege(userDTO userSigninData) {
+		College college = collegeRepo.findByEmailAndPassword(userSigninData.getEmail(), userSigninData.getPassword());
+		if (!(college == null)) {
+			return college;
+		} else {
+			throw new RuntimeException("Invalid Email-Id or Password");
+		}
 	}
 
-
+	//for adding new course( admin )
+	@Override
+	public Course addNewCourse(Course course) {
+		return courseRepo.save(course);
+	}
 }

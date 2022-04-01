@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Course extends BaseEntity{
-	@Column(name="course_name",length = 100,nullable = false)
+	@Column(name="course_name",length = 100,nullable = false,unique = true)
 	private String courseName;
 }

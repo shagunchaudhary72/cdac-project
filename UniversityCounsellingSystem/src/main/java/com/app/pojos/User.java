@@ -30,7 +30,7 @@ public class User extends BaseEntity {
 	// Regex for email validation
 	private String email;
 	@Column(nullable = false) // varchar(30), NOT NULL constraint
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})",message = "Invalid Password")
+	//@Pattern(message = "Invalid Password")
 	private String password;
 	@Enumerated(EnumType.STRING) // => column : varchar
 	private Role role;

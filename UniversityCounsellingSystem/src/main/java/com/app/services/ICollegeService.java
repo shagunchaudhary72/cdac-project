@@ -26,11 +26,13 @@ public interface ICollegeService {
 
 	College updateCollegeDetails(College editedCollegeData);
 
-	Set<Course> addCollegeCourse(int id, String addCourse);
+	Set<Course> addCollegeCourse(int id, int courseid);
 
 	Set<Course> deleteCourse(int id, int courseid);
 
 	User regUserAsCollege(CollegeUserDTO collegeUserData);
 
-	College getCollegeRegisterationForm(@Valid userDTO userSigninData);
+	College authenticateCollege( userDTO userSigninData);
+	
+	Course addNewCourse(Course course);
 }
