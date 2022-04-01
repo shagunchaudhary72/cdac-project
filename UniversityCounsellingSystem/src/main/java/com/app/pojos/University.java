@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class University extends BaseEntity{
+
 	@Column(name="university_name", unique=true)
 	@NotBlank(message = "University name can't be blank")
 	private String universityName;
