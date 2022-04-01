@@ -38,15 +38,15 @@ public class College extends BaseEntity{
 	@Column(name="clg_email",length = 100,nullable = false, unique = true)
 	private String email;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "university_id")
+	@ManyToOne	
+	@JoinColumn(name = "university_id", nullable = false)
 	private University university;
-	/* private int university_id = 1; */
+
 	
 	@Column(name="cut_off_rank")
 	private Integer cutOffRank;
 	
-	@Column(name="percent_criteria",precision = 2)
+	@Column(name="percent_criteria",precision = 2, nullable = false)
 	private double minimumPercentInBoards;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -65,7 +65,6 @@ public class College extends BaseEntity{
 	
 	@Column(name="vaccant_seats")
 	private int vaccantSeats;
-	
-	
+		
 
 }
