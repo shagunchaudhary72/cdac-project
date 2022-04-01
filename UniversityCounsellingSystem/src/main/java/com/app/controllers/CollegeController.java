@@ -1,4 +1,4 @@
-package com.app.controller;
+package com.app.controllers;
 
 import javax.validation.Valid;
 
@@ -18,7 +18,7 @@ import com.app.dao.CollegeRepository;
 import com.app.dto.CollegeUserDTO;
 import com.app.dto.userDTO;
 import com.app.pojos.College;
-import com.app.service.ICollegeService;
+import com.app.services.ICollegeService;
 
 @RestController
 @RequestMapping("/college")
