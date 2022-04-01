@@ -27,14 +27,14 @@ public class College extends BaseEntity{
 	@Column(name="clg_email",length = 100,nullable = false)
 	private String email;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne	//(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "university_id", nullable = false)
 	private University university;
 	
 	@Column(name="cut_off_rank")
-	private int cutOffRank;
+	private Integer cutOffRank;
 	
-	@Column(name="percent_criteria",precision = 2)
+	@Column(name="percent_criteria",precision = 2, nullable = false)
 	private double minimumPercentInBoards;
 	
 	@ManyToMany
@@ -53,7 +53,6 @@ public class College extends BaseEntity{
 	
 	@Column(name="vaccant_seats",nullable = false)
 	private int vaccantSeats;
-	
-	
+		
 
 }

@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.custom_exceptions.NotFoundException;
+import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.StudentRepository;
 import com.app.pojos.Student;
 
@@ -33,7 +33,7 @@ public class StudentServiceImpl implements IStudentService {
 
 	@Override
 	public Student getStudentDetails(int id) {
-		return studentRepo.findById(id).orElseThrow(()->new NotFoundException("There is no student with id: "+id));
+		return studentRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("There is no student with id: "+id));
 	}
 
 	@Override
