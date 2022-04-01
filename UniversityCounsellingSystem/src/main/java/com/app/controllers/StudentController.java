@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.EducationQualification;
+import com.app.pojos.Preference;
 import com.app.pojos.Student;
+import com.app.services.IPreferenceService;
 import com.app.services.IStudentService;
 
 @RestController
@@ -24,6 +26,9 @@ public class StudentController {
 	
 	@Autowired
 	private IStudentService studentService;
+	
+	@Autowired
+	private IPreferenceService preferenceService;
 	
 	@GetMapping
 	public ResponseEntity<?> getAllStudents(){
@@ -66,7 +71,12 @@ public class StudentController {
 	public ResponseEntity<?> addQualification(@PathVariable int id,@RequestBody EducationQualification educationQualification) {
 			Student student = studentService.getStudentDetails(id);
 			student.addEducation(educationQualification);
-			return ResponseEntity.ok().body(studentService.updateStudent(student));
+			return ResponseEntity.status(HttpStatus.CREATED).body(studentService.updateStudent(student));
+	}
+	
+	@PostMapping("/preference/{id}")
+	public ResponseEntity<?> addPreference(@PathVariable int id,@RequestBody Preference preference){
+		return ResponseEntity.ok().body(preferenceService.addPreference(preference, id));
 	}
 
 }
