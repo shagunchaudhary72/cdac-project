@@ -28,8 +28,9 @@ public class UserController {
 	@Autowired
 	private IStudentService studentService;
 
-	@GetMapping("/signin")
+	@PostMapping("/signin")
 	public ResponseEntity<?> loginViaRole(@RequestBody LoginRequest request) {
+		System.out.println(request.getEmail() + " " + request.getPassword());
 		return ResponseEntity.ok(userService.login(request.getEmail(), request.getPassword()));
 	}
 
