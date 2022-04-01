@@ -4,7 +4,7 @@ public class AuthenticationException extends RuntimeException{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2139985096933511280L;
+	private static final long serialVersionUID = 1L;
 
 	public AuthenticationException(String mesg) {
 		super(mesg);
