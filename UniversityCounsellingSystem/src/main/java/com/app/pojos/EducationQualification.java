@@ -1,19 +1,25 @@
 package com.app.pojos;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Embeddable
+//@Embeddable
+@Entity
+@Table(name="education_qualification_tbl")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EducationQualification {
+public class EducationQualification extends BaseEntity{
 	@Enumerated(EnumType.STRING)
 	@Column(length=20,name="edu_type")
 	private EducationType type;
@@ -30,4 +36,18 @@ public class EducationQualification {
 	
 	@Column(name = "year_of_passing")
 	private int yearOfPassing;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="student_id")
+	private Student student;
+
+	public EducationQualification(EducationType type, StreamName streamName, String nameOfInstitute, double percentage,
+			int yearOfPassing) {
+		super();
+		this.type = type;
+		this.streamName = streamName;
+		this.nameOfInstitute = nameOfInstitute;
+		this.percentage = percentage;
+		this.yearOfPassing = yearOfPassing;
+	}
 }
