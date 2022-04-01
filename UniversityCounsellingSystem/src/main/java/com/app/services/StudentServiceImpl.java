@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_exceptions.NotFoundException;
+import com.app.dao.PreferenceRepository;
 import com.app.dao.StudentRepository;
 import com.app.pojos.Student;
 
@@ -41,5 +42,7 @@ public class StudentServiceImpl implements IStudentService {
 		// TODO Auto-generated method stub
 		return studentRepo.findAll();
 	}
+	
+	
 
 }
