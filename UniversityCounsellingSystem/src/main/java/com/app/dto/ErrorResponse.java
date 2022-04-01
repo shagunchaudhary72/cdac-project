@@ -19,5 +19,4 @@ public class ErrorResponse {
 		this.errorDetails = errorDetails;
 		timeStamp=LocalDateTime.now();
 	}
-	
 }
