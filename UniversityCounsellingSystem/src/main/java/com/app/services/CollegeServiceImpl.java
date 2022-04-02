@@ -1,7 +1,6 @@
 package com.app.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -122,11 +121,7 @@ public class CollegeServiceImpl implements ICollegeService {
 		}
 	}
 
-	//for adding new course( admin )
-	@Override
-	public Course addNewCourse(Course course) {
-		return courseRepo.save(course);
-	}
+
 
 
 }

@@ -33,7 +33,6 @@ public interface ICollegeService {
 	User regUserAsCollege(CollegeUserDTO collegeUserData);
 
 	College authenticateCollege( userDTO userSigninData);
-	
-	Course addNewCourse(Course course);
+
 	
 }

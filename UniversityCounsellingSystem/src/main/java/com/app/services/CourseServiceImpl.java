@@ -23,7 +23,11 @@ public class CourseServiceImpl implements ICourseService {
 		return courseRepo.findAll();
 	}
 	
-	
+	//for adding new course( admin )
+	@Override
+	public Course addNewCourse(Course course) {
+		return courseRepo.save(course);
+	}
 	
 	
 

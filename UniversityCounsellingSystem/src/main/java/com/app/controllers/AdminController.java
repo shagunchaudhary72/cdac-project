@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.Course;
 import com.app.services.ICollegeService;
+import com.app.services.ICourseService;
 import com.app.services.IShortlistedStudentService;
+import com.app.services.IStudentService;
 
 @RestController
 @RequestMapping(value = "/admin")
@@ -21,6 +23,12 @@ public class AdminController {
 
 	@Autowired
 	private ICollegeService collegeService;
+	
+	@Autowired
+	private ICourseService courseService;
+	
+	@Autowired
+	private IStudentService studentService;
 
 	@Autowired
 	private IShortlistedStudentService shortlistStudentService;
@@ -55,12 +63,12 @@ public class AdminController {
 
 	@GetMapping("/students")
 	public ResponseEntity<?> fetchAllStudents() {
-		return null;
+		return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudents());
 	}
 
 	@GetMapping("/student/{id}")
 	public ResponseEntity<?> fetchStudentDetails(@PathVariable int id) {
-		return null;
+		return ResponseEntity.ok().body(studentService.getStudentDetails(id));
 	}
 
 	@DeleteMapping("/student/{id}")
@@ -101,6 +109,6 @@ public class AdminController {
 	
 	@PostMapping("/course")
 	public ResponseEntity<?> addNewCourse(@RequestBody Course course){
-		return ResponseEntity.status(HttpStatus.CREATED).body(collegeService.addNewCourse(course));
+		return ResponseEntity.status(HttpStatus.CREATED).body(courseService.addNewCourse(course));
 	}
 }

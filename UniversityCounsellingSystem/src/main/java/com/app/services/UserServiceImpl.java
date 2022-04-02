@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
 	public LoginResponse login(String email, String password) {
 		
 		User user = userRepo.findByEmailAndPassword(email, password).orElseThrow(()->new AuthenticationException("Email-ID or Password is incorrect"));
-		 return new LoginResponse(user.getId(),user.getEmail(), user.getRole(), user.getPassword());
+		 return new LoginResponse(user.getId(),user.getEmail(), user.getRole());
 		/*
 		 * User user = userRepo.authenticateUser(email, password); if(!(user == null)) {
 		 * return new LoginResponse(user.getId(),user.getEmail(), user.getRole(),
