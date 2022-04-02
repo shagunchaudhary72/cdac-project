@@ -34,7 +34,7 @@ public class UserController {
 		return ResponseEntity.ok(userService.login(request.getEmail(), request.getPassword()));
 	}
 
-	@PostMapping("/account")
+	@PostMapping("/register/student")
 	public ResponseEntity<?> registerAsStudent(@RequestBody @Valid StudentRegistration studentRegistration) {
 		System.out.println("in add user " + studentRegistration);
 		User user = null;

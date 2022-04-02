@@ -31,7 +31,7 @@ public class CollegeController {
 	@Autowired
 	CollegeRepository collegeRepository;
 
-	@PostMapping("/registerAsCollege") // Login Register form's register page
+	@PostMapping("/register") // Login Register form's register page
 	public ResponseEntity<?> registerAsCollege(@RequestBody CollegeUserDTO collegeUserData) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(collegeService.regUserAsCollege(collegeUserData));
 	}
