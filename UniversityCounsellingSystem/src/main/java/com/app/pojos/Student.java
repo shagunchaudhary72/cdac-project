@@ -13,18 +13,21 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "students_tbl")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Student extends BaseEntity {
 
 	@Column(name = "name", nullable = false)
 	private String name;
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 	@Column(name = "age", nullable = false)
 	private int age;
@@ -47,13 +50,12 @@ public class Student extends BaseEntity {
 		this.age = age;
 	}
 	
-	public Student(String name, String email, int age, Address address, int rankInComp, double marksInComp) {
+	public Student(String name, String email, int age, Address address, double marksInComp) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.age = age;
 		this.address = address;
-		this.rankInComp = rankInComp;
 		this.marksInComp = marksInComp;
 	}
 
@@ -68,7 +70,10 @@ public class Student extends BaseEntity {
 		eq.setStudent(null);
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", email=" + email + ", age=" + age + ", address=" + address + ", rankInComp="
+				+ rankInComp + ", marksInComp=" + marksInComp + "]";
+	}
 	
 }

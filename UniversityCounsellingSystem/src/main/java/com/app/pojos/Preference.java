@@ -1,6 +1,7 @@
 
 package com.app.pojos;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -26,9 +27,11 @@ public class Preference extends BaseEntity {
 	private Student student;
 
 	@NotEmpty(message = "college preference must be given")
+	@Column(name = "college_preference")
 	private String collegePreference; // college preference by student
 
 	@NotEmpty(message = "course preference must be given")
+	@Column( name = "course_preference")
 	private String coursePreference; // course preference by student
 
 	public Preference(String collegePreference, String coursePreference) {
