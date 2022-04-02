@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-
+import com.app.pojos.Student;
 import com.app.pojos.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
@@ -25,5 +25,5 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	 * nativeQuery = true) User authenticateUser( String email, String password);
 	 */
 
-
+	Optional<User> findByEmail(String email);
 }

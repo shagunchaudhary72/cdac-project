@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import com.app.dto.CollegeUserDTO;
-import com.app.dto.userDTO;
 import com.app.pojos.College;
 import com.app.pojos.Course;
 import com.app.pojos.User;
@@ -14,7 +13,7 @@ import com.app.pojos.User;
 public interface ICollegeService {
 
 	//method to delete college
-	String deleteCollege(int id);
+	List<College> deleteCollege(int id);
 	
 	//method to get list of coleges
 	List<College> getAllCollege();
@@ -31,8 +30,6 @@ public interface ICollegeService {
 	Set<Course> deleteCourse(int id, int courseid);
 
 	User regUserAsCollege(CollegeUserDTO collegeUserData);
-
-	College authenticateCollege( userDTO userSigninData);
 
 	
 }

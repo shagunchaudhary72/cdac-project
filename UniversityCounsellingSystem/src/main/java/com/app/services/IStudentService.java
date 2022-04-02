@@ -14,5 +14,9 @@ public interface IStudentService {
 	Student getStudentDetails(int id);
 	
 	List<Student> getAllStudents();
+	
+	List<Student> deleteStudent(int id);
+	
+	
 
 }

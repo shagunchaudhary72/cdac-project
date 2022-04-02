@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,19 +39,17 @@ public class StudentController {
 		return ResponseEntity.of(Optional.of(list));
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> addStudent(@RequestBody Student transientStudent) {
-		Student student = null;
-		try {
-			System.out.println(transientStudent);
-			student = studentService.addStudent(transientStudent);
-			return ResponseEntity.status(HttpStatus.CREATED).body(student);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-		
-	}
+	/*
+	 * @PostMapping public ResponseEntity<?> addStudent(@RequestBody Student
+	 * transientStudent) { Student student = null; try {
+	 * System.out.println(transientStudent); student =
+	 * studentService.addStudent(transientStudent); return
+	 * ResponseEntity.status(HttpStatus.CREATED).body(student); } catch (Exception
+	 * e) { e.printStackTrace(); return
+	 * ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); }
+	 * 
+	 * }
+	 */
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getStudentDetails(@PathVariable int id) {
@@ -74,9 +73,14 @@ public class StudentController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(studentService.updateStudent(student));
 	}
 	
-	@PostMapping("/preference/{id}")
-	public ResponseEntity<?> addPreference(@PathVariable int id,@RequestBody Preference preference){
-		return ResponseEntity.ok().body(preferenceService.addPreference(preference, id));
+	@PostMapping("/{studentId}/preference")
+	public ResponseEntity<?> addPreference(@PathVariable int studentId,@RequestBody Preference preference){
+		return ResponseEntity.ok().body(preferenceService.addPreference(preference, studentId));
+	}
+	
+	@DeleteMapping("/{studentId}/preference/{preferenceId}")
+	public ResponseEntity<?> deletePreference(@PathVariable int studentId, @PathVariable int preferenceId){
+		return ResponseEntity.ok().body(preferenceService.deletePreference(studentId, preferenceId));
 	}
 
 }

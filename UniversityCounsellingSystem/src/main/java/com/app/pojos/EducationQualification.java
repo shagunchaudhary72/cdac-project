@@ -11,12 +11,15 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 //@Embeddable
 @Entity
 @Table(name="education_qualification_tbl")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EducationQualification extends BaseEntity{
@@ -50,4 +53,12 @@ public class EducationQualification extends BaseEntity{
 		this.percentage = percentage;
 		this.yearOfPassing = yearOfPassing;
 	}
+
+	@Override
+	public String toString() {
+		return "EducationQualification [type=" + type + ", streamName=" + streamName + ", nameOfInstitute="
+				+ nameOfInstitute + ", percentage=" + percentage + ", yearOfPassing=" + yearOfPassing + "]";
+	}
+	
+	
 }

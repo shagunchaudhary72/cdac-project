@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.CollegeUserDTO;
 import com.app.dto.LoginRequest;
 import com.app.dto.StudentRegistration;
 import com.app.pojos.Student;
 import com.app.pojos.User;
+import com.app.services.ICollegeService;
 import com.app.services.IStudentService;
 import com.app.services.IUserService;
 
@@ -27,6 +29,9 @@ public class UserController {
 	
 	@Autowired
 	private IStudentService studentService;
+	
+	@Autowired
+	private ICollegeService collegeService;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> loginViaRole(@RequestBody LoginRequest request) {
@@ -34,7 +39,7 @@ public class UserController {
 		return ResponseEntity.ok(userService.login(request.getEmail(), request.getPassword()));
 	}
 
-	@PostMapping("/register/student")
+	@PostMapping("/student/register")
 	public ResponseEntity<?> registerAsStudent(@RequestBody @Valid StudentRegistration studentRegistration) {
 		System.out.println("in add user " + studentRegistration);
 		User user = null;
@@ -47,6 +52,11 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(user);
+	}
+	
+	@PostMapping("/college/register") // Login Register form's register page
+	public ResponseEntity<?> registerAsCollege(@RequestBody CollegeUserDTO collegeUserData) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(collegeService.regUserAsCollege(collegeUserData));
 	}
 
 }

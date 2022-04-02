@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dao.CollegeRepository;
 import com.app.dto.CollegeUserDTO;
 import com.app.dto.NewCourse;
-import com.app.dto.userDTO;
 import com.app.pojos.College;
 import com.app.services.ICollegeService;
 
@@ -30,18 +29,6 @@ public class CollegeController {
 
 	@Autowired
 	CollegeRepository collegeRepository;
-
-	@PostMapping("/register") // Login Register form's register page
-	public ResponseEntity<?> registerAsCollege(@RequestBody CollegeUserDTO collegeUserData) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(collegeService.regUserAsCollege(collegeUserData));
-	}
-
-	@PostMapping("/signin")
-	// authencating college
-	public ResponseEntity<?> collegeRegisteration(@RequestBody @Valid userDTO userSigninData) {
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(collegeService.authenticateCollege(userSigninData));
-	}
 
 	@GetMapping("/profile/{collegeid}") // Get college profile
 	public ResponseEntity<?> showProfile(@PathVariable("collegeid") int id) {

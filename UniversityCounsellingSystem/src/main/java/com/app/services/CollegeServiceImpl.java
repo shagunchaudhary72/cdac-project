@@ -14,7 +14,6 @@ import com.app.dao.CoureseRepository;
 import com.app.dao.UniversityRepository;
 import com.app.dao.UserRepository;
 import com.app.dto.CollegeUserDTO;
-import com.app.dto.userDTO;
 import com.app.pojos.College;
 import com.app.pojos.Course;
 import com.app.pojos.Role;
@@ -38,15 +37,14 @@ public class CollegeServiceImpl implements ICollegeService {
 	UserRepository userRepo;
 
 	@Override
-	public String deleteCollege(int id) {
+	public List<College> deleteCollege(int id) {
 		// getting college object from datatbase
 		College college = collegeRepo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("College Not Found , CollegeId : " + id));
-		String collegeName = college.getName();
 
 		// deleting college
 		collegeRepo.deleteById(id);
-		return "College Deleted-> CollegeName : " + collegeName + ", CollegeId : " + id;
+		return collegeRepo.findAll();
 	}
 
 	@Override
@@ -110,18 +108,6 @@ public class CollegeServiceImpl implements ICollegeService {
 		collegeRepo.save(collegeData);
 		return userRepo.save(userData);
 	}
-
-	@Override
-	public College authenticateCollege(userDTO userSigninData) {
-		College college = collegeRepo.findByEmailAndPassword(userSigninData.getEmail(), userSigninData.getPassword());
-		if (!(college == null)) {
-			return college;
-		} else {
-			throw new RuntimeException("Invalid Email-Id or Password");
-		}
-	}
-
-
 
 
 }

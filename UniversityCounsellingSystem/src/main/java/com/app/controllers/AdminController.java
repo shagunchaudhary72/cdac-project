@@ -1,5 +1,7 @@
 package com.app.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.StudentRankDto;
 import com.app.pojos.Course;
+import com.app.services.AdminServiceImpl;
+import com.app.services.IAdminService;
 import com.app.services.ICollegeService;
 import com.app.services.ICourseService;
 import com.app.services.IShortlistedStudentService;
@@ -32,6 +37,9 @@ public class AdminController {
 
 	@Autowired
 	private IShortlistedStudentService shortlistStudentService;
+	
+	@Autowired
+	private IAdminService adminService;
 
 	public AdminController() {
 		System.out.println("in constructor of : " + getClass());
@@ -73,7 +81,7 @@ public class AdminController {
 
 	@DeleteMapping("/student/{id}")
 	public ResponseEntity<?> deleteStudent(@PathVariable int id) {
-		return null;
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(studentService.deleteStudent(id));
 	}
 
 	@GetMapping("/shortlisted_students")
@@ -104,7 +112,9 @@ public class AdminController {
 
 	@GetMapping("/declare_result")
 	public ResponseEntity<?> declareResult() {
-		return null;
+		//List<StudentRankDto> result = adminService.declareRanks();
+		//result.stream().forEach(System.out::println);
+		return ResponseEntity.ok().body(adminService.declareResult());
 	}
 	
 	@PostMapping("/course")

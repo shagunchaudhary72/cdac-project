@@ -14,4 +14,6 @@ public interface CollegeRepository extends JpaRepository<College, Integer> {
 	@Query("select c from College c where c.email = (select u.email from User u where u.email=:email and u.password=:password)")
     College findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
+	//method to get college by name
+	College findByName(String name);
 }
