@@ -35,4 +35,5 @@ public interface ICollegeService {
 	College authenticateCollege( userDTO userSigninData);
 	
 	Course addNewCourse(Course course);
+	
 }

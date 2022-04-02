@@ -127,4 +127,6 @@ public class CollegeServiceImpl implements ICollegeService {
 	public Course addNewCourse(Course course) {
 		return courseRepo.save(course);
 	}
+
+
 }

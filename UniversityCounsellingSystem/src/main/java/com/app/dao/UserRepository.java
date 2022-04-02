@@ -1,12 +1,13 @@
 package com.app.dao;
 
 
+
+
 import java.util.Optional;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
 
 import com.app.pojos.User;
 
@@ -23,5 +24,6 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	 * "select * from users_tbl where email_id=?1 and binary password=?2",
 	 * nativeQuery = true) User authenticateUser( String email, String password);
 	 */
+
 
 }
