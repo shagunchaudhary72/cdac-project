@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -40,6 +42,7 @@ public class EducationQualification extends BaseEntity{
 	@Column(name = "year_of_passing")
 	private int yearOfPassing;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="student_id")
 	private Student student;
@@ -52,13 +55,6 @@ public class EducationQualification extends BaseEntity{
 		this.nameOfInstitute = nameOfInstitute;
 		this.percentage = percentage;
 		this.yearOfPassing = yearOfPassing;
-	}
-
-	@Override
-	public String toString() {
-		return "EducationQualification [type=" + type + ", streamName=" + streamName + ", nameOfInstitute="
-				+ nameOfInstitute + ", percentage=" + percentage + ", yearOfPassing=" + yearOfPassing + "]";
-	}
-	
+	}	
 	
 }

@@ -1,6 +1,7 @@
 package com.app.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -51,7 +52,7 @@ public class AdminServiceImpl implements IAdminService {
 	public List<ShortlistedStudent> declareResult() {
 		List<StudentRankDto> studentRanksDto = declareRanks();
 		List<ShortlistedStudent> shortlistedStudents = new ArrayList<ShortlistedStudent>();
-		int i = 1;
+		// int i = 1;
 		for (StudentRankDto stu : studentRanksDto) {
 			System.out.println("      " + stu);
 			System.out.println("========");
@@ -64,27 +65,26 @@ public class AdminServiceImpl implements IAdminService {
 					Student student = studentRepo.findById(stu.getId())
 							.orElseThrow(() -> new ResourceNotFoundException("Student not Found"));
 
-					// EducationQualification education = (EducationQualification)
-					// student.getEducationQualifationList().stream().filter( edu -> edu.getType()
-					// == EducationType.HSC );
 					double percentage = student.getEducationQualifationList().stream()
 							.filter(edu -> edu.getType() == EducationType.HSC).mapToDouble(edu -> edu.getPercentage())
 							.sum();
 					System.out.println(" percentage : " + percentage);
 					System.out.println("========");
+					if (student.getRankInComp() <= college.getCutOffRank()) {
 
-					if (college.getVaccantSeats() > 0 && college.getMinimumPercentInBoards() <= percentage) {
-						System.out.println("      " + college);
-						System.out.println("========");
+						if (college.getVaccantSeats() > 0 && college.getMinimumPercentInBoards() <= percentage) {
+							System.out.println("      " + college);
+							System.out.println("========");
 
-						Course course = courseRepo.findByCourseName(preference.getCoursePreference());
-						University university = universityRepo.findById(1).get();
-						ShortlistedStudent shortlistedStudent = new ShortlistedStudent(student, college, course,
-								university);
-						shortlistedRepo.save(shortlistedStudent);
-						college.setVaccantSeats(college.getVaccantSeats() - 1);
-						shortlistedStudents.add(shortlistedStudent);
-						break;
+							Course course = courseRepo.findByCourseName(preference.getCoursePreference());
+							University university = universityRepo.findById(1).get();
+							ShortlistedStudent shortlistedStudent = new ShortlistedStudent(student, college, course,
+									university);
+							shortlistedRepo.save(shortlistedStudent);
+							college.setVaccantSeats(college.getVaccantSeats() - 1);
+							shortlistedStudents.add(shortlistedStudent);
+							break;
+						}
 					}
 				}
 			}
@@ -95,6 +95,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public List<StudentRankDto> declareRanks() {
 		List<Student> students = studentRepo.findAllByOrderByMarksInCompDesc();
+		sortStudents(students);
 		List<StudentRankDto> studentsRankDto = new ArrayList<StudentRankDto>();
 		int i = 1;
 		for (Student student : students) {
@@ -107,6 +108,45 @@ public class AdminServiceImpl implements IAdminService {
 			stu.setPreferences(preferenceRepo.findAllPreferencesByStudentId(stu.getId()));
 		}
 		return studentsRankDto;
+	}
+
+	private List<Student> sortStudents(List<Student> students) {
+		Collections.sort(students, (s1, s2) -> {
+
+			double s1HscPer = s1.getEducationQualifationList().stream()
+					.filter(edu -> edu.getType() == EducationType.HSC).mapToDouble(edu -> edu.getPercentage()).sum();
+
+			double s2HscPer = s2.getEducationQualifationList().stream()
+					.filter(edu -> edu.getType() == EducationType.HSC).mapToDouble(edu -> edu.getPercentage()).sum();
+
+			double s1SscPer = s1.getEducationQualifationList().stream()
+					.filter(edu -> edu.getType() == EducationType.SSC).mapToDouble(edu -> edu.getPercentage()).sum();
+
+			double s2SscPer = s2.getEducationQualifationList().stream()
+					.filter(edu -> edu.getType() == EducationType.SSC).mapToDouble(edu -> edu.getPercentage()).sum();
+
+			if (s1.getMarksInComp() > s2.getMarksInComp())
+				return 1;
+			else if (s1.getMarksInComp() < s2.getMarksInComp())
+				return -1;
+			else if (s1.getMarksInComp() == s2.getMarksInComp() && s1HscPer > s2HscPer) {
+				return 1;
+			} else if (s1.getMarksInComp() == s2.getMarksInComp() && s1HscPer < s2HscPer) {
+				return -1;
+			} else if (s1.getMarksInComp() == s2.getMarksInComp() && s1HscPer == s2HscPer && s1SscPer > s2SscPer) {
+				return 1;
+			} else if (s1.getMarksInComp() == s2.getMarksInComp() && s1HscPer == s2HscPer && s1SscPer < s2SscPer) {
+				return -1;
+			} else if (s1.getMarksInComp() == s2.getMarksInComp() && s1HscPer == s2HscPer && s1SscPer == s2SscPer
+					&& s1.getAge() > s2.getAge()) {
+				return 1;
+			} else if (s1.getMarksInComp() == s2.getMarksInComp() && s1HscPer == s2HscPer && s1SscPer > s2SscPer
+					&& s1.getAge() < s2.getAge()) {
+				return -1;
+			}
+			return -1;
+		});
+		return students;
 	}
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -39,6 +41,7 @@ public class Student extends BaseEntity {
 	private double marksInComp;
 //	@Embedded
 //	private EducationQualification eduQualification;
+	
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private List<EducationQualification> educationQualifationList = new ArrayList<>();// ALWAYS init the collection , to
 																						// avoid NPE
@@ -68,12 +71,6 @@ public class Student extends BaseEntity {
 	public void removeEducation(EducationQualification eq) {
 		educationQualifationList.remove(eq);
 		eq.setStudent(null);
-	}
-
-	@Override
-	public String toString() {
-		return "Student [name=" + name + ", email=" + email + ", age=" + age + ", address=" + address + ", rankInComp="
-				+ rankInComp + ", marksInComp=" + marksInComp + "]";
 	}
 	
 }

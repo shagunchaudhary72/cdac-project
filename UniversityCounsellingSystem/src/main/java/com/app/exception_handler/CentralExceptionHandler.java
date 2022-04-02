@@ -18,8 +18,8 @@ import com.app.custom_exceptions.AuthenticationException;
 import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dto.ErrorResponse;
 
-@ControllerAdvice // annotation required to tell SC that this is the central exception handler for
-					// all controllers
+/*annotation required to tell SC that this is the central exception handler for all controllers*/
+@ControllerAdvice 
 public class CentralExceptionHandler extends ResponseEntityExceptionHandler {
 
 	//method to handle invalid arguments
