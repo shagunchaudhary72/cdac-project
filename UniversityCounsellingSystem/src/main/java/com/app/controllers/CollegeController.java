@@ -19,6 +19,7 @@ import com.app.dto.CollegeUserDTO;
 import com.app.dto.NewCourse;
 import com.app.pojos.College;
 import com.app.services.ICollegeService;
+import com.app.services.IShortlistedStudentService;
 
 @RestController
 @RequestMapping("/college")
@@ -26,17 +27,16 @@ public class CollegeController {
 
 	@Autowired
 	ICollegeService collegeService;
-
+	
 	@Autowired
-	CollegeRepository collegeRepository;
+	IShortlistedStudentService shortlistedStudentService;
 
 	@GetMapping("/profile/{collegeid}") // Get college profile
 	public ResponseEntity<?> showProfile(@PathVariable("collegeid") int id) {
-		return ResponseEntity
-				.ok(collegeRepository.findById(id).orElseThrow(() -> new RuntimeException("Invalid College Id")));
+		return ResponseEntity.ok().body(collegeService.getCollegeDetails(id));
 	}
 
-	@PutMapping("/editProfile") // Edit profile
+	@PutMapping("/edit") // Edit profile
 	public College editCollegeData(@RequestBody @Valid College editedCollegeData) {
 		return collegeService.updateCollegeDetails(editedCollegeData);
 	}
@@ -51,5 +51,19 @@ public class CollegeController {
 	public ResponseEntity<?> deleteCourse(@PathVariable("collegeid") int id,
 			@PathVariable("courseid") int courseid) {
 		return ResponseEntity.status(HttpStatus.OK).body(collegeService.deleteCourse(id, courseid));
+	}
+	
+
+	@GetMapping("/{collegeId}/shortlisted_students")
+	public ResponseEntity<?> fetchAllSelectedStudentsByCollege(@PathVariable int collegeId) {
+
+		return ResponseEntity.ok().body(shortlistedStudentService.getAllShortlistedStudentsByCollege(collegeId));
+
+	}
+
+	@GetMapping("/{collegeId}/course/{courseId}/shortlisted_students")
+	public ResponseEntity<?> fetchAllSelectedStudentsByCollegeCourse(@PathVariable int collegeId,
+			@PathVariable int courseId) {
+		return ResponseEntity.ok().body(shortlistedStudentService.getAllShortlistedStudentsByCollegeCourse(collegeId, courseId));
 	}
 }

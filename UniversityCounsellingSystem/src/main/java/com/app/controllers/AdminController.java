@@ -45,21 +45,21 @@ public class AdminController {
 		System.out.println("in constructor of : " + getClass());
 	}
 
-	@GetMapping("/colleges")
-	public ResponseEntity<?> fetchAllCollege() {
-		// getting data from service and returning to caller
+//	@GetMapping("/colleges")
+//	public ResponseEntity<?> fetchAllCollege() {
+//		// getting data from service and returning to caller
+//
+//		return ResponseEntity.ok().body(collegeService.getAllCollege());
+//
+//	}
 
-		return ResponseEntity.ok().body(collegeService.getAllCollege());
-
-	}
-
-	@GetMapping("/college/{id}")
-	public ResponseEntity<?> fetchCollegeDetails(@PathVariable int id) {
-
-		// getting college object by invoking service interface method
-		return ResponseEntity.ok().body(collegeService.getCollegeDetails(id));
-
-	}
+//	@GetMapping("/college/{id}")
+//	public ResponseEntity<?> fetchCollegeDetails(@PathVariable int id) {
+//
+//		// getting college object by invoking service interface method
+//		return ResponseEntity.ok().body(collegeService.getCollegeDetails(id));
+//
+//	}
 
 	@DeleteMapping("/college/{id}")
 	public ResponseEntity<?> deleteCollege(@PathVariable int id) {
