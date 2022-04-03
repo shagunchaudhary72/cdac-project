@@ -14,7 +14,22 @@ import com.app.pojos.ShortlistedStudent;
 public interface ShortlistedStudentRepository extends JpaRepository<ShortlistedStudent, Integer> {
 
 	// method to get list of shortlisted students by college id
-	@Query("select new com.app.dto.ShortlistedStudentDto(s.student.name, s.student.marksInComp, s.student.rankInComp , s.college.name, s.university.universityName) from ShortlistedStudent s where s.college.id=:collegeId")
+	@Query("select "
+			+ "new com.app.dto.ShortlistedStudentDto(s.student.name, s.student.marksInComp, "
+			+ "s.student.rankInComp , s.college.name, s.university.universityName)"
+			+ " from ShortlistedStudent s "
+			+ "where s.college.id=:collegeId")
 	List<ShortlistedStudentDto> findShortlistedStudentsByCollegeId(@Param("collegeId") int collegeId);
 
+	/*
+	 * method to get list of shortlisted students by college id and course id(i.e.,
+	 * students in specific course of specific college)
+	 */
+	@Query("select "
+			+ "new com.app.dto.ShortlistedStudentDto(s.student.name, s.student.marksInComp,"
+			+ " s.student.rankInComp , s.college.name, s.university.universityName) "
+			+ "from ShortlistedStudent s"
+			+ " where s.college.id=:collegeId and s.course.id=:courseId")
+	List<ShortlistedStudentDto> findShortlistedStudentsByCollegeIdCourseId(@Param("collegeId") int collegeId,
+			@Param("courseId") int courseId);
 }

@@ -14,5 +14,5 @@ public interface IShortlistedStudentService {
 	List<ShortlistedStudentDto> getAllShortlistedStudentsByCollege(int id);
 	
 	//method to get shortlisted students BY College and branch
-	List<ShortlistedStudent> getAllShortlistedStudentsByCollegeCourse(int collegeId, int courseId);
+	List<ShortlistedStudentDto> getAllShortlistedStudentsByCollegeCourse(int collegeId, int courseId);
 }

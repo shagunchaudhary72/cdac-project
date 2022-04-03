@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.CoureseRepository;
 import com.app.pojos.Course;
 
@@ -27,6 +28,12 @@ public class CourseServiceImpl implements ICourseService {
 	@Override
 	public Course addNewCourse(Course course) {
 		return courseRepo.save(course);
+	}
+
+	@Override
+	public Course getCourseDetails(int courseId) {
+		
+		return courseRepo.findById(courseId).orElseThrow(() -> new ResourceNotFoundException("Course NOt Found"));
 	}
 	
 	

@@ -101,13 +101,7 @@ public class AdminController {
 	@GetMapping("/shortlisted_students/college/{collegeId}/course/{courseId}")
 	public ResponseEntity<?> fetchAllSelectedStudentsByCollegeBranch(@PathVariable int collegeId,
 			@PathVariable int courseId) {
-//		try {
-//			return ResponseEntity.ok().body(shortlistStudentService.getAllShortlistedStudentsByCollege(id));
-//		}
-//		catch(RuntimeException ex) {
-//			return ResponseEntity.internalServerError().body(ex.getMessage());
-//		}
-		return null;
+		return ResponseEntity.ok().body(shortlistStudentService.getAllShortlistedStudentsByCollegeCourse(collegeId, courseId));
 	}
 
 	@GetMapping("/declare_result")

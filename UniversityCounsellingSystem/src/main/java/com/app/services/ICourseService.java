@@ -9,4 +9,7 @@ public interface ICourseService {
 
 	
 	Course addNewCourse(Course course);
+	
+	//method to get course information
+	Course getCourseDetails(int courseId);
 }
