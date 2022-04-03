@@ -32,4 +32,5 @@ public interface ICollegeService {
 	User regUserAsCollege(CollegeUserDTO collegeUserData);
 
 	
+	
 }

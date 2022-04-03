@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ShortlistedStudentRepository;
+import com.app.dto.ShortlistedStudentDto;
 import com.app.pojos.ShortlistedStudent;
 
 @Service
@@ -23,15 +24,16 @@ public class ShortlistedStudentServiceImpl implements IShortlistedStudentService
 		return shortlistStudentRepo.findAll();
 	}
 
+
 	@Override
-	public List<ShortlistedStudent> getAllShortlistedStudentsByCollege(int id) {
+	public List<ShortlistedStudentDto> getAllShortlistedStudentsByCollege(int id) {
 		return shortlistStudentRepo.findShortlistedStudentsByCollegeId(id);
 	}
 
+
 	@Override
-	public List<ShortlistedStudent> getAllShortlistedStudentsByCollegeCourse(int collegeId, int courseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ShortlistedStudentDto> getAllShortlistedStudentsByCollegeCourse(int collegeId, int courseId) {
+		return shortlistStudentRepo.findShortlistedStudentsByCollegeIdCourseId(collegeId, courseId);
 	}
 
 }

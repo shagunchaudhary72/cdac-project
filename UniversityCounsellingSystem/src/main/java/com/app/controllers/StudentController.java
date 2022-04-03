@@ -22,7 +22,7 @@ import com.app.services.IPreferenceService;
 import com.app.services.IStudentService;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api")
 public class StudentController {
 	
 	@Autowired
@@ -31,7 +31,12 @@ public class StudentController {
 	@Autowired
 	private IPreferenceService preferenceService;
 	
-	@GetMapping
+	@GetMapping("/student/profile/{studentId}") // Get college profile
+	public ResponseEntity<?> showProfile(@PathVariable int studentId) {
+		return ResponseEntity.ok().body(studentService.getStudentDetails(studentId));
+	}
+
+	@GetMapping("/students")
 	public ResponseEntity<?> getAllStudents(){
 		List<Student> list = studentService.getAllStudents();
 		if(list.size()<=0)
@@ -51,12 +56,7 @@ public class StudentController {
 	 * }
 	 */
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<?> getStudentDetails(@PathVariable int id) {
-		return ResponseEntity.ok(studentService.getStudentDetails(id));
-	}
-	
-	@PutMapping
+	@PutMapping("/student/edit")
 	public ResponseEntity<?> updateStudentDetails(@RequestBody Student detachedStudent) {
 		System.out.println(detachedStudent);
 		try {
@@ -66,19 +66,19 @@ public class StudentController {
 		}
 	}
 	
-	@PutMapping("/education/{id}")
+	@PutMapping("/student/education/{id}")
 	public ResponseEntity<?> addQualification(@PathVariable int id,@RequestBody EducationQualification educationQualification) {
 			Student student = studentService.getStudentDetails(id);
 			student.addEducation(educationQualification);
 			return ResponseEntity.status(HttpStatus.CREATED).body(studentService.updateStudent(student));
 	}
 	
-	@PostMapping("/{studentId}/preference")
+	@PostMapping("/students/{studentId}/preference")
 	public ResponseEntity<?> addPreference(@PathVariable int studentId,@RequestBody Preference preference){
 		return ResponseEntity.ok().body(preferenceService.addPreference(preference, studentId));
 	}
 	
-	@DeleteMapping("/{studentId}/preference/{preferenceId}")
+	@DeleteMapping("/student/{studentId}/preference/{preferenceId}")
 	public ResponseEntity<?> deletePreference(@PathVariable int studentId, @PathVariable int preferenceId){
 		return ResponseEntity.ok().body(preferenceService.deletePreference(studentId, preferenceId));
 	}
