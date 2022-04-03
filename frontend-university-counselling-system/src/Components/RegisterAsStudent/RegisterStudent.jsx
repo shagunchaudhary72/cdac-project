@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../Login/Login.css"
 import userService from "../../Services/UserService"
+import { Link } from "react-router-dom";
 
 const RegisterStudent = () => {
 
@@ -214,7 +215,7 @@ const RegisterStudent = () => {
                             <div className="row g-1">
                                 <button type="submit" className="btn1 primary1">Register</button>
                                 <hr className="my-4" />
-                                <p>Already have an Account? <a href="#!" className="link-success">Click Here</a></p>
+                                <p>Already have an Account? <Link to="/login" className="link-success">Click Here</Link></p>
                             </div>
                         </form>
                     </div >

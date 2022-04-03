@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class LoginResponse {
-	private int id;
+	private int studentId;
 	private String email;
+	private String name;
+	private int age;
 	private Role role;
 }
