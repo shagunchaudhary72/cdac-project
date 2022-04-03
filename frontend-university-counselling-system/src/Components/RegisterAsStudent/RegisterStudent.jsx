@@ -13,7 +13,7 @@ const RegisterStudent = () => {
     const [emailErr,setEmailErr] = useState("");
     const [confirmEmailErr,setConfirmEmailErr] = useState("");
     const [phoneErr,setPhoneErr] = useState("");
-    
+    const [passwordError,setPasswordError] = useState("");
 
     let emailTextHandler = (event) => {
         setEmail(event.target.value);
