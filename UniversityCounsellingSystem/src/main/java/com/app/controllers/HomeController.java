@@ -2,6 +2,7 @@ package com.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import com.app.services.ICourseService;
 
 @RestController
 @RequestMapping(value = "/home")
+@CrossOrigin(origins = "http://localhost:3000")
 public class HomeController {
 	
 	@Autowired
@@ -31,9 +33,14 @@ public class HomeController {
 		return ResponseEntity.ok().body(collegeService.getAllCollege());
 	}
 	
-	@GetMapping("college/{collegeId}")
+	@GetMapping("/college/{collegeId}")
 	public ResponseEntity<College> fetchCollegeDetails(@PathVariable int collegeId ){
 		return ResponseEntity.ok().body(collegeService.getCollegeDetails(collegeId));
+	}
+	
+	@GetMapping("/college_details/{name}")
+	public ResponseEntity<College> fetchCollegeDetailsByName(@PathVariable String name ){
+		return ResponseEntity.ok().body(collegeService.getCollegeDetailsByName(name));
 	}
 	
 	@GetMapping("/courses")
@@ -45,6 +52,11 @@ public class HomeController {
 	@GetMapping("/course/{courseId}")
 	public ResponseEntity<Course> fetchCourseDetails(@PathVariable int courseId ){
 		return ResponseEntity.ok().body(courseService.getCourseDetails(courseId));
+	}
+	
+	@GetMapping("/course_details/{courseName}")
+	public ResponseEntity<Course> fetchCourseDetailsByName(@PathVariable String courseName ){
+		return ResponseEntity.ok().body(courseService.getCourseDetailsByName(courseName));
 	}
 	
 

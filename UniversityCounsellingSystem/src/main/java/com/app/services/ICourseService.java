@@ -12,4 +12,6 @@ public interface ICourseService {
 	
 	//method to get course information
 	Course getCourseDetails(int courseId);
+	
+	Course getCourseDetailsByName(String courseName);
 }

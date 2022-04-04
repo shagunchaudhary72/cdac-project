@@ -9,7 +9,7 @@ import { BsFacebook } from "react-icons/bs";
 
 const ExtraInfo = () => {
   return (
-    <section className="container extra-info-section py-5">
+    <section className="container-fluid extra-info-section py-5 text-white bg-dark">
       <div className="row justify-content-around">
         <div className="col-4">
           <h3>About University</h3>
