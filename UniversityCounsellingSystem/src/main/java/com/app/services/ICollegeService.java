@@ -31,6 +31,6 @@ public interface ICollegeService {
 
 	User regUserAsCollege(CollegeUserDTO collegeUserData);
 
-	
+	College getCollegeDetailsByName(String name);
 	
 }
