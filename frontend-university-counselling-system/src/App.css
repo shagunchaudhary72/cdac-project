@@ -1,0 +1,37 @@
+
+
+:root{
+    --green-color: rgb(75, 201, 96);
+    --white-color: #f8f9fa;
+    --background-white-color: #f5f1f1;
+}
+
+.navbar{
+    opacity: 505;
+}
+
+.navbar-link{
+    text-decoration: none;
+    color:black;
+}
+
+.navbar-link:hover{
+    color:var(--green-color);
+}
+.navbar-active-link{
+    color:var(--green-color);
+}
+
+.footer-copyright-section{
+    /* position: absolute;
+    bottom: 0; */
+    /* width: 100vw; */
+    padding:10px 0;
+}
+/* .footer-section{
+    position: absolute;
+    bottom: 0%;
+    width: 100vw;
+} */
+
+
