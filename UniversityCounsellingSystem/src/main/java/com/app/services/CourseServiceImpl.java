@@ -33,7 +33,7 @@ public class CourseServiceImpl implements ICourseService {
 	@Override
 	public Course getCourseDetails(int courseId) {
 		
-		return courseRepo.findById(courseId).orElseThrow(() -> new ResourceNotFoundException("Course NOt Found"));
+		return courseRepo.findById(courseId).orElseThrow(() -> new ResourceNotFoundException("Course Not Found"));
 	}
 	
 	
