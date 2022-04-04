@@ -5,6 +5,7 @@ import Login from './Components/Login/Login'
 import AddStudentDetails from './Components/LoginAsStudent/AddStudentDetails'
 import NotFound from './Components/NotFound/NotFound'
 import RegisterStudent from './Components/RegisterAsStudent/RegisterStudent'
+import StudentDashboard from './Components/StudentDashboard/StudentDashboard'
 import Navbar from "./Components/Home/Navbar";
 import HomePage from "./Components/Home/HomePage";
 import About from "./Components/About/About";
@@ -32,11 +33,15 @@ const App = () => {
             <Route path="/register/student" element={<RegisterStudent/>} />
 
             <Route path="/addStudentDetails" element={<AddStudentDetails/>} />
+<<<<<<< HEAD
 
             <Route path='/college_details/:name' element={<CollegePage />} />
 
             <Route path='/course_details/:courseName' element={<CoursePage />} />
             
+=======
+            <Route path="/studentDashboard" element={<StudentDashboard />} />
+>>>>>>> 9dc202be72a25f59b4c871396e4916114d448752
             <Route path="*" element={<NotFound/>} />
           </Routes>
         </div>

@@ -10,6 +10,7 @@ const AddStudentDetails = () => {
   const studentId = window.sessionStorage.getItem("id");
   const obj = { studentName, studentEmail, studentAge };
   const [loggedInStudentFalse, setLoggedInStudentFalse] = useState(false);
+  const [logOut, setLogOut] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -79,6 +80,7 @@ const AddStudentDetails = () => {
     window.sessionStorage.removeItem("email");
     window.sessionStorage.removeItem("age");
     window.sessionStorage.removeItem("id");
+    setLogOut(true);
   };
 
   let addStudentDetails = (e) => {
@@ -110,6 +112,7 @@ const AddStudentDetails = () => {
   return (
     <>
       {loggedInStudentFalse && <Navigate to="/login" />}
+      {logOut && <Navigate to="/login" />}
       <button type="button" className="btn1 primary1" onClick={logoutClick}>
         Logout
       </button>

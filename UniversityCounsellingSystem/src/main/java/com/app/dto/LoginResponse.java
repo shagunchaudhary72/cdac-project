@@ -1,5 +1,6 @@
 package com.app.dto;
 
+import com.app.pojos.Address;
 import com.app.pojos.Role;
 
 import lombok.AllArgsConstructor;
@@ -15,4 +16,5 @@ public class LoginResponse {
 	private String name;
 	private int age;
 	private Role role;
+	private Address address;
 }
