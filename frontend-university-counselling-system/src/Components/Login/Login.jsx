@@ -127,7 +127,7 @@ const Login = () => {
                   <hr className="my-4" />
                   <p>
                     Don't have an account?{" "}
-                    <Link to="/registerStudent" className="link-success">
+                    <Link to="/register/student" className="link-success">
                       Register as Student
                     </Link>
                     <span className="text-secondary"> OR </span>

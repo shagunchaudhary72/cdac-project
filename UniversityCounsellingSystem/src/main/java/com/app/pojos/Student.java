@@ -29,11 +29,8 @@ public class Student extends BaseEntity {
 
 	@Column(name = "name", nullable = false)
 	private String name;
-<<<<<<< HEAD
+
 	@Column(name = "email", nullable = false,  unique = true)
-=======
-	@Column(name = "email", nullable = false,unique=true)
->>>>>>> 9dc202be72a25f59b4c871396e4916114d448752
 	private String email;
 	@Column(name = "age", nullable = false)
 	private int age;

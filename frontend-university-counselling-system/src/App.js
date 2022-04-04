@@ -1,11 +1,10 @@
-
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Login from './Components/Login/Login'
-import AddStudentDetails from './Components/LoginAsStudent/AddStudentDetails'
-import NotFound from './Components/NotFound/NotFound'
-import RegisterStudent from './Components/RegisterAsStudent/RegisterStudent'
-import StudentDashboard from './Components/StudentDashboard/StudentDashboard'
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./Components/Login/Login";
+import AddStudentDetails from "./Components/LoginAsStudent/AddStudentDetails";
+import NotFound from "./Components/NotFound/NotFound";
+import RegisterStudent from "./Components/RegisterAsStudent/RegisterStudent";
+import StudentDashboard from "./Components/StudentDashboard/StudentDashboard";
 import Navbar from "./Components/Home/Navbar";
 import HomePage from "./Components/Home/HomePage";
 import About from "./Components/About/About";
@@ -13,46 +12,42 @@ import Clients from "./Components/Home/Clients";
 import ExtraInfo from "./Components/Home/ExtraInfo";
 import Copyright from "./Components/Home/Copyright";
 import "./App.css";
-import CollegePage from './Components/Pages/CollegePage'
-import CoursePage from './Components/Pages/CoursePage'
+import CollegePage from "./Components/Pages/CollegePage";
+import CoursePage from "./Components/Pages/CoursePage";
 
 const App = () => {
   return (
-      <BrowserRouter>
-        <Navbar />
-        <div>
-
-          <Routes>
+    <BrowserRouter>
+      <Navbar />
+      <div>
+        <Routes>
           <Route path="/" element={<HomePage />} />
-            <Route exact path="/home" element={<HomePage />} />
+          <Route exact path="/home" element={<HomePage />} />
 
-            <Route exact path="/about" element={<About />} />
-           
-            <Route path="/login" element={<Login/>} />
+          <Route exact path="/about" element={<About />} />
 
-            <Route path="/register/student" element={<RegisterStudent/>} />
+          <Route path="/login" element={<Login />} />
 
-            <Route path="/addStudentDetails" element={<AddStudentDetails/>} />
-<<<<<<< HEAD
+          <Route path="/register/student" element={<RegisterStudent />} />
 
-            <Route path='/college_details/:name' element={<CollegePage />} />
+          <Route path="/addStudentDetails" element={<AddStudentDetails />} />
 
-            <Route path='/course_details/:courseName' element={<CoursePage />} />
-            
-=======
-            <Route path="/studentDashboard" element={<StudentDashboard />} />
->>>>>>> 9dc202be72a25f59b4c871396e4916114d448752
-            <Route path="*" element={<NotFound/>} />
-          </Routes>
-        </div>
-        <footer className="footer section">
-          <Clients />
-          <ExtraInfo />
-          <Copyright />
-        </footer>
-      </BrowserRouter>
-  )
-}
+          <Route path="/college_details/:name" element={<CollegePage />} />
 
+          <Route path="/course_details/:courseName" element={<CoursePage />} />
+
+          <Route path="/studentDashboard" element={<StudentDashboard />} />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+      <footer className="footer section">
+        <Clients />
+        <ExtraInfo />
+        <Copyright />
+      </footer>
+    </BrowserRouter>
+  );
+};
 
 export default App;
