@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './Components/Login/Login'
@@ -21,5 +22,25 @@ const App = () => {
     </>
   )
 }
+=======
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Home/Navbar";
+import "./App.css";
+import Footer from "./Components/Home/Footer";
+import HomePage from "./Components/Home/HomePage";
 
-export default App
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route exact path="/home" element={<HomePage />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+  );
+};
+>>>>>>> 6b50230ce01c3d33ed14ff035f871dac72fba816
+
+export default App;
