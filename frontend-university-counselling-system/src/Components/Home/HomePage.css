@@ -1,0 +1,55 @@
+
+.first-section{
+    height: 100vh;
+    background-image: url("../../../public/first-section-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+    filter: blur(2px);
+}
+
+.first-section-info-box{
+    width: 40vw;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+}
+
+.first-section-info-box>h2{
+    padding: 10px 15px 10px 15px;
+    font-size: 5rem;
+    color: white;
+    margin: 0;
+    background-color: var(--green-color);
+    width: 90%;
+}
+
+.first-section-info-box>p{
+    padding: 10px 15px 10px 15px;
+    padding-left: 20px;
+    background-color: var(--white-color);
+}
+
+.registration-btn{
+    border: none;
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: var(--green-color);
+    color: var(--white-color);
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.registration-btn:hover{
+    background-color: white;
+    color: black;
+}
+
+.features-section{
+    height: 50vh;
+    background-image: url("../../../public/first-section-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

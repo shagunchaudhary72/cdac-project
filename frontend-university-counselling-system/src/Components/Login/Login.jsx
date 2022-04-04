@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
+import { Link,Navigate } from "react-router-dom";
+import AddStudentDetails from "../LoginAsStudent/AddStudentDetails";
 
 const Login = () => {
 
@@ -9,6 +11,7 @@ const Login = () => {
     const [emailErr, setEmailErr] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [errorMesg, setErrorMesg] = useState("");
+    const [loggedInAsStudent,setLoggedInStudent] = useState(false);
 
     let emailTextHandler = (event) => {
         setEmailErr("");
@@ -50,7 +53,19 @@ const Login = () => {
             UserService.login(loginRequest).then(response=>{
                 setEmail("");
                 setPassword("");
-                console.log("Login Successfully",response.data)
+                if(response.data.role === "STUDENT"){
+                    setLoggedInStudent(true);
+                    console.log("Login Successfully",response.data);
+                    let studentEmail = response.data.email;
+                    let studentName = response.data.name;
+                    let studentAge = response.data.age;
+                    let studentId = response.data.studentId;
+                    console.log(studentId);
+                    window.sessionStorage.setItem("id",studentId);
+                    window.sessionStorage.setItem("email",studentEmail);
+                    window.sessionStorage.setItem("name",studentName);
+                    window.sessionStorage.setItem("age",studentAge);
+                }
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);
             })
@@ -58,6 +73,8 @@ const Login = () => {
     }
 
     return (
+        <>
+        {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
         <div className="container-fluid w-50 mt-5">
             <div className="m-3">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
@@ -79,10 +96,8 @@ const Login = () => {
                             <div className="row g-1">
                                 <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
                                 <button type="submit" className="btn1 primary1">Login</button>
-
-
                                 <hr className="my-4" />
-                                <p>Don't have an account? <a href="#!" className="link-success">Register as Student</a><span className="text-secondary"> OR </span><a href="#!" className="link-success">College</a></p>
+                                <p>Don't have an account? <Link to="/registerStudent" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="#!" className="link-success">College</a></p>
                             </div>
                         </form>
                     </div >
@@ -90,6 +105,7 @@ const Login = () => {
                 <span className="text-danger"><b>{errorMesg}</b></span>
             </div >
         </div >
+        </>
     );
 }
 
