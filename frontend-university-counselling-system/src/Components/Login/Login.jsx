@@ -12,6 +12,7 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState("");
     const [errorMesg, setErrorMesg] = useState("");
     const [loggedInAsStudent,setLoggedInStudent] = useState(false);
+    const [loggedInStudentAfterUpdatingDetails,setLoggedInStudentAfterUpdatingDetails] = useState(false);
 
     let emailTextHandler = (event) => {
         setEmailErr("");
@@ -54,7 +55,10 @@ const Login = () => {
                 setEmail("");
                 setPassword("");
                 if(response.data.role === "STUDENT"){
-                    setLoggedInStudent(true);
+                    if(response.data.address===null)
+                        setLoggedInStudent(true);
+                    else
+                        setLoggedInStudentAfterUpdatingDetails(true);    
                     console.log("Login Successfully",response.data);
                     let studentEmail = response.data.email;
                     let studentName = response.data.name;
@@ -75,6 +79,7 @@ const Login = () => {
     return (
         <>
         {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
+        {loggedInStudentAfterUpdatingDetails && <Navigate to="/studentDashboard"/>}
         <div className="container-fluid w-50 mt-5">
             <div className="m-3">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
