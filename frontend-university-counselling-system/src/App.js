@@ -5,6 +5,7 @@ import Login from './Components/Login/Login'
 import AddStudentDetails from './Components/LoginAsStudent/AddStudentDetails'
 import NotFound from './Components/NotFound/NotFound'
 import RegisterStudent from './Components/RegisterAsStudent/RegisterStudent'
+import StudentDashboard from './Components/StudentDashboard/StudentDashboard'
 import Navbar from "./Components/Home/Navbar";
 import HomePage from "./Components/Home/HomePage";
 import About from "./Components/About/About";
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/login" element={<Login/>} />
             <Route path="/registerStudent" element={<RegisterStudent/>} />
             <Route path="/addStudentDetails" element={<AddStudentDetails/>} />
+            <Route path="/studentDashboard" element={<StudentDashboard />} />
             <Route path="*" element={<NotFound/>} />
           </Routes>
         </div>
