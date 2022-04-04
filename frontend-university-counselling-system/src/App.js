@@ -6,20 +6,23 @@ import AddStudentDetails from './Components/LoginAsStudent/AddStudentDetails'
 import NotFound from './Components/NotFound/NotFound'
 import RegisterStudent from './Components/RegisterAsStudent/RegisterStudent'
 import Navbar from "./Components/Home/Navbar";
-import Footer from "./Components/Home/Footer";
 import HomePage from "./Components/Home/HomePage";
-
+import About from "./Components/About/About";
+import Clients from "./Components/Home/Clients";
+import ExtraInfo from "./Components/Home/ExtraInfo";
+import Copyright from "./Components/Home/Copyright";
 import "./App.css";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-    <Navbar />
+        <Navbar />
         <div>
 
           <Routes>
-     <Route exact path="/home" element={<HomePage />} />
+            <Route exact path="/home" element={<HomePage />} />
+            <Route exact path="/about" element={<About />} />
             <Route path="/" element={<Login/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/registerStudent" element={<RegisterStudent/>} />
@@ -27,7 +30,11 @@ const App = () => {
             <Route path="*" element={<NotFound/>} />
           </Routes>
         </div>
-<Footer />
+        <footer className="footer section">
+          <Clients />
+          <ExtraInfo />
+          <Copyright />
+        </footer>
       </BrowserRouter>
     </>
   )

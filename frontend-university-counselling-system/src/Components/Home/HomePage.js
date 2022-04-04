@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import Colleges from "./Colleges";
 import Courses from "./Courses";
 import Events from "./Events";
-import Clients from "./Clients";
-import ExtraInfo from "./ExtraInfo";
 import Features from "./Features";
 
 const HomePage = () => {
@@ -31,8 +29,6 @@ const HomePage = () => {
     <Courses/>
     <Features />
     <Events />
-    <Clients />
-    <ExtraInfo />
     </>
   );
 };

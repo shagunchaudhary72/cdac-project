@@ -3,7 +3,7 @@ import { Link , NavLink} from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <div className='navbar fixed-top container-fluid bg-white row py-4'>
+    <div className='header navbar container-fluid bg-white row py-4'>
         <div className='navbar-logo col-7'>
            <Link  className='navbar-link' to='/home'>
                UniversityCounselling

@@ -22,13 +22,16 @@
     color:var(--green-color);
 }
 
-.navbar-footer{
+.footer-copyright-section{
     /* position: absolute;
     bottom: 0; */
     /* width: 100vw; */
     padding:10px 0;
 }
+/* .footer-section{
+    position: absolute;
+    bottom: 0%;
+    width: 100vw;
+} */
 
-.clients-section{
-    background-color: var(--green-color);
-}
+
