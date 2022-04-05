@@ -14,6 +14,7 @@ import Copyright from "./Components/Home/Copyright";
 import "./App.css";
 import CollegePage from "./Components/Pages/CollegePage";
 import CoursePage from "./Components/Pages/CoursePage";
+import TeamPage from "./Components/Pages/TeamPage";
 
 const App = () => {
   return (
@@ -37,6 +38,8 @@ const App = () => {
           <Route path="/course_details/:courseName" element={<CoursePage />} />
 
           <Route path="/studentDashboard" element={<StudentDashboard />} />
+
+          <Route path="/team" element={<TeamPage />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
