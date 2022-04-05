@@ -15,6 +15,7 @@ import ExtraInfo from "./Components/Home/ExtraInfo";
 import Copyright from "./Components/Home/Copyright";
 import "./App.css";
 import AddCollegeDetails from './Components/LoginAsCollege/AddCollegeDetails'
+import CollegeDashboard from './Components/CollegeDashboard/CollegeDashboard'
 
 const App = () => {
   return (
@@ -30,11 +31,9 @@ const App = () => {
             <Route path="/login" element={<Login/>} />
             <Route path="/registerStudent" element={<RegisterStudent/>} />
             <Route path="/addStudentDetails" element={<AddStudentDetails/>} />
-<<<<<<< HEAD
             <Route path="/addCollegeDetails" element={<AddCollegeDetails/>} />
-=======
             <Route path="/studentDashboard" element={<StudentDashboard />} />
->>>>>>> 2b7bbefa93dafd2ffc79296ce1e10cde9132a5bf
+            <Route path="/collegeDashboard" element={<CollegeDashboard/>} />
             <Route path="*" element={<NotFound/>} />
             <Route path="/registerCollege" element={<RegisterAsCollege/>}/>
           </Routes>

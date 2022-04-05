@@ -12,11 +12,9 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState("");
     const [errorMesg, setErrorMesg] = useState("");
     const [loggedInAsStudent,setLoggedInStudent] = useState(false);
-<<<<<<< HEAD
     const [loggedInAsCollege,setLoggedInCollege] = useState(false);
-=======
     const [loggedInStudentAfterUpdatingDetails,setLoggedInStudentAfterUpdatingDetails] = useState(false);
->>>>>>> 2b7bbefa93dafd2ffc79296ce1e10cde9132a5bf
+    const [loggedInCollegeAfterUpdatingDetails,setLoggedInCollegeAfterUpdatingDetails] = useState(false);
 
     let emailTextHandler = (event) => {
         setEmailErr("");
@@ -75,7 +73,10 @@ const Login = () => {
                     window.sessionStorage.setItem("age",studentAge);
                 }
                 else if(response.data.role === "COLLEGE"){
-                    setLoggedInCollege(true);
+                    if(response.data.cutOffRank!=="" && response.data.minimumPercentInBoards!=="" && response.data.totalSeats!=="" && response.data.vaccantSeats!=="" && response.data.courses!==null)
+                        setLoggedInCollegeAfterUpdatingDetails(true);    
+                    else
+                        setLoggedInCollege(true);
                     console.log("Login Successfully",response.data);
                     let collegeEmail = response.data.email;
                     let collegeName = response.data.name;
@@ -102,11 +103,9 @@ const Login = () => {
     return (
         <>
         {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
-<<<<<<< HEAD
         {loggedInAsCollege && <Navigate to="/addCollegeDetails" />}
-=======
         {loggedInStudentAfterUpdatingDetails && <Navigate to="/studentDashboard"/>}
->>>>>>> 2b7bbefa93dafd2ffc79296ce1e10cde9132a5bf
+        {loggedInCollegeAfterUpdatingDetails && <Navigate to="/collegeDashboard"/>}
         <div className="container-fluid w-50 mt-5">
             <div className="m-3">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>

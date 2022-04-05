@@ -25,6 +25,7 @@ const AddCollegeDetails = () => {
     const [totalSeats, setTotalSeats] = useState("");
     const [vaccantSeats, setVaccantSeats] = useState("");
     const [phoneNo, setCollegePhoneNo] = useState("");
+    const [logOut,setLogOut] = useState(false);
 
     const [percentError, setPercentError] = useState("");
     const [cutOffError, setCutOffError] = useState("");
@@ -112,6 +113,7 @@ const AddCollegeDetails = () => {
         window.sessionStorage.removeItem("state");
         window.sessionStorage.removeItem("city");
         window.sessionStorage.removeItem("phone_no");
+        setLogOut(true);
     }
 
     let addCollegeDetails = (e) => {
@@ -139,6 +141,7 @@ const AddCollegeDetails = () => {
 
     return (
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
+        {logOut && <Navigate to="/login" />}
             <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
