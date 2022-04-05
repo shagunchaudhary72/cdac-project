@@ -11,5 +11,7 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	
 	//method to get studenst according to marks in decreasing order
 	List<Student> findAllByOrderByMarksInCompDesc();
+	
+	Student findByEmail(String email);
 
 }
