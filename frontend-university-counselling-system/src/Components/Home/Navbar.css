@@ -12,23 +12,52 @@
     font-weight: 600;
     padding:10px;
     height: 100%;
+    text-align: center;
+}
+
+.navbar-right-logo{
+    visibility: hidden;
+    color: var(--green-color);
 }
 
 .navbar-link:hover{
-    background-color: var(--background-color);
     color:var(--green-color);
+}
+
+.navbar-link:hover .navbar-right-logo{
+    visibility: visible;
 }
 
 .navbar-active-link{
     color:var(--green-color);
 }
 
-.navbar-right-login > .navbar-link{
+.navbar-login{
+    position: absolute;
+    right: 1%;   
+    top: 100%;
     background-color: var(--green-color);
-    color: var(--white-color);
+    z-index: 2;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    visibility: hidden;
 }
 
-.navbar-right-login > .navbar-link:hover{
-    background-color: var(--white-color);
+.navbar-login:hover{
+    color: var(--green-color);
+    background-color: white;
+}
+.navbar-profile{
+    text-decoration: none;
+    font-size: 40px;
     color: black;
 }
+.navbar-profile:hover{
+    color: var(--green-color);
+}
+.navbar-right-login-profile:hover .navbar-login{
+    visibility: visible;
+}
+
