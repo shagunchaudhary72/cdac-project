@@ -11,6 +11,7 @@ import Footer from "./Components/Home/Footer";
 import HomePage from "./Components/Home/HomePage";
 
 import "./App.css";
+import AddCollegeDetails from './Components/LoginAsCollege/AddCollegeDetails'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/login" element={<Login/>} />
             <Route path="/registerStudent" element={<RegisterStudent/>} />
             <Route path="/addStudentDetails" element={<AddStudentDetails/>} />
+            <Route path="/addCollegeDetails" element={<AddCollegeDetails/>} />
             <Route path="*" element={<NotFound/>} />
             <Route path="/registerCollege" element={<RegisterAsCollege/>}/>
           </Routes>

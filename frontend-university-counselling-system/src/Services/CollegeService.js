@@ -10,4 +10,12 @@ const USER_API_SERVICE_URL = "http://localhost:8080/api/users";
         return axios.post(USER_API_SERVICE_URL + '/signin', loginRequest);
     }
 
-export default {createCollege, login}
+    const updateCollegeDetails = (college) => {
+        return axios.put("http://localhost:8080/college/edit", college);
+    }
+
+    const getCourseList = () => {
+        return axios.get("http://localhost:8080/college/courseList");
+    }
+
+export default {createCollege, login, updateCollegeDetails, getCourseList}

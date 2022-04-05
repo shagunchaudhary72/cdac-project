@@ -12,6 +12,7 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState("");
     const [errorMesg, setErrorMesg] = useState("");
     const [loggedInAsStudent,setLoggedInStudent] = useState(false);
+    const [loggedInAsCollege,setLoggedInCollege] = useState(false);
 
     let emailTextHandler = (event) => {
         setEmailErr("");
@@ -66,15 +67,35 @@ const Login = () => {
                     window.sessionStorage.setItem("name",studentName);
                     window.sessionStorage.setItem("age",studentAge);
                 }
+                else if(response.data.role === "COLLEGE"){
+                    setLoggedInCollege(true);
+                    console.log("Login Successfully",response.data);
+                    let collegeEmail = response.data.email;
+                    let collegeName = response.data.name;
+                    let collegeId = response.data.collegeId;
+                    let collegeCity = response.data.city;
+                    let collegeState = response.data.state;
+                    let collegePhonoNo = response.data.phoneNo;
+                    let university = response.data.university;
+                    console.log(collegeId);
+                    window.sessionStorage.setItem("id",collegeId);
+                    window.sessionStorage.setItem("email",collegeEmail);
+                    window.sessionStorage.setItem("name",collegeName);
+                    window.sessionStorage.setItem("city",collegeCity);
+                    window.sessionStorage.setItem("state",collegeState);
+                    window.sessionStorage.setItem("university", JSON.stringify(university));
+                    window.sessionStorage.setItem("phone_no",collegePhonoNo);
+                }
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);
             })
-        }
     }
+}
 
     return (
         <>
         {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
+        {loggedInAsCollege && <Navigate to="/addCollegeDetails" />}
         <div className="container-fluid w-50 mt-5">
             <div className="m-3">
                 <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
