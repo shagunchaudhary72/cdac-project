@@ -6,10 +6,13 @@ import Login from './Components/Login/Login'
 import AddStudentDetails from './Components/LoginAsStudent/AddStudentDetails'
 import NotFound from './Components/NotFound/NotFound'
 import RegisterStudent from './Components/RegisterAsStudent/RegisterStudent'
+import StudentDashboard from './Components/StudentDashboard/StudentDashboard'
 import Navbar from "./Components/Home/Navbar";
-import Footer from "./Components/Home/Footer";
 import HomePage from "./Components/Home/HomePage";
-
+import About from "./Components/About/About";
+import Clients from "./Components/Home/Clients";
+import ExtraInfo from "./Components/Home/ExtraInfo";
+import Copyright from "./Components/Home/Copyright";
 import "./App.css";
 import AddCollegeDetails from './Components/LoginAsCollege/AddCollegeDetails'
 
@@ -17,21 +20,30 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-    <Navbar />
+        <Navbar />
         <div>
 
           <Routes>
-     <Route exact path="/home" element={<HomePage />} />
+            <Route exact path="/home" element={<HomePage />} />
+            <Route exact path="/about" element={<About />} />
             <Route path="/" element={<Login/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/registerStudent" element={<RegisterStudent/>} />
             <Route path="/addStudentDetails" element={<AddStudentDetails/>} />
+<<<<<<< HEAD
             <Route path="/addCollegeDetails" element={<AddCollegeDetails/>} />
+=======
+            <Route path="/studentDashboard" element={<StudentDashboard />} />
+>>>>>>> 2b7bbefa93dafd2ffc79296ce1e10cde9132a5bf
             <Route path="*" element={<NotFound/>} />
             <Route path="/registerCollege" element={<RegisterAsCollege/>}/>
           </Routes>
         </div>
-<Footer />
+        <footer className="footer section">
+          <Clients />
+          <ExtraInfo />
+          <Copyright />
+        </footer>
       </BrowserRouter>
     </>
   )
