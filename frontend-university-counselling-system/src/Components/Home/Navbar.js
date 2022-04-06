@@ -31,9 +31,11 @@ const Navbar = () => {
            <div className='navbar-right-contact'>
                <NavLink className='navbar-link' to='/contact'><MdContactPage className='navbar-right-logo'/> Contact Us</NavLink>
            </div>
+
            <div className='navbar-right-login-profile'>
                <NavLink className='navbar-login' to='/login'>Login</NavLink>
                <NavLink className='navbar-profile' to='/profile'><IoIosContact/></NavLink>
+
            </div>
         </div>
         
