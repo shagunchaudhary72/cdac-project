@@ -8,6 +8,11 @@ import { BiNews } from 'react-icons/bi'
 import{ FaBookOpen } from 'react-icons/fa'
 
 const Navbar = () => {
+
+    // const setPathName = () =>{
+    //     // window.localStorage.setItem('path',window.location.pathname);
+    // }
+
   return (
     <div className='header navbar bg-white'>
         <div className='navbar-logo col-6'>
@@ -23,7 +28,7 @@ const Navbar = () => {
                <NavLink className='navbar-link' to='/team'><RiTeamFill className='navbar-right-logo'/> Team</NavLink>
            </div>
            <div className='navbar-right-events'>
-               <NavLink className='navbar-link' to='/events'><BiNews className='navbar-right-logo'/> Events</NavLink>
+               <NavLink className='navbar-link' to='/events'><BiNews className='navbar-right-logo' /*onClick={setPathName}*//> Events</NavLink>
            </div>
            <div className='navbar-right-about'>
                <NavLink className='navbar-link' to='/about'><FaBookOpen className='navbar-right-logo'/> About Us</NavLink>
