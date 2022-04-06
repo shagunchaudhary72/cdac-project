@@ -11,6 +11,7 @@ const AddStudentDetails = () => {
     const obj = {studentName,studentEmail,studentAge};
     const [loggedInStudentFalse, setLoggedInStudentFalse] = useState(false);
     const [logOut,setLogOut] = useState(false);
+    const [studentProfileUpdated,setStudentProfileUpdated] = useState(false);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -98,6 +99,8 @@ const AddStudentDetails = () => {
         console.log(student);
         studentService.updateStudentDetails(student).then(()=>{
             setSuccessMesg("Student Profile Updated");
+            setStudentProfileUpdated(true);
+            window.sessionStorage.setItem("snackbar3","show");
             }).catch(error => {
                 setErrorMesg("Something went wrong", error);
             });
@@ -105,6 +108,7 @@ const AddStudentDetails = () => {
 
     return (
         <>{loggedInStudentFalse && <Navigate to="/login" />}
+        {studentProfileUpdated && <Navigate to="/studentDashboard" />}
         {logOut && <Navigate to="/login" />}
          <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
             <div className="container-fluid w-50 mt-5">

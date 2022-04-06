@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
 import { Link,Navigate } from "react-router-dom";
-import AddStudentDetails from "../LoginAsStudent/AddStudentDetails";
 
 const Login = () => {
 
@@ -13,6 +12,16 @@ const Login = () => {
     const [errorMesg, setErrorMesg] = useState("");
     const [loggedInAsStudent,setLoggedInStudent] = useState(false);
     const [loggedInStudentAfterUpdatingDetails,setLoggedInStudentAfterUpdatingDetails] = useState(false);
+    const [show,setShow] = useState("");
+    let snackbar2 = window.sessionStorage.getItem("snackbar2");
+
+    useEffect(()=>{
+        if(snackbar2==="show"){
+            setShow(snackbar2);
+            setTimeout(function(){ setShow("");clearTimeout(); }, 3000)
+            window.sessionStorage.removeItem("snackbar2");
+        }
+    })
 
     let emailTextHandler = (event) => {
         setEmailErr("");
@@ -69,6 +78,7 @@ const Login = () => {
                     window.sessionStorage.setItem("email",studentEmail);
                     window.sessionStorage.setItem("name",studentName);
                     window.sessionStorage.setItem("age",studentAge);
+                    window.sessionStorage.setItem("snackbar","show");
                 }
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);
@@ -110,6 +120,7 @@ const Login = () => {
                 <span className="text-danger"><b>{errorMesg}</b></span>
             </div >
         </div >
+        <div className={show} id="snackbar">You have successfully logged out..<output></output></div>
         </>
     );
 }

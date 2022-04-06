@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,7 +20,7 @@ import lombok.Setter;
 
 //@Embeddable
 @Entity
-@Table(name="education_qualification_tbl")
+@Table(name="education_qualification_tbl",uniqueConstraints = @UniqueConstraint(columnNames = { "edu_type", "student_id"}))
 @Getter
 @Setter
 @NoArgsConstructor
