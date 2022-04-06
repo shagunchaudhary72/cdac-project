@@ -73,10 +73,10 @@ const Login = () => {
                     window.sessionStorage.setItem("age",studentAge);
                 }
                 else if(response.data.role === "COLLEGE"){
-                    if(response.data.cutOffRank!=="" && response.data.minimumPercentInBoards!=="" && response.data.totalSeats!=="" && response.data.vaccantSeats!=="" && response.data.courses!==null)
-                        setLoggedInCollegeAfterUpdatingDetails(true);    
+                    if(response.data.cutOffRank==="" || response.data.minimumPercentInBoards==="" || response.data.totalSeats==="" || response.data.vaccantSeats==="" || response.data.courses===null)
+                        setLoggedInCollege(true);      
                     else
-                        setLoggedInCollege(true);
+                        setLoggedInCollegeAfterUpdatingDetails(true);  
                     console.log("Login Successfully",response.data);
                     let collegeEmail = response.data.email;
                     let collegeName = response.data.name;
@@ -84,6 +84,7 @@ const Login = () => {
                     let collegeCity = response.data.city;
                     let collegeState = response.data.state;
                     let collegePhonoNo = response.data.phoneNo;
+                    let collegeSelectedCourses = response.data.courses;
                     let university = response.data.university;
                     console.log(collegeId);
                     window.sessionStorage.setItem("id",collegeId);
@@ -93,6 +94,7 @@ const Login = () => {
                     window.sessionStorage.setItem("state",collegeState);
                     window.sessionStorage.setItem("university", JSON.stringify(university));
                     window.sessionStorage.setItem("phone_no",collegePhonoNo);
+                    window.sessionStorage.setItem("courses",JSON.stringify(collegeSelectedCourses));
                 }
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);

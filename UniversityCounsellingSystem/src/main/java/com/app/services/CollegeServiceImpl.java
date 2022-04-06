@@ -57,6 +57,7 @@ public class CollegeServiceImpl implements ICollegeService {
 		// getting college object from datatbase
 		College college = collegeRepo.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("College Not Found , CollegeId : " + id));
+		User user = userRepo.findByEmail(college.getEmail()).orElseThrow(() -> new ResourceNotFoundException("User Not Found , CollegeId : " + id));
 		return college;
 	}
 
@@ -104,7 +105,7 @@ public class CollegeServiceImpl implements ICollegeService {
 		User userData = new User(collegeUserData.getName(), collegeUserData.getEmail(), collegeUserData.getPassword(),
 				Role.COLLEGE, collegeUserData.getPhone_no());
 		College collegeData = new College(collegeUserData.getName(), collegeUserData.getEmail(),
-				collegeUserData.getCity(), collegeUserData.getState(), uni);
+				collegeUserData.getCity(), collegeUserData.getState(), uni, collegeUserData.getPhone_no());
 		collegeRepo.save(collegeData);
 		return userRepo.save(userData);
 	}

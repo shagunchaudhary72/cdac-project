@@ -1,6 +1,9 @@
 package com.app.dto;
 
+import java.util.Set;
+
 import com.app.pojos.Address;
+import com.app.pojos.Course;
 import com.app.pojos.Role;
 import com.app.pojos.University;
 
@@ -24,6 +27,7 @@ public class LoginResponse {
 	private String city;
 	private String phoneNo;
 	University university;
+	private Set<Course> courses;
 
 	public LoginResponse(int studentId, String email, String name, int age, Role role, Address address) {
 		super();
@@ -36,7 +40,7 @@ public class LoginResponse {
 	}
 	
 	public LoginResponse(int collegeid, String email, String name, String city, String state, University university,
-			String phoneNo, Role role) {
+			String phoneNo, Role role, Set<Course> courses) {
 		this.email = email;
 		this.name = name;
 		this.role = role;
@@ -45,6 +49,7 @@ public class LoginResponse {
 		this.city = city;
 		this.university = university;
 		this.phoneNo = phoneNo;
+		this.courses = courses;
 	}
 	private Address address;
 }

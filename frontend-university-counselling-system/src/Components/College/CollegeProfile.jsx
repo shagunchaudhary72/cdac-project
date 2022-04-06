@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import "../Login/Login.css"
 import { Navigate } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
@@ -8,11 +8,14 @@ const AddCollegeDetails = () => {
     const collegeName = window.sessionStorage.getItem("name");
     const collegeEmail = window.sessionStorage.getItem("email");
     const collegeId = window.sessionStorage.getItem("id");
-    const university = JSON.parse(window.sessionStorage.getItem("university"));
+    const [university,setCollegeUniversity] = useState("");
     const collegestate = window.sessionStorage.getItem("state");
     const collegecity = window.sessionStorage.getItem("city");
     const collegephoneNo = window.sessionStorage.getItem("phone_no");
-    const obj = { collegeName, collegeEmail, university, collegestate, collegecity, collegephoneNo };
+
+    const [collegeCourses, setCollegeCourses] = useState([]);
+
+    const obj = { collegeName, collegeEmail, university, collegeCourses, collegestate, collegecity, collegephoneNo };
     const [loggedInCollegeFalse, setLoggedInCollegeFalse] = useState(false);
     let courses = [];
 
@@ -25,7 +28,7 @@ const AddCollegeDetails = () => {
     const [totalSeats, setTotalSeats] = useState("");
     const [vaccantSeats, setVaccantSeats] = useState("");
     const [phoneNo, setCollegePhoneNo] = useState("");
-    const [logOut,setLogOut] = useState(false);
+    const [logOut, setLogOut] = useState(false);
 
     const [percentError, setPercentError] = useState("");
     const [cutOffError, setCutOffError] = useState("");
@@ -35,11 +38,15 @@ const AddCollegeDetails = () => {
     const [errorMesg, setErrorMesg] = useState("");
     const [courseList, setCourseList] = useState("");
     const [gotCourseList, setGotCourseList] = useState(false);
+    const [selectedCourseList, setSelectedCourseList] = useState([]);
+    const [detailsUpdated, setDetailsUpdated] = useState(false);
 
     const getCourseList = () => {
         collegeService.getCourseList().then(
             response => {
+                setSelectedCourseList(collegeCourses);
                 console.log(response.data);
+                console.log(selectedCourseList);
                 setCourseList(response.data);
                 setGotCourseList(true);
             }
@@ -50,17 +57,34 @@ const AddCollegeDetails = () => {
 
     useEffect(() => {
         if (collegeName !== "" && collegeEmail !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "") {
-            getCourseList();
-            setName(obj.collegeName);
-            setEmail(obj.collegeEmail);
-            setState(obj.collegestate);
-            setCity(obj.collegecity);
-            setCollegePhoneNo(obj.collegephoneNo);
+            collegeService.getCollegeProfile(collegeId).then(
+                (response) => {
+                    setName(response.data.name);
+                    setEmail(response.data.email);
+                    setState(response.data.state);
+                    setCity(response.data.city);
+                    setCollegePhoneNo(response.data.phoneNo);
+                    setCollegeUniversity(response.data.university);
+                    setCutOff(response.data.cutOffRank);
+                    console.log(collegeCourses);
+                    setCollegeCourses(response.data.courses.map(
+                        (SelectedCourse) => {
+                            return collegeCourses.push(SelectedCourse.courseName);
+                        }));
+                    console.log(collegeCourses);
+                    setMinimumPercentInBoards(response.data.minimumPercentInBoards);
+                    setTotalSeats(response.data.totalSeats);
+                    setVaccantSeats(response.data.vaccantSeats);
+                    getCourseList();
+                }
+            ).catch(error => {
+                setErrorMesg("Something went wrong", error);
+            });
         }
         else {
             setLoggedInCollegeFalse(true);
         }
-    }, [successMesg])
+    }, [successMesg, errorMesg])
 
     let cityTextHandler = (e) => {
         setCity(e.target.value);
@@ -120,13 +144,14 @@ const AddCollegeDetails = () => {
         e.preventDefault();
         addSelectedCourseList();
         console.log(courses);
-        let college = { "id": collegeId, name, email, university, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
+        let college = { "id": collegeId, name, email, university, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
         console.log(college);
         collegeService.updateCollegeDetails(college).then(() => {
             setSuccessMesg("College Profile Updated");
         }).catch(error => {
             setErrorMesg("Something went wrong", error);
         });
+        setDetailsUpdated(true);
     }
 
     const addSelectedCourseList = () => {
@@ -137,11 +162,20 @@ const AddCollegeDetails = () => {
         }
     }
 
+    const checkIfExists = (course) => {
+        if(selectedCourseList.includes(course.courseName)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 
     return (
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
-        {logOut && <Navigate to="/login" />}
+            {logOut && <Navigate to="/login" />}
+            {detailsUpdated && <Navigate to="/collegeDashboard"/>}
             <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
@@ -151,23 +185,23 @@ const AddCollegeDetails = () => {
                         <div className="m-3">
                             <form onSubmit={addCollegeDetails}>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" disabled />
+                                    <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" />
                                     <label>Name</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" disabled />
+                                    <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" />
                                     <label>Email address</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" disabled />
+                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" />
                                     <label>City</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={state} onChange={stateTextHandler} placeholder="Enter State" disabled />
+                                    <input type="text" className="form-control" value={state} onChange={stateTextHandler} placeholder="Enter State" />
                                     <label>State</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter State" disabled />
+                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter State" />
                                     <label>Phone No</label>
                                 </div>
                                 <div className="form-floating mb-3">
@@ -178,11 +212,15 @@ const AddCollegeDetails = () => {
                                 <label>Course List</label>
 
                                 <div className="form-floating mb-3">
-                                    <table width="100%" onChange={getCourseList}>
+                                    <table width="100%" >
                                         <tbody>
                                             {gotCourseList && courseList.map((course) => (
-                                                <tr>
-                                                    <td><input type="checkbox" name="cl" id={course.id} value={course.courseName} /></td>
+                                                <tr>{console.log(selectedCourseList)}
+                                                    <td>{ checkIfExists(course) ?
+                                                        <input type="checkbox" name="cl" id={course.id} value={course.courseName} defaultChecked/>
+                                                        : <input type="checkbox" name="cl" id={course.id} value={course.courseName} />
+                                                    }
+                                                    </td>
                                                     <td className="form-control">{course.courseName}</td>
                                                 </tr>
                                             ))}

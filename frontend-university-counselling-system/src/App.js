@@ -16,6 +16,7 @@ import Copyright from "./Components/Home/Copyright";
 import "./App.css";
 import AddCollegeDetails from './Components/LoginAsCollege/AddCollegeDetails'
 import CollegeDashboard from './Components/CollegeDashboard/CollegeDashboard'
+import CollegeProfile from './Components/College/CollegeProfile'
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
             <Route path="/collegeDashboard" element={<CollegeDashboard/>} />
             <Route path="*" element={<NotFound/>} />
             <Route path="/registerCollege" element={<RegisterAsCollege/>}/>
+            <Route path="/collegeProfile" element={<CollegeProfile/>} />
           </Routes>
         </div>
         <footer className="footer section">

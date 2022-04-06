@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import "../Login/Login.css";
 
 const CollegeDashboard = () => {
@@ -28,6 +28,7 @@ const CollegeDashboard = () => {
             <div>
                 Hello
             </div>
+            <Link to="/collegeProfile">To College Profile</Link>
             <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
         </>
     );

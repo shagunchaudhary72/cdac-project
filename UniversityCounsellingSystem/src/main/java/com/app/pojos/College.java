@@ -26,12 +26,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "colleges_tbl")
 public class College extends BaseEntity{
 	
-	public College(String name, String email, String city, String state, University uni) {
+	public College(String name, String email, String city, String state, University uni, String phoneNo) {
 		this.name = name;
 		this.email = email;
 		this.city = city;
 		this.state = state;
 		this.university = uni;
+		this.phoneNo = phoneNo;
 	}
 
 	@Column(name="clg_name",length = 50,nullable = false)
@@ -46,6 +47,8 @@ public class College extends BaseEntity{
 	@JoinColumn(name = "university_id", nullable = false)
 	private University university;
 
+	@Column(name="phone_no")
+	private String phoneNo;
 	
 	@Column(name="cut_off_rank")
 	private Integer cutOffRank;

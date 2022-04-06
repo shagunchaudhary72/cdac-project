@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
 		}
 		else {
 			College college = collegeRepo.findByEmail(email);
-			return new LoginResponse(college.getId(),user.getEmail(),user.getName(),college.getCity(),college.getState(),universityRepo.getById(1),user.getPhoneNo(),user.getRole());
+			return new LoginResponse(college.getId(),user.getEmail(),user.getName(),college.getCity(),college.getState(),universityRepo.getById(1),user.getPhoneNo(),user.getRole(), college.getCourses());
 		}
 		/*
 		 * User user = userRepo.authenticateUser(email, password); if(!(user == null)) {
