@@ -35,6 +35,14 @@ public class CourseServiceImpl implements ICourseService {
 		
 		return courseRepo.findById(courseId).orElseThrow(() -> new ResourceNotFoundException("Course Not Found"));
 	}
+
+	@Override
+	public Course getCourseDetailsByName(String courseName) {
+		Course course = courseRepo.findByCourseName(courseName);
+		if( course == null )
+			throw new ResourceNotFoundException("Course Not Found");
+		return course;
+	}
 	
 	
 

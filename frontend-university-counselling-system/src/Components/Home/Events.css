@@ -1,0 +1,11 @@
+.events-section{
+    margin-bottom: 2rem;
+}
+
+.events-section-left{
+    background-image: url('../../images/event-left.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}

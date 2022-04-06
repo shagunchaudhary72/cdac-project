@@ -1,0 +1,63 @@
+
+.navbar{
+    margin: 0;
+    padding: 0;
+    height: 10vh;
+}
+
+.navbar-link{
+    text-decoration: none;
+    color:black;
+    font-size: 1rem;
+    font-weight: 600;
+    padding:10px;
+    height: 100%;
+    text-align: center;
+}
+
+.navbar-right-logo{
+    visibility: hidden;
+    color: var(--green-color);
+}
+
+.navbar-link:hover{
+    color:var(--green-color);
+}
+
+.navbar-link:hover .navbar-right-logo{
+    visibility: visible;
+}
+
+.navbar-active-link{
+    color:var(--green-color);
+}
+
+.navbar-login{
+    position: absolute;
+    right: 1%;   
+    top: 100%;
+    background-color: var(--green-color);
+    z-index: 2;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    visibility: hidden;
+}
+
+.navbar-login:hover{
+    color: var(--green-color);
+    background-color: white;
+}
+.navbar-profile{
+    text-decoration: none;
+    font-size: 40px;
+    color: black;
+}
+.navbar-profile:hover{
+    color: var(--green-color);
+}
+.navbar-right-login-profile:hover .navbar-login{
+    visibility: visible;
+}
+

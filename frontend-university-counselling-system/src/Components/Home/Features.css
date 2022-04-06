@@ -1,0 +1,43 @@
+.features-section{
+    width: 100%;
+    position: relative;
+}
+.features-section-img{
+    height: 50vh;
+    background-image: url("../../images/first-section-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    filter: brightness(0.3);
+    opacity: 0.8;
+
+}
+
+.features-section-data{
+    width: 100%;
+    position: absolute;
+    right: 3%;
+    top:20%;
+    text-align: center;
+    color: var(--white-color);
+}
+.features-section-data-card{
+    width: 20vw;
+    
+}
+
+.features-section-data-card:hover .features-section-data-logo{
+    background-color: var(--white-color);
+    color: var(--green-color);
+}
+
+.features-section-data-logo{
+    width: 30%;
+    border-radius: 50%;
+    background-color: var(--green-color);
+    color: var(--white-color);
+    font-size: 3rem;
+    margin-left: 35%;
+    padding-bottom: 3%;
+}

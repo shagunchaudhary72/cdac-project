@@ -1,12 +1,14 @@
 
 .first-section{
     height: 100vh;
-    background-image: url("../../../public/first-section-background.jpg");
+    background-image: url("../../images/first-section-background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    filter: brightness(0.3);
     opacity: 0.8;
-    filter: blur(2px);
+    z-index: 1;
+    
 }
 
 .first-section-info-box{
@@ -46,10 +48,3 @@
     color: black;
 }
 
-.features-section{
-    height: 50vh;
-    background-image: url("../../../public/first-section-background.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}

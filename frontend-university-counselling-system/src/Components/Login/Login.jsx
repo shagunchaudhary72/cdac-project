@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+
+import React from 'react'
+import { useState , useEffect } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
-import { Link,Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import AddStudentDetails from "../LoginAsStudent/AddStudentDetails";
+
 
 const Login = () => {
+  
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -23,36 +28,36 @@ const Login = () => {
         }
     })
 
-    let emailTextHandler = (event) => {
-        setEmailErr("");
-        if (errorMesg !== "" || errorMesg !== null)
-            setErrorMesg("");
-        setEmail(event.target.value);  
+  let emailTextHandler = (event) => {
+    setEmailErr("");
+    if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
+    setEmail(event.target.value);
+  };
+
+
+  let passwordTextHandler = (event) => {
+    setPasswordError("");
+    if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
+    setPassword(event.target.value);
+  };
+
+  let validation = () => {
+    let emailFlag = true;
+    let passwordFlag = true;
+    if (email === "" || email === null) {
+      setEmailErr("This field is compulsory");
+      emailFlag = false;
     }
 
-    let passwordTextHandler = (event) => {
-        setPasswordError("");
-        if (errorMesg !== "" || errorMesg !== null)
-            setErrorMesg("");
-        setPassword(event.target.value);
+    if (password === "" || password === null) {
+      setPasswordError("This field is compulsory");
+      passwordFlag = false;
     }
-
-    let validation = () => {
-        let emailFlag = true;
-        let passwordFlag = true;
-        if (email === "" || email === null) {
-            setEmailErr("This field is compulsory");
-            emailFlag = false;
-        }
-
-        if (password === "" || password === null) {
-            setPasswordError("This field is compulsory");
-            passwordFlag = false;
-        }
-        if(emailFlag && passwordFlag){
-            return true;
-        }
+    if (emailFlag && passwordFlag) {
+      return true;
     }
+  };
+
 
     let onLoginSubmit = (event) => {
         event.preventDefault();
@@ -84,29 +89,47 @@ const Login = () => {
                 setErrorMesg("Email or Password is incorrect",error);
             })
         }
-    }
 
-    return (
-        <>
-        {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
-        {loggedInStudentAfterUpdatingDetails && <Navigate to="/studentDashboard"/>}
-        <div className="container-fluid w-50 mt-5">
+    }
+  };
+
+  return (
+    <>
+      {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
+      {loggedInStudentAfterUpdatingDetails && (
+        <Navigate to="/studentDashboard" />
+      )}
+      <div className="container-fluid w-50 mt-5">
+        <div className="m-3">
+          <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
+          <p className="text-50 text-success mb-3">
+            Please enter your login and password!
+          </p>
+          <div className="border border-1 rounded">
             <div className="m-3">
-                <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-                <p className="text-50 text-success mb-3">Please enter your login and password!</p>
-                <div className="border border-1 rounded">
-                    <div className="m-3">
-                        <form onSubmit={onLoginSubmit}>
-                            <div className="form-floating mb-3">
-                                <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" />
-                                <label>Email address</label>
-                                <span className="text-danger">{emailErr}</span>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <input type="password" className="form-control" value={password} onChange={passwordTextHandler} placeholder="password" />
-                                <label>Password</label>
-                                <span className="text-danger">{passwordError}</span>
-                            </div>
+              <form onSubmit={onLoginSubmit}>
+                <div className="form-floating mb-3">
+                  <input
+                    type="email"
+                    className="form-control"
+                    value={email}
+                    onChange={emailTextHandler}
+                    placeholder="name@example.com"
+                  />
+                  <label>Email address</label>
+                  <span className="text-danger">{emailErr}</span>
+                </div>
+                <div className="form-floating mb-3">
+                  <input
+                    type="password"
+                    className="form-control"
+                    value={password}
+                    onChange={passwordTextHandler}
+                    placeholder="password"
+                  />
+                  <label>Password</label>
+                  <span className="text-danger">{passwordError}</span>
+                </div>
 
                             <div className="row g-1">
                                 <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
@@ -124,5 +147,6 @@ const Login = () => {
         </>
     );
 }
+
 
 export default Login;
