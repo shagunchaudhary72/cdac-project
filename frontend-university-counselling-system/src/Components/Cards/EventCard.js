@@ -2,7 +2,7 @@ import React from "react";
 
 const EventCard = ( eventDetails ) => {
   return (
-    <div className="card w-75 my-5">
+    <div className="card w-85 my-3">
       <div className="card-body">
         <h5 className="card-title">Card title</h5>
         <p className="card-text">

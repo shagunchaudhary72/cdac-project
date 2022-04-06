@@ -2,23 +2,29 @@ import axios from "axios";
 
 const HOME_BASE_URL = 'http://localhost:8080/home';
 
-const HomeServices = () => {
+
 
         const getListOfCollege = () => {
           return axios.get( HOME_BASE_URL + '/colleges');
         }
 
-        const getListOfCourses = () => {
+        const getListOfCourse = () => {
             return axios.get( HOME_BASE_URL + '/courses');
         }
 
-        const getCollegeDetails = () => {
-            return axios.get( HOME_BASE_URL + '/college', collegeId);
+        const getCollegeDetails = ( name ) => {
+            return axios.get( HOME_BASE_URL + `/college_details/${name}`);
         }
+        // const getCollegeDetails = ( id ) => {
+        //     return axios.get( HOME_BASE_URL + `/college/${id}`);
+        // }
 
-        const getCourseDetails = () => {
-            return axios.get( HOME_BASE_URL + '/course', courseId);
+        const getCourseDetails = (courseName) => {
+            return axios.get( HOME_BASE_URL + `/course_details/${courseName}`);
         }
-}
+                // const getCollegeDetails = ( id ) => {
+        //     return axios.get( HOME_BASE_URL + `/course/${id}`);
+        // }
 
-export default HomeServices
+
+export default {getListOfCollege, getListOfCourse, getCollegeDetails, getCourseDetails}

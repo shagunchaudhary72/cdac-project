@@ -6,20 +6,22 @@ import {
   AiFillLinkedin,
 } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
+import "./ExtraInfo.css"
 
 const ExtraInfo = () => {
   return (
-    <section className="container extra-info-section py-5">
+    <section className="container-fluid extra-info-section py-5 text-white bg-dark">
+      <div className="container">
       <div className="row justify-content-around">
-        <div className="col-4">
+        <div className="col-4 extra-info-section-left align-content-center">
           <h3>About University</h3>
-          <ul>
+          <ul className="extra-info-section-list">
             <li>Phone : +123 456-7890</li>
             <li>Email : Info@youremail.com</li>
             <li>Address : 123, Maharastra, INDIA</li>
             <div className="container social-sites-logo">
               <div className="row justify-content-start">
-                <div className="col">
+                <div className="col justify-content-start">
                   <AiFillTwitterCircle />
                 </div>
                 <div className="col">
@@ -38,9 +40,9 @@ const ExtraInfo = () => {
             </div>
           </ul>
         </div>
-        <div className="col-4">
+        <div className="col-4 extra-info-section-middle">
         <h3>About University</h3>
-        <ul>
+        <ul className="extra-info-section-list">
             <li>Home</li>
             <li>About</li>
             <li>Our Colleges</li>
@@ -49,12 +51,12 @@ const ExtraInfo = () => {
             <li>Faq's</li>
         </ul>
         </div>
-        <div className="col-4">
+        <div className="col-4 extra-info-section-right">
             <h3>Opening Hours</h3>
             <div className="container">
                 <div className="row">
                     <div className="col-6">
-                        <ul>
+                        <ul className="extra-info-section-list">
                             <li>Saturday-Sunday</li>
                             <li>Monday-Tuesday</li>
                             <li>Wednesday</li>
@@ -63,7 +65,7 @@ const ExtraInfo = () => {
                         </ul>
                     </div>
                     <div className="col-6">
-                    <ul>
+                    <ul className="extra-info-section-list">
                             <li>09am - 05pm</li>
                             <li>09am - 05pm</li>
                             <li>09am - 05pm</li>
@@ -74,6 +76,7 @@ const ExtraInfo = () => {
                 </div>
             </div>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link , NavLink} from 'react-router-dom'
+import './Navbar.css';
 
 const Navbar = () => {
   return (
-    <div className='navbar fixed-top container-fluid bg-white row py-4'>
+    <div className='header navbar bg-white'>
         <div className='navbar-logo col-7'>
            <Link  className='navbar-link' to='/home'>
-               UniversityCounselling
+              <img src='#' alt='SiteLogo'/>
            </Link>
         </div>
         <div className='navabr-right col-5 container'>
@@ -22,13 +23,14 @@ const Navbar = () => {
            <div className='navbar-right-about'>
                <NavLink className='navbar-link' to='/about'>About Us</NavLink>
            </div>
-           <div className='navbar-right-about'>
+           <div className='navbar-right-contact'>
                <NavLink className='navbar-link' to='/contact'>Contact Us</NavLink>
            </div>
-           <div className='navbar-right-about'>
-               <NavLink className='navbar-link' to='/user/signin'>Login</NavLink>
+           <div className='navbar-right-login'>
+               <NavLink className='navbar-link' to='/login'>Login</NavLink>
            </div>
         </div>
+        
     </div>
   )
 }
