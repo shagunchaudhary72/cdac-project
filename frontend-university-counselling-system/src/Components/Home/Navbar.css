@@ -42,6 +42,7 @@
     text-decoration: none;
     color: white;
     font-weight: 600;
+    box-shadow: 1px 1px 2px rgb(184, 181, 181);
     visibility: hidden;
 }
 

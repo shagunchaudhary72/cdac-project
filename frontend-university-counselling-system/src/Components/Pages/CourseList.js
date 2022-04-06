@@ -3,9 +3,8 @@ import CourseCard from "../Cards/CourseCard";
 import { ImArrowRight2 } from "react-icons/im";
 import { Link } from "react-router-dom";
 import HomeServices from '../../Services/HomeServices'
-import "./Course.css";
 
-const Courses = () => {
+const CourseList = () => {
 
   const [courseList, setCourseList] = useState([]);
 
@@ -36,15 +35,8 @@ const Courses = () => {
           return <CourseCard key={course.id} courseDetails={course} />;
         })}
       </div>
-      <div className="row justify-content-end">
-        <div className="col align-self-end">
-          <Link className=" more-data" to="/courses">
-            See more <ImArrowRight2 />{" "}
-          </Link>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default Courses;
+export default CourseList;

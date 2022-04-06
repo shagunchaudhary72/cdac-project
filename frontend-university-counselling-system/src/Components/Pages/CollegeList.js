@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import CollegeCard from "../Cards/CollegeCard";
-import { ImArrowRight2 } from "react-icons/im";
 import HomeServices from "../../Services/HomeServices";
 
-const Colleges = () => {
+
+const CollegeList = () => {
 
   const [collegeList, setCollegeList] = useState([]);
   
@@ -35,15 +34,8 @@ const Colleges = () => {
           return <CollegeCard key={college.id} collegeDetails={college} />;
         })}
       </div>
-      <div className="row justify-content-end">
-        <div className="col align-self-end ">
-          <Link className="more-data" to="/colleges">
-            See more <ImArrowRight2 />{" "}
-          </Link>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default Colleges;
+export default CollegeList;
