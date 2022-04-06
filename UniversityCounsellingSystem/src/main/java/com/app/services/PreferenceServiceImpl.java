@@ -43,4 +43,9 @@ public class PreferenceServiceImpl implements IPreferenceService {
 		return preferenceRepo.findAllPreferencesByStudentId(studentId);
 	}
 
+	@Override
+	public List<Preference> getAllPreferencesOfStudent(int studentId) {
+		return preferenceRepo.findAllPreferencesByStudentId(studentId);
+	}
+
 }
