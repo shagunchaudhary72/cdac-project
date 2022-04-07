@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { Navigate, Link, BrowserRouter, Routes, Route } from "react-router-dom";
 import "../Login/Login.css";
 import "./StudentDashboard.css";
@@ -51,7 +51,7 @@ const Sidebar = () => {
         <>
             {loggedInStudentFalse && <Navigate to="/" />}
             {logOut && <Navigate to="/login" />}
-            <div className="row g-1 bg-light">
+            <div className="row g-1 bg-light ">
                 <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
                     <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                         <FaUserGraduate style={{ width: "30px" }} />

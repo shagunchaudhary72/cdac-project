@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CollegeCard from "../Cards/CollegeCard";
 import HomeServices from "../../Services/HomeServices";
+import '../Home/Colleges.css'
 
 
 const CollegeList = () => {
@@ -23,13 +24,13 @@ const CollegeList = () => {
   },[]);
 
   return (
-    <div className="container college-section ">
-      <div className="row justify-content-center">
-        <div className="col-3">
+    <div className="college-section my-5 ">
+   
+        <div className="college-section-row1">
         <h1 className="text-center py-3 heading-bottom-border">Our Colleges</h1>
         </div>
-      </div>
-      <div className="row justify-content-between">
+  
+      <div className="college-section-row2">
         {collegeList.map((college) => {
           return <CollegeCard key={college.id} collegeDetails={college} />;
         })}

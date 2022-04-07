@@ -13,7 +13,7 @@ const Events = () => {
     <section className="container events-section ">
       <div className="row justify-content-center">
         <div className="col-4">
-          <h1 className="text-center py-3 heading-bottom-border">
+          <h1 className="event-heading text-center py-3 heading-bottom-border">
             Upcoming Events
           </h1>
         </div>

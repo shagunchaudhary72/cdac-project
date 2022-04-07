@@ -12,7 +12,7 @@ const CollegeCard = ({ collegeDetails }) => {
   };
 
   return (
-    <div className="col-4 my-4 ">
+
       <div
         className="card college-card"
         style={{ width: "18rem" }}
@@ -24,23 +24,23 @@ const CollegeCard = ({ collegeDetails }) => {
           alt="CollegeImage"
         />
         <div className="card-body">
-          <h5 className="card-title"  style={{ color: "var(--green-color)" }}>College : {collegeDetails.name}</h5>
+          <h5 className="card-title"  style={{ color: "var(--green-color)" }}>College : collegeDetails.name</h5>
           <p className="card-text">
-            University : {collegeDetails.university.universityName}
+            University : collegeDetails.university.universityName
           </p>
           <p className="card-text">
             Available Courses :{" "}
-            {collegeDetails.courses.map((course) => {
+            {  collegeDetails.courses.map((course) => {
               return course.courseName;
-            })}
+            })  }
           </p>
           <p className="card-text">
-            Address : {collegeDetails.city}, {collegeDetails.state}, INDIA
+            Address : {  collegeDetails.city }, {  collegeDetails.state  }, INDIA
           </p>
           <p className="card-text">
             <span className="text-secondary">
               {" "}
-              Total Seats : {collegeDetails.totalSeats}
+              Total Seats : {  collegeDetails.totalSeats }
             </span>
             <AiFillStar style={{ color: "var(--green-color)" }} />
             <AiFillStar style={{ color: "var(--green-color)" }} />
@@ -48,7 +48,7 @@ const CollegeCard = ({ collegeDetails }) => {
           </p>
         </div>
       </div>
-    </div>
+
   );
 };
 
