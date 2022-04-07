@@ -13,6 +13,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,7 +43,9 @@ public class College extends BaseEntity{
 	@Column(name="clg_email",length = 100,nullable = false, unique = true)
 	private String email;
 	
-	@ManyToOne	
+	
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY)	
 	@JoinColumn(name = "university_id", nullable = false)
 	private University university;
 

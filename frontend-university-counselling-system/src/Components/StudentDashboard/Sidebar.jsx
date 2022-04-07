@@ -1,5 +1,5 @@
-import React,{ useEffect, useState } from "react";
-import { Navigate, Link, BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, Link} from "react-router-dom";
 import "../Login/Login.css";
 import "./StudentDashboard.css";
 import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
@@ -7,8 +7,10 @@ import { ImBooks } from "react-icons/im";
 import { BsFillDoorOpenFill } from "react-icons/bs";
 import "./Sidebar.css";
 import { FaUserGraduate } from "react-icons/fa";
-import StudentDashboard from "./StudentDashboard";
 import AddQualification from "./AddQualification";
+import AddPreference from "./AddPreference";
+import Home from "./Home";
+import Dashboard from "./Dashboard";
 
 const Sidebar = () => {
     const studentName = window.sessionStorage.getItem("name");
@@ -20,6 +22,10 @@ const Sidebar = () => {
     const [show2, setShow2] = useState("");
     const snackbar = window.sessionStorage.getItem("snackbar");
     const snackbar3 = window.sessionStorage.getItem("snackbar3");
+    const [qualification,setQualification] = useState(false);
+    const [preference,setPreference] = useState(false);
+    const [home,setHome] = useState(true);
+    const [dashboard,setDashboard] = useState(false);
 
     useEffect(() => {
         if (studentName === null || studentEmail === null || studentAge === null) {
@@ -47,6 +53,58 @@ const Sidebar = () => {
         setLogOut(true);
     }
 
+    let showQualification = () =>{
+        if(home){
+            setHome(false);
+        }
+        if(dashboard){
+            setDashboard(false);
+        }
+        if(preference){
+            setPreference(false);
+        }
+        setQualification(true);
+    }
+
+    let showPreference = () =>{
+        if(home){
+            setHome(false);
+        }
+        if(dashboard){
+            setDashboard(false);
+        }
+        if(qualification){
+            setQualification(false);
+        }
+        setPreference(true);
+    }
+
+    let showHome = () => {
+        if(dashboard){
+            setDashboard(false);
+        }
+        if(qualification){
+            setQualification(false);
+        }
+        if(preference){
+            setPreference(false);
+        }
+        setHome(true);
+    }
+
+    let showDashboard = () =>{
+        if(home){
+            setHome(false);
+        }
+        if(qualification){
+            setQualification(false);
+        }
+        if(preference){
+            setPreference(false);
+        }
+        setDashboard(true);
+    }
+
     return (
         <>
             {loggedInStudentFalse && <Navigate to="/" />}
@@ -59,29 +117,21 @@ const Sidebar = () => {
                     </a>
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
-                        <li>
+                        <li onClick={showHome}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                             {/* <Link className="text-color"> */}
                                 Home
-                             {/* </Link>  */}
                         </li>
-                        <li>
+                        <li onClick={showDashboard}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                            {/* <Link className="text-color"> */}
                                 Dashboard
-                            {/* </Link> */}
                         </li>
-                        <li>
+                        <li onClick={showQualification}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                             {/* <Link  className="text-color">  */}
                                 Add Qualification
-                             {/* </Link> */}
                         </li>
-                        <li>
+                        <li onClick={showPreference}>
                             <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                            {/* <Link to={} className="text-color"> */}
                                 Add Preferences
-                            {/* </Link> */}
                         </li>
                     </ul>
                     <div style={{ marginTop: "150%" }}>
@@ -101,7 +151,10 @@ const Sidebar = () => {
                     </div>
                 </div>
                 <div className="col-10" style={{ backgroundColor: "#d3ded6" }}>
-                    <StudentDashboard />
+                    {home && <Home />}
+                    {dashboard && <Dashboard />}
+                    {qualification && <AddQualification />}
+                    {preference && <AddPreference />}
                     <div className={show} id="snackbar">Login Successfully..</div>
                     <div className={show2} id="snackbar">Student details are added..</div>
                 </div>
