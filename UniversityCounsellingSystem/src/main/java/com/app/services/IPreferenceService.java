@@ -9,5 +9,7 @@ public interface IPreferenceService {
 	List<Preference> addPreference(Preference preference,int studentId);
 	
 	List<Preference> deletePreference(int studentId, int preferenceId);
+	
+	List<Preference> getAllPreferencesOfStudent(int studentId);
 
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CollegeCard.css";
 import { AiFillStar } from "react-icons/ai";
@@ -26,7 +25,7 @@ const CollegeCard = ({ collegeDetails }) => {
         <div className="card-body">
           <h5 className="card-title"  style={{ color: "var(--green-color)" }}>College : {collegeDetails.name}</h5>
           <p className="card-text">
-            University : {collegeDetails.university.universityName}
+            {/* University : {collegeDetails.university.universityName} */}
           </p>
           <p className="card-text">
             Available Courses :{" "}

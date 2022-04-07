@@ -91,7 +91,6 @@ const Login = () => {
         }
 
     }
-  };
 
   return (
     <>
@@ -135,7 +134,7 @@ const Login = () => {
                                 <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
                                 <button type="submit" className="btn1 primary1">Login</button>
                                 <hr className="my-4" />
-                                <p>Don't have an account? <Link to="/registerStudent" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="#!" className="link-success">College</a></p>
+                                <p>Don't have an account? <Link to="/register/student" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="#!" className="link-success">College</a></p>
                             </div>
                         </form>
                     </div >

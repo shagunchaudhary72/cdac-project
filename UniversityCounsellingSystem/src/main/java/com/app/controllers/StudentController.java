@@ -85,6 +85,11 @@ public class StudentController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(studentService.updateStudent(student));
 	}
 	
+	@GetMapping("/students/preference/{studentId}")
+	public ResponseEntity<?> getPreferences(@PathVariable int studentId){
+		return ResponseEntity.ok().body(preferenceService.getAllPreferencesOfStudent(studentId));
+	}
+	
 	@PostMapping("/students/{studentId}/preference")
 	public ResponseEntity<?> addPreference(@PathVariable int studentId,@RequestBody Preference preference){
 		return ResponseEntity.ok().body(preferenceService.addPreference(preference, studentId));

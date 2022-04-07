@@ -117,5 +117,10 @@ public class CollegeServiceImpl implements ICollegeService {
 		return college;
 	}
 
+	@Override
+	public Set<Course> getAllCoursesOfCollege(String name) {
+		return collegeRepo.findByName(name).getCourses();
+	}
+
 
 }
