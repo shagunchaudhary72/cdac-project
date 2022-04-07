@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import CourseCard from "../Cards/CourseCard";
-import { ImArrowRight2 } from "react-icons/im";
-import { Link } from "react-router-dom";
 import HomeServices from '../../Services/HomeServices'
 
 const CourseList = () => {
@@ -22,15 +20,13 @@ const CourseList = () => {
   },[]);
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-3 align-self-center">
+    <div className="course-section my-5">
+        <div className="course-section-row1">
           <h1 className="text-center py-3 course-heading heading-bottom-border">
             Our Courses
           </h1>
-        </div>
       </div>
-      <div className="row justify-content-between">
+      <div className="course-section-row2">
         {courseList.map((course) => {
           return <CourseCard key={course.id} courseDetails={course} />;
         })}

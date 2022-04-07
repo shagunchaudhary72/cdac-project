@@ -21,10 +21,10 @@ const HomePage = () => {
             fugiat iusto fuga praesentium optio, eaque rerum! Provident
             similique accusantium nemo autem.{" "}
           </p>
-          <Link className="registration-btn" to="/register/college">
+          <Link className="registration-btn registration-btn1" to="/register/college">
             College Registration
           </Link>
-          <Link className="registration-btn" to="/register/student">
+          <Link className="registration-btn registration-btn2" to="/register/student">
             Student Registration
           </Link>
         </div>

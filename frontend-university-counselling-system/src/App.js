@@ -1,9 +1,6 @@
 
 import React, { useEffect } from "react";
 
-
-import React from "react";
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import AddStudentDetails from "./Components/LoginAsStudent/AddStudentDetails";
@@ -12,7 +9,8 @@ import RegisterStudent from "./Components/RegisterAsStudent/RegisterStudent";
 
 import Navbar from "./Components/Home/Navbar";
 import HomePage from "./Components/Home/HomePage";
-import About from "./Components/About/About";
+import About from "./Components/Pages/About";
+import Clients from "./Components/Home/Clients";
 import ExtraInfo from "./Components/Home/ExtraInfo";
 import Copyright from "./Components/Home/Copyright";
 import "./App.css";
@@ -26,6 +24,7 @@ import EventsPage from "./Components/Pages/EventsPage";
 import CollegeList from "./Components/Pages/CollegeList";
 import CourseList from "./Components/Pages/CourseList";
 import { useState } from "react";
+import Contact from "./Components/Pages/Contact";
 
 
 const App = () => {
@@ -65,7 +64,9 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route exact path="/home" element={<HomePage />} />
 
-          <Route exact path="/about" element={<About />} />
+          <Route path="/about" element={<About />} />
+
+          <Route path="/contact" element={<Contact />} />
 
           <Route path="/login" element={<Login />} />
 
@@ -93,6 +94,7 @@ const App = () => {
           <Route path="/courses" element={<CourseList />} />
 
           <Route path="*" element={<NotFound />} />
+
         </Routes>
       </div>
       <footer className="footer section">

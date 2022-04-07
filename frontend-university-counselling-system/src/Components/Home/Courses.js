@@ -8,11 +8,15 @@ import "./Course.css";
 const Courses = () => {
 
   const [courseList, setCourseList] = useState([]);
+  const [ isFullfilled, setIsFulfilled ] = useState(false);
 
   const getCourseList = () => {
     HomeServices.getListOfCourse().then( response => {
-      console.log(response.data);
-      setCourseList(response.data);
+      if( response.status === 200 ){
+        console.log(response.data);
+        setCourseList(response.data);
+        setIsFulfilled(true);
+      }
     }).catch( error => {
       console.log( "error : ", error);
     });
@@ -20,29 +24,28 @@ const Courses = () => {
 
   useEffect(() => {
     getCourseList();
-  },[]);
+  },[ isFullfilled]);
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-3 align-self-center">
-          <h1 className="text-center py-3 course-heading heading-bottom-border">
+    <div className="course-section">
+        <div className="course-section-row1">
+          <h1 className="text-center py-3 heading-bottom-border">
             Our Courses
           </h1>
-        </div>
       </div>
-      <div className="row justify-content-between">
-        {courseList.map((course) => {
+      <div className="course-section-row2">
+        { isFullfilled ? courseList.map((course) => {
           return <CourseCard key={course.id} courseDetails={course} />;
-        })}
+        }) : <h3 className="text-center text-success">No Data Available.......</h3>}
       </div>
-      <div className="row justify-content-end">
-        <div className="col align-self-end">
+        {
+          isFullfilled &&
+        <div className="course-section-row3">
           <Link className=" more-data" to="/courses">
             See more <ImArrowRight2 />{" "}
           </Link>
-        </div>
       </div>
+        }
     </div>
   );
 };

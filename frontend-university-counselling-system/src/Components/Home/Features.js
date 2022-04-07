@@ -7,11 +7,10 @@ import "./Features.css";
 
 const Features = () => {
   return (
-    <section className="container-fluid py-5 features-section text-success">
+    <section className="py-5 features-section text-success">
       <div className="features-section-img"></div>
-      <div className="container">
-      <div className="row features-section-data justify-content-center">
-        <div className="col-3 features-section-data-card">
+      <div className="features-section-data">
+        <div className="features-section-data-card">
           <p className="features-section-data-logo">
             <MdCastForEducation />
           </p>
@@ -21,7 +20,7 @@ const Features = () => {
             suscipit fugiat sint totam soluta assume
           </p>
         </div>
-        <div className="col-3 features-section-data-card">
+        <div className="features-section-data-card">
           <p className="features-section-data-logo">
             <MdLibraryBooks />
           </p>
@@ -31,7 +30,7 @@ const Features = () => {
             suscipit fugiat sint totam soluta assume
           </p>
         </div>
-        <div className="col-3 features-section-data-card">
+        <div className="features-section-data-card">
           <p className="features-section-data-logo">
             <GiTeacher />
           </p>
@@ -41,7 +40,7 @@ const Features = () => {
             suscipit fugiat sint totam soluta assume
           </p>
         </div>
-        <div className="col-3 features-section-data-card">
+        <div className="features-section-data-card">
           <p className="features-section-data-logo">
             <MdLibraryBooks />
           </p>
@@ -51,7 +50,6 @@ const Features = () => {
             suscipit fugiat sint totam soluta assume
           </p>
         </div>
-      </div>
       </div>
     </section>
   );
