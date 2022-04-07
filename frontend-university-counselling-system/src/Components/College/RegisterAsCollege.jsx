@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
 import './RegisterAsCollege.css';
 
@@ -197,23 +198,21 @@ const RegisterAsCollege = () => {
                                 {/* <label className="form-label" for="state">State</label> */}
                             </div>
 
-                            <div className="d-flex justify-content-between align-items-center">
-                                <div className="form-check mb-0">
+                            {/* <div className="d-flex justify-content-between align-items-center">
+                                {/* <div className="form-check mb-0">
                                     <input className="form-check-input me-2" type="checkbox" value="" id="form2Example" />
                                     <label className="form-check-label" for="form2Example">
                                         Remember me
                                     </label>
-                                </div>
-                                <a href="#!" className="text-body">Forgot password?</a>
-                            </div>
+                                </div> */}
+                                {/* <a href="#!" className="text-body">Forgot password?</a>
+                            </div> */}
 
-                            <div className="text-center text-lg-start mt-4 pt-2">
-                                <button type="submit" className="btn btn-primary btn-lg"
-                                    style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>Register</button>
-                                <p className="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a href="/login"
-                                    className="link-danger">Login</a></p>
+                            <div className="row g-1">
+                                <button type="submit" className="btn1 primary1">Register</button>
+                                <hr className="my-4" />
+                                <p>Already have an Account? <Link to="/login" className="link-success">Click Here</Link></p>
                             </div>
-
                         </form>
                     </div >
                 </div >
