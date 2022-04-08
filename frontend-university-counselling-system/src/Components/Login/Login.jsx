@@ -4,11 +4,9 @@ import { useState , useEffect } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
 import { Link, Navigate } from "react-router-dom";
-import AddStudentDetails from "../LoginAsStudent/AddStudentDetails";
 
 
 const Login = () => {
-  
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,7 +24,7 @@ const Login = () => {
             setTimeout(function(){ setShow("");clearTimeout(); }, 3000)
             window.sessionStorage.removeItem("snackbar2");
         }
-    })
+    },[])
 
   let emailTextHandler = (event) => {
     setEmailErr("");
@@ -94,9 +92,9 @@ const Login = () => {
 
   return (
     <>
-      {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
+      {loggedInAsStudent && <Navigate to="/add_student_details" />}
       {loggedInStudentAfterUpdatingDetails && (
-        <Navigate to="/studentDashboard" />
+        <Navigate to="/student_dashboard" />
       )}
       <div className="container-fluid w-50 mt-5">
         <div className="m-3">

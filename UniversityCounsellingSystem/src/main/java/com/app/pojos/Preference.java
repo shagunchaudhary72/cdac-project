@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "preferences_tbl",uniqueConstraints = @UniqueConstraint(columnNames = { "college_preference", "course_preference"}))
+@Table(name = "preferences_tbl",uniqueConstraints = @UniqueConstraint(columnNames = { "college_preference", "course_preference","student_id"}))
 public class Preference extends BaseEntity {
 
 	// uni dir from preference *----->1 Student

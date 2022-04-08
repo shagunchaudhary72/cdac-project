@@ -30,7 +30,7 @@ const CollegeCard = ({ collegeDetails }) => {
           <p className="card-text">
             Available Courses :{" "}
             {collegeDetails.courses.map((course) => {
-              return course.courseName;
+              return course.courseName+", ";
             })}
           </p>
           <p className="card-text">

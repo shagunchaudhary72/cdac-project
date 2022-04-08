@@ -8,10 +8,10 @@ const AddStudentDetails = () => {
     const studentEmail = window.sessionStorage.getItem("email");
     const studentAge = window.sessionStorage.getItem("age");
     const studentId = window.sessionStorage.getItem("id");
-    const obj = {studentName,studentEmail,studentAge};
+    const obj = { studentName, studentEmail, studentAge };
     const [loggedInStudentFalse, setLoggedInStudentFalse] = useState(false);
-    const [logOut,setLogOut] = useState(false);
-    const [studentProfileUpdated,setStudentProfileUpdated] = useState(false);
+    const [logOut, setLogOut] = useState(false);
+    const [studentProfileUpdated, setStudentProfileUpdated] = useState(false);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -20,43 +20,53 @@ const AddStudentDetails = () => {
     const [states, setStates] = useState("");
     const [country, setCountry] = useState("");
     const [pincode, setPincode] = useState("");
-    const [marks,setMarks] = useState("");
+    const [marks, setMarks] = useState("");
     const [cityError, setCityError] = useState("");
     const [stateError, setStateError] = useState("");
     const [countryError, setCountryError] = useState("");
     const [pincodeError, setPincodeError] = useState("");
-    const [marksError,setMarksError] = useState("");
+    const [marksError, setMarksError] = useState("");
     const [successMesg, setSuccessMesg] = useState("");
     const [errorMesg, setErrorMesg] = useState("");
 
-    useEffect(()=>{
-        if(studentName!==null && studentEmail!==null && studentAge!==null){
+    useEffect(() => {
+        if (studentName !== null && studentEmail !== null && studentAge !== null) {
             setName(obj.studentName);
             setEmail(obj.studentEmail);
             setAge(obj.studentAge);
         }
-        else{
+        else {
             setLoggedInStudentFalse(true);
         }
-    })
+    }, [])
 
     let cityTextHandler = (e) => {
+        if (cityError !== "" || cityError !== null)
+            setCityError("");
         setCity(e.target.value);
     }
 
     let stateTextHandler = (e) => {
+        if (stateError !== "" || stateError !== null)
+            setStateError("");
         setStates(e.target.value);
     }
 
     let countryTextHandler = (e) => {
+        if (countryError !== "" || countryError !== null)
+            setCountryError("");
         setCountry(e.target.value);
     }
 
     let pincodeTextHandler = (e) => {
+        if (pincodeError !== "" || pincodeError !== null)
+            setPincodeError("");
         setPincode(e.target.value);
     }
 
     let marksTextHandler = (e) => {
+        if (marksError !== "" || marksError !== null)
+            setMarksError("");
         setMarks(e.target.value);
     }
 
@@ -83,6 +93,51 @@ const AddStudentDetails = () => {
         setAge(event.target.value);
     }
 
+    let validation = () => {
+        let flag = true;
+        let regex = /[0-9]+/;
+        let marksRegex = /[0-9]+/;
+        if (city === null || city === "") {
+            setCityError("Please Enter City");
+            flag = false;
+        }
+        if (states === null || states === "") {
+            setStateError("Please Enter State");
+            flag = false;
+        }
+        if (country === null || country === "") {
+            setCountryError("Please Enter Country");
+            flag = false;
+        }
+        if (pincode === null || pincode === "") {
+            setPincodeError("Please Enter Pincode");
+            flag = false;
+        }
+        else if (regex.test(pincode) === false) {
+            setPincodeError("Pincode should be in numbers");
+            flag = false;
+        }
+
+        if(marks===null ||marks===""){
+            setMarksError("Marks should not be empty");
+            flag = false;
+        }
+
+        else if(marksRegex.test(marks)===false){
+            setMarksError("Please enter numbers");
+            flag = false;
+        }
+
+        else if(parseInt(marks)<0 || parseInt(marks)>300){
+            setMarksError("Please Enter Marks between 0-300");
+            flag = false;
+        }
+
+        if (flag) {
+            return true;
+        }
+    }
+
     let logoutClick = () => {
         window.sessionStorage.removeItem("name");
         window.sessionStorage.removeItem("email");
@@ -93,24 +148,28 @@ const AddStudentDetails = () => {
 
     let addStudentDetails = (e) => {
         e.preventDefault();
-        let student = {"id":studentId,name,email,age,"address":{
-            city,"state":states,country,pincode
-        },"marksInComp":marks}
-        console.log(student);
-        studentService.updateStudentDetails(student).then(()=>{
-            setSuccessMesg("Student Profile Updated");
-            setStudentProfileUpdated(true);
-            window.sessionStorage.setItem("snackbar3","show");
+        if (validation()) {
+            let student = {
+                "id": studentId, name, email, age, "address": {
+                    city, "state": states, country, pincode
+                }, "marksInComp": marks
+            }
+            console.log(student);
+            studentService.updateStudentDetails(student).then(() => {
+                setSuccessMesg("Student Profile Updated");
+                setStudentProfileUpdated(true);
+                window.sessionStorage.setItem("snackbar3", "show");
             }).catch(error => {
                 setErrorMesg("Something went wrong", error);
             });
+        }
     }
 
     return (
         <>{loggedInStudentFalse && <Navigate to="/login" />}
-        {studentProfileUpdated && <Navigate to="/studentDashboard" />}
-        {logOut && <Navigate to="/login" />}
-         <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
+            {studentProfileUpdated && <Navigate to="/student_dashboard" />}
+            {logOut && <Navigate to="/login" />}
+            <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">Student Details</h2>
@@ -119,17 +178,17 @@ const AddStudentDetails = () => {
                         <div className="m-3">
                             <form onSubmit={addStudentDetails}>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" disabled/>
+                                    <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" disabled />
                                     <label>Name</label>
                                     {/* <span className="text-danger">{nameErr}</span> */}
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" disabled/>
+                                    <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" disabled />
                                     <label>Email address</label>
                                     {/* <span className="text-danger">{emailErr}</span> */}
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={age} onChange={ageTextHandler} placeholder="Enter Age" disabled/>
+                                    <input type="text" className="form-control" value={age} onChange={ageTextHandler} placeholder="Enter Age" disabled />
                                     <label>Age</label>
                                     {/* <span className="text-danger">{ageError}</span> */}
                                 </div>

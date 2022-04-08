@@ -6,13 +6,14 @@ import { MdContactPage } from 'react-icons/md'
 import { RiTeamFill } from 'react-icons/ri'
 import { BiNews } from 'react-icons/bi'
 import{ FaBookOpen } from 'react-icons/fa'
+import projectLogo from "../../images/UCSLogo.png"
 
 const Navbar = () => {
   return (
     <div className='header navbar bg-white'>
         <div className='navbar-logo col-6'>
            <Link  className='navbar-link' to='/home'>
-              <img src='#' alt='SiteLogo'/>
+              <img src={projectLogo} alt='SiteLogo' width={300}/>
            </Link>
         </div>
         <div className='navabr-right col-6 container'>

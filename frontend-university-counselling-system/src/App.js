@@ -38,7 +38,7 @@ const App = () => {
 
           <Route path="/register/student" element={<RegisterStudent />} />
 
-          <Route path="/addStudentDetails" element={<AddStudentDetails />} />
+          <Route path="/add_student_details" element={<AddStudentDetails />} />
 
           {/* <Route path="/addPreference" element={<AddPreference/>} /> */}
 
@@ -48,7 +48,7 @@ const App = () => {
 
          {/* <Route path="/studentDashboard" element={<StudentDashboard />} /> */}
             
-                        <Route path='/studentDashboard' element={<Sidebar/>} />
+                        <Route path='/student_dashboard' element={<Sidebar/>} />
             {/* <Route path="/addQualification" element={<AddQualification />} /> */}
 
           <Route path="/team" element={<TeamPage />} />
