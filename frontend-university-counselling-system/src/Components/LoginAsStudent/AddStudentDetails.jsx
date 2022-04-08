@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import "../Login/Login.css"
 import { Navigate } from "react-router-dom";
 import studentService from "../../Services/StudentService";

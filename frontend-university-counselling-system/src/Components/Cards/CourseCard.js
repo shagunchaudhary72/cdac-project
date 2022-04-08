@@ -10,7 +10,6 @@ const CourseCard = ({courseDetails}) => {
   }
 
   return (
-    <div className="col-4 my-4 ">
       <div className="card" style={{width:'18rem'}} onClick={coursePage}>
         <img src="https://lh3.googleusercontent.com/-czp6MLnxDOI/Ybb04CZoR2I/AAAAAAAAAf8/46zyVhzsnZcfhFd0u6sjZq39hgH1_55jQCNcBGAsYHQ/s1600/1639380189261302-0.png" className="card-img-top" alt="courseImage" />
         <div className="card-body">
@@ -21,7 +20,6 @@ const CourseCard = ({courseDetails}) => {
           </p>
           <h3 className='card-text'><ImStack className="text-success"/></h3>
         </div>
-      </div>
     </div>
   );
 };

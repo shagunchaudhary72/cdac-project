@@ -1,4 +1,4 @@
-.course-section{
+.college-section{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -6,15 +6,16 @@
     gap: 1rem;
 }
 
-.course-section-row2{
+.college-section-row2{
     display: flex;
-    justify-content: space-center;
+    justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1.5rem;
 }
 
-.course-section-row3{
+
+.college-section-row3{
     margin-left: 2.5rem;
     align-self: flex-start;
 }
