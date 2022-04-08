@@ -16,6 +16,7 @@ import com.app.dao.PreferenceRepository;
 import com.app.dao.ShortlistedStudentRepository;
 import com.app.dao.StudentRepository;
 import com.app.dao.UniversityRepository;
+import com.app.dto.ShortlistedStudentDto;
 import com.app.dto.StudentRankDto;
 import com.app.pojos.College;
 import com.app.pojos.Course;
@@ -49,9 +50,9 @@ public class AdminServiceImpl implements IAdminService {
 	UniversityRepository universityRepo;
 
 	@Override
-	public List<ShortlistedStudent> declareResult() {
+	public List<ShortlistedStudentDto> declareResult() {
 		List<StudentRankDto> studentRanksDto = declareRanks();
-		List<ShortlistedStudent> shortlistedStudents = new ArrayList<ShortlistedStudent>();
+		//List<ShortlistedStudentDto> shortlistedStudents = new ArrayList<ShortlistedStudentDto>();
 		// int i = 1;
 		for (StudentRankDto stu : studentRanksDto) {
 			System.out.println("      " + stu);
@@ -71,7 +72,7 @@ public class AdminServiceImpl implements IAdminService {
 					System.out.println(" percentage : " + percentage);
 					System.out.println("========");
 					if (student.getRankInComp() <= college.getCutOffRank()) {
-
+							System.out.println("===============");
 						if (college.getVaccantSeats() > 0 && college.getMinimumPercentInBoards() <= percentage) {
 							System.out.println("      " + college);
 							System.out.println("========");
@@ -82,20 +83,25 @@ public class AdminServiceImpl implements IAdminService {
 									university);
 							shortlistedRepo.save(shortlistedStudent);
 							college.setVaccantSeats(college.getVaccantSeats() - 1);
-							shortlistedStudents.add(shortlistedStudent);
+							
+						//	shortlistedStudents.add(shortlistedRepo.findBy);
 							break;
 						}
 					}
 				}
 			}
 		}
-		return shortlistedStudents;
+		return shortlistedRepo.findShortlistedStudents();
 	}
 
 	@Override
 	public List<StudentRankDto> declareRanks() {
-		List<Student> students = studentRepo.findAllByOrderByMarksInCompDesc();
+		//List<Student> students = studentRepo.findAllByOrderByMarksInCompDesc();
+		
+		List<Student> students = studentRepo.findAll();
+		System.out.println(" in declareRanks : " + students);
 		sortStudents(students);
+		System.out.println(" in declareRanks( sorted students) : " + students);
 		List<StudentRankDto> studentsRankDto = new ArrayList<StudentRankDto>();
 		int i = 1;
 		for (Student student : students) {
@@ -111,7 +117,7 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	private List<Student> sortStudents(List<Student> students) {
-		Collections.sort(students, (s1, s2) -> {
+		Collections.sort(students, (s2, s1) -> {
 
 			double s1HscPer = s1.getEducationQualifationList().stream()
 					.filter(edu -> edu.getType() == EducationType.HSC).mapToDouble(edu -> edu.getPercentage()).sum();
@@ -143,8 +149,10 @@ public class AdminServiceImpl implements IAdminService {
 			} else if (s1.getMarksInComp() == s2.getMarksInComp() && s1HscPer == s2HscPer && s1SscPer > s2SscPer
 					&& s1.getAge() < s2.getAge()) {
 				return -1;
+			}else {
+				return 1;
 			}
-			return -1;
+			
 		});
 		return students;
 	}

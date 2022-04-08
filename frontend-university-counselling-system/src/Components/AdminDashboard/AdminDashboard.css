@@ -1,0 +1,18 @@
+.nav-pills>li{
+    margin: 2%;
+}
+
+.nav-pills>li:hover{
+    background-color: #05C46B;
+    color: white;
+}
+
+.text-color{
+    color: black;
+    text-decoration: none;
+    font-size: larger;
+}
+
+.text-color:hover{
+    color: white;
+}

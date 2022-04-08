@@ -10,8 +10,8 @@ const getListOfStudents = () => {
   return axios.get(ADMIN_BASE_URL + "/students");
 };
 
-const getStudentsDetails = (id) => {
-  return axios.get(ADMIN_BASE_URL + `/students/${id}`);
+const getStudentDetails = (id) => {
+  return axios.get(ADMIN_BASE_URL + `/student/${id}`);
 };
 
 const deleteStudentsDetails = (id) => {
@@ -44,7 +44,7 @@ const addNewCourseInUniversity = (newCourse) => {
 export default {
   deleteCollegeDetails,
   getListOfStudents,
-  getStudentsDetails,
+  getStudentDetails,
   deleteStudentsDetails,
   getListOfShortlistedStudents,
   getListOfShortlistedStudentsByCollege,

@@ -17,7 +17,9 @@ const Navbar = () => {
 
     const[ loggedIn, setLoggedIn ] = useState();
     const[ isMenuVisible, setIsMenuVisible ] = useState(false);
+    const[ dashboard, setDashboard] = useState('');
     const menu = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
       const userName = window.sessionStorage.getItem('name');
@@ -28,11 +30,16 @@ const Navbar = () => {
       else
         setLoggedIn(false);
  
-    },[loggedIn, isMenuVisible]);
+    },[loggedIn, isMenuVisible,dashboard]);
     
     const logoutUser = () => {
         window.sessionStorage.removeItem('user');
-        window.sessionStorage.removeItem('name');
+        window.sessionStorage.removeItem("id");
+        window.sessionStorage.removeItem("email");
+        window.sessionStorage.removeItem("name");
+        window.sessionStorage.removeItem("age");
+        window.sessionStorage.setItem("snackbar2", "show");
+        window.sessionStorage.removeItem('loggedIn');
         alert(" You have been Logged Out !!!");
         setLoggedIn(false);
     }
@@ -48,6 +55,23 @@ const Navbar = () => {
       menu.current.style.display = 'none';
       setIsMenuVisible(false);
      }
+    }
+
+    const openDashboard = () =>{
+        const userData = JSON.parse(window.sessionStorage.getItem('user'));
+        if( userData === null )
+            {
+                alert("Login Required !!");
+                navigate('/login');
+            }
+        else if( userData.role === "ADMIN" ){
+            navigate('/adminDashboard');
+        }else if( userData.role === "STUDENT"){
+            navigate('/studentDashboard');
+        }else if( userData.role === "COLLEGE"){
+            navigate('/collegeDashboard');
+        }
+
     }
 
   return (
@@ -75,7 +99,7 @@ const Navbar = () => {
            </div>
 
            <div className='navbar-right-login-profile'>
-           <NavLink className='navbar-profile' to='/profile'><IoIosContact/></NavLink>
+           <div className='navbar-profile' onClick={openDashboard}><IoIosContact/></div>
                  { loggedIn ? <NavLink className='navbar-login' to='/home' onClick={logoutUser}>Logout</NavLink> : <NavLink className='navbar-login' to='/login'>Login</NavLink> } 
                
 

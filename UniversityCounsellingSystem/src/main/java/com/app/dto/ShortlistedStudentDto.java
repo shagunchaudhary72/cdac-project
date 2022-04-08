@@ -9,9 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class ShortlistedStudentDto {
 
+	private int studentId;
 	private String name;
 	private double markInComp;
 	private int rankInComp;
+	private int collegeId;
 	private String collegeName;
+	private int courseId;
+	private String courseName;
 	private String universityName;
 }
