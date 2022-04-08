@@ -36,10 +36,20 @@ public class CollegeController {
 	
 	@Autowired
 	IShortlistedStudentService shortlistedStudentService;
+	
+	@GetMapping
+	public ResponseEntity<?> getAllColleges(){
+		return ResponseEntity.ok().body(collegeService.getAllCollege());
+	}
 
 	@GetMapping("/profile/{collegeid}") // Get college profile
 	public ResponseEntity<?> showProfile(@PathVariable("collegeid") int id) {
 		return ResponseEntity.ok().body(collegeService.getCollegeDetails(id));
+	}
+	
+	@GetMapping("/{collegeName}/courses")
+	public ResponseEntity<?> getAllCoursesOfCllege(@PathVariable String collegeName){
+		return ResponseEntity.ok().body(collegeService.getAllCoursesOfCollege(collegeName));
 	}
 
 	@PutMapping("/edit") // Edit profile

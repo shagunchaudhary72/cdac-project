@@ -24,11 +24,13 @@ public interface ICollegeService {
 	College updateCollegeDetails(College editedCollegeData);
 
 	Set<Course> addCollegeCourse(int id, int courseid);
+	
+	Set<Course> getAllCoursesOfCollege(String name);
 
 	Set<Course> deleteCourse(int id, int courseid);
 
 	User regUserAsCollege(CollegeUserDTO collegeUserData);
 
-	
+	College getCollegeDetailsByName(String name);
 	
 }

@@ -114,5 +114,18 @@ public class CollegeServiceImpl implements ICollegeService {
 		return userRepo.save(userData);
 	}
 
+	@Override
+	public College getCollegeDetailsByName(String name) {
+		College college = collegeRepo.findByName(name);
+		if( college == null )
+			throw new ResourceNotFoundException("College Not Found");
+		return college;
+	}
+
+	@Override
+	public Set<Course> getAllCoursesOfCollege(String name) {
+		return collegeRepo.findByName(name).getCourses();
+	}
+
 
 }

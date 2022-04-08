@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import axios from 'axios';
 
 const USER_API_SERVICE_URL = "http://localhost:8080/api/users";
@@ -23,3 +24,18 @@ const USER_API_SERVICE_URL = "http://localhost:8080/api/users";
     }
 
 export default {createCollege, login, updateCollegeDetails, getCourseList, getCollegeProfile}
+=======
+import axios from "axios";
+
+const COLLEGE_SERVICE_API_URL = "http://localhost:8080/college";
+
+const getAllCollege = () => {
+    return axios.get(COLLEGE_SERVICE_API_URL);
+}
+
+const getCoursesOfCollge = (name) =>{
+    return axios.get(COLLEGE_SERVICE_API_URL+"/"+name+"/courses");
+}
+
+export default { getAllCollege,getCoursesOfCollge };
+>>>>>>> fdf8b3ffad971518afc2c0fb565d5fa26f465e66

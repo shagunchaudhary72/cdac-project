@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.EducationQualification;
 import com.app.pojos.Preference;
 import com.app.pojos.Student;
+import com.app.services.IEducationQualificationService;
 import com.app.services.IPreferenceService;
 import com.app.services.IStudentService;
 
@@ -33,6 +35,9 @@ public class StudentController {
 	@Autowired
 	private IPreferenceService preferenceService;
 	
+	@Autowired
+	private IEducationQualificationService eduService;
+	
 	@GetMapping("/student/profile/{studentId}") // Get college profile
 	public ResponseEntity<?> showProfile(@PathVariable int studentId) {
 		return ResponseEntity.ok().body(studentService.getStudentDetails(studentId));
@@ -44,6 +49,11 @@ public class StudentController {
 		if(list.size()<=0)
 			return ResponseEntity.notFound().build();
 		return ResponseEntity.of(Optional.of(list));
+	}
+	
+	@GetMapping("/student/educations/{id}")
+	public ResponseEntity<?> getEducationDetailsByStudentId(@PathVariable int id){
+		return ResponseEntity.ok(eduService.getAllEducationByStudentId(id));
 	}
 	
 	/*
@@ -73,6 +83,11 @@ public class StudentController {
 			Student student = studentService.getStudentDetails(id);
 			student.addEducation(educationQualification);
 			return ResponseEntity.status(HttpStatus.CREATED).body(studentService.updateStudent(student));
+	}
+	
+	@GetMapping("/students/preference/{studentId}")
+	public ResponseEntity<?> getPreferences(@PathVariable int studentId){
+		return ResponseEntity.ok().body(preferenceService.getAllPreferencesOfStudent(studentId));
 	}
 	
 	@PostMapping("/students/{studentId}/preference")
