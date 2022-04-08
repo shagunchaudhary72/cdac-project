@@ -49,7 +49,7 @@ const RegisterAsCollege = () => {
     const validation = () => {
 
         setErrorMessagesBlank();
-
+        let regex = /[a-zA-Z0-9]+@{1}[a-zA-Z0-9]+\.[a-zA-Z]+/;
         if (name === "") {
             setnameError(true);
             return false;
@@ -57,6 +57,10 @@ const RegisterAsCollege = () => {
 
         if (email === "") {
             setemailError(true);
+            return false;
+        }
+        else if (regex.test(email) === false) {
+            setemailError("true");
             return false;
         }
         if (password === "") {
@@ -195,19 +199,7 @@ const RegisterAsCollege = () => {
                                 {stateError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                 <input type="text" id="state" className="form-control form-control-lg"
                                     placeholder="Enter State" value={state} onChange={setStateHandler} />
-                                {/* <label className="form-label" for="state">State</label> */}
                             </div>
-
-                            {/* <div className="d-flex justify-content-between align-items-center">
-                                {/* <div className="form-check mb-0">
-                                    <input className="form-check-input me-2" type="checkbox" value="" id="form2Example" />
-                                    <label className="form-check-label" for="form2Example">
-                                        Remember me
-                                    </label>
-                                </div> */}
-                                {/* <a href="#!" className="text-body">Forgot password?</a>
-                            </div> */}
-
                             <div className="row g-1">
                                 <button type="submit" className="btn1 primary1">Register</button>
                                 <hr className="my-4" />

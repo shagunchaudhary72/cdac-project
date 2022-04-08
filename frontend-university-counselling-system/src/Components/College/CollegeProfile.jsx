@@ -8,14 +8,13 @@ const AddCollegeDetails = () => {
     const collegeName = window.sessionStorage.getItem("name");
     const collegeEmail = window.sessionStorage.getItem("email");
     const collegeId = window.sessionStorage.getItem("id");
-    const [university,setCollegeUniversity] = useState("");
+    const [university, setCollegeUniversity] = useState("");
     const collegestate = window.sessionStorage.getItem("state");
     const collegecity = window.sessionStorage.getItem("city");
     const collegephoneNo = window.sessionStorage.getItem("phone_no");
 
     const [collegeCourses, setCollegeCourses] = useState([]);
 
-    const obj = { collegeName, collegeEmail, university, collegeCourses, collegestate, collegecity, collegephoneNo };
     const [loggedInCollegeFalse, setLoggedInCollegeFalse] = useState(false);
     let courses = [];
 
@@ -30,6 +29,9 @@ const AddCollegeDetails = () => {
     const [phoneNo, setCollegePhoneNo] = useState("");
     const [logOut, setLogOut] = useState(false);
 
+    const [nameError, setNameError] = useState("");
+    const [phoneError, setPhoneError] = useState("");
+    const [emailErr, setEmailErr] = useState("");
     const [percentError, setPercentError] = useState("");
     const [cutOffError, setCutOffError] = useState("");
     const [totalSeatsError, setTotalSeatsError] = useState("");
@@ -84,7 +86,7 @@ const AddCollegeDetails = () => {
         else {
             setLoggedInCollegeFalse(true);
         }
-    }, [successMesg, errorMesg])
+    }, [])
 
     let cityTextHandler = (e) => {
         setCity(e.target.value);
@@ -140,18 +142,85 @@ const AddCollegeDetails = () => {
         setLogOut(true);
     }
 
+    function validation() {
+        let nameFlag = true;
+        let emailFlag = true;
+        let percentFlag = true;
+        let cutOffFlag = true;
+        let totalSeatsFlag = true;
+        let vaccantSeatsFlag = true;
+        let phoneFlag = true;
+        setErrorMesg("");
+        setSuccessMesg("");
+        setPercentError("");
+        setCutOffError("");
+        setTotalSeatsError("");
+        setVaccantSeatsError("");
+        setPhoneError("");
+        setNameError("");
+        setEmailErr("");
+        setPhoneError("");
+        let regex = /[a-zA-Z0-9]+@{1}[a-zA-Z0-9]+\.[a-zA-Z]+/;
+        if (name === "") {
+            setNameError("This field is compulsory");
+            nameFlag = false;
+        }
+        if (email === "" || email === null) {
+            setEmailErr("This field is compulsory");
+            emailFlag = false;
+        }
+        else if (regex.test(email) === false) {
+            setEmailErr("Email is in wrong format. Example: abc@gmail.com");
+            emailFlag = false;
+        }
+        if (minimumPercentInBoards < 0) {
+            setPercentError("Please enter valid percentage");
+            percentFlag = false;
+        }
+        if (cutOffRank < 0) {
+            setCutOffError("Please enter valid cutOff Rank");
+            cutOffFlag = false;
+        }
+        if (totalSeats < 0) {
+            setTotalSeatsError("Please enter valid number of seats");
+            totalSeatsFlag = false;
+        }
+        if (vaccantSeats < 0) {
+            setVaccantSeatsError("Please enter valid number of seats");
+            vaccantSeatsFlag = false;
+        }
+        if (phoneNo.length != 10) {
+            setPhoneError("Invalid Phone Number");
+            phoneFlag = false;
+        }
+        if (emailFlag && percentFlag && cutOffFlag && totalSeatsFlag && vaccantSeatsFlag && nameFlag && phoneFlag) {
+            return true;
+        }
+        emailFlag = true;
+        percentFlag = true;
+        cutOffFlag = true;
+        totalSeatsFlag = true;
+        vaccantSeatsFlag = true;
+        phoneFlag = true;
+        nameFlag = true;
+        return false;
+
+    }
+
     let addCollegeDetails = (e) => {
         e.preventDefault();
-        addSelectedCourseList();
-        console.log(courses);
-        let college = { "id": collegeId, name, email, university, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
-        console.log(college);
-        collegeService.updateCollegeDetails(college).then(() => {
-            setSuccessMesg("College Profile Updated");
-        }).catch(error => {
-            setErrorMesg("Something went wrong", error);
-        });
-        setDetailsUpdated(true);
+        if (validation() === true) {
+            addSelectedCourseList();
+            console.log(courses);
+            let college = { "id": collegeId, name, email, university, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
+            console.log(college);
+            collegeService.updateCollegeDetails(college).then(() => {
+                setSuccessMesg("College Profile Updated");
+            }).catch(error => {
+                setErrorMesg("Something went wrong", error);
+            });
+            setDetailsUpdated(true);
+        }
     }
 
     const addSelectedCourseList = () => {
@@ -163,10 +232,10 @@ const AddCollegeDetails = () => {
     }
 
     const checkIfExists = (course) => {
-        if(selectedCourseList.includes(course.courseName)){
+        if (selectedCourseList.includes(course.courseName)) {
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
@@ -175,7 +244,7 @@ const AddCollegeDetails = () => {
     return (
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
-            {detailsUpdated && <Navigate to="/collegeDashboard"/>}
+            {detailsUpdated && <Navigate to="/collegeDashboard" />}
             <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
@@ -187,22 +256,25 @@ const AddCollegeDetails = () => {
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" />
                                     <label>Name</label>
+                                    <span className="text-danger">{nameError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" />
                                     <label>Email address</label>
+                                    <span className="text-danger">{emailErr}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" />
+                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" required />
                                     <label>City</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={state} onChange={stateTextHandler} placeholder="Enter State" />
+                                    <input type="text" className="form-control" value={state} onChange={stateTextHandler} placeholder="Enter State" required />
                                     <label>State</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter State" />
+                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" />
                                     <label>Phone No</label>
+                                    <span className="text-danger">{phoneError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" />
@@ -216,8 +288,8 @@ const AddCollegeDetails = () => {
                                         <tbody>
                                             {gotCourseList && courseList.map((course) => (
                                                 <tr>{console.log(selectedCourseList)}
-                                                    <td>{ checkIfExists(course) ?
-                                                        <input type="checkbox" name="cl" id={course.id} value={course.courseName} defaultChecked/>
+                                                    <td>{checkIfExists(course) ?
+                                                        <input type="checkbox" name="cl" id={course.id} value={course.courseName} defaultChecked />
                                                         : <input type="checkbox" name="cl" id={course.id} value={course.courseName} />
                                                     }
                                                     </td>
