@@ -23,9 +23,9 @@ const CollegeCard = ({ collegeDetails }) => {
           alt="CollegeImage"
         />
         <div className="card-body">
-          <h5 className="card-title"  style={{ color: "var(--green-color)" }}>College : collegeDetails.name</h5>
+          <h5 className="card-title"  style={{ color: "var(--green-color)" }}>College : {collegeDetails.name}</h5>
           <p className="card-text">
-            {/* University : {collegeDetails.university.universityName} */}
+            University : CDAC
           </p>
           <p className="card-text">
             Available Courses :{" "}

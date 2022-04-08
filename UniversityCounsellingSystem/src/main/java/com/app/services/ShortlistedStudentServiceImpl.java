@@ -19,9 +19,9 @@ public class ShortlistedStudentServiceImpl implements IShortlistedStudentService
 	private ShortlistedStudentRepository shortlistStudentRepo;
 	
 	@Override
-	public List<ShortlistedStudent> getAllShortlistedStudents() {
+	public List<ShortlistedStudentDto> getAllShortlistedStudents() {
 		//shortlisted students
-		return shortlistStudentRepo.findAll();
+		return shortlistStudentRepo.findShortlistedStudents();
 	}
 
 

@@ -78,7 +78,7 @@ const Login = () => {
                   console.log(user);
                   window.sessionStorage.setItem('loggedIn','true');
                   setLoggedIn(true);
-                  navigate('/home');
+                  navigate('/adminDashboard');
                 }
                 else if(response.data.role === "STUDENT"){
                     if(response.data.address===null)
@@ -96,6 +96,7 @@ const Login = () => {
                     window.sessionStorage.setItem("name",studentName);
                     window.sessionStorage.setItem("age",studentAge);
                     window.sessionStorage.setItem("snackbar","show");
+                    window.sessionStorage.setItem('user',JSON.stringify(response.data));
                 }
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);

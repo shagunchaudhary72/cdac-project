@@ -25,6 +25,7 @@ import CollegeList from "./Components/Pages/CollegeList";
 import CourseList from "./Components/Pages/CourseList";
 import { useState } from "react";
 import Contact from "./Components/Pages/Contact";
+import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 
 
 const App = () => {
@@ -92,6 +93,8 @@ const App = () => {
           <Route path="/colleges" element={<CollegeList />} />
 
           <Route path="/courses" element={<CourseList />} />
+
+          <Route path="/adminDashboard" element={<AdminDashboard />} />
 
           <Route path="*" element={<NotFound />} />
 

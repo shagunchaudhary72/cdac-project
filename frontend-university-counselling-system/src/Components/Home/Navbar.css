@@ -78,6 +78,7 @@
     font-size: 40px;
     color: black;
     margin-left: 20px;
+    cursor: pointer;
 }
 .navbar-profile:hover{
     color: var(--green-color);

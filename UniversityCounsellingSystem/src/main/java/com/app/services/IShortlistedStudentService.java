@@ -8,7 +8,7 @@ import com.app.pojos.ShortlistedStudent;
 public interface IShortlistedStudentService {
 	
 	//method to get all shortlisted students
-	List<ShortlistedStudent> getAllShortlistedStudents();
+	List<ShortlistedStudentDto> getAllShortlistedStudents();
 	
 	//method to get shortlisted students By college
 	List<ShortlistedStudentDto> getAllShortlistedStudentsByCollege(int id);
