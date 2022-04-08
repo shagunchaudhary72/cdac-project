@@ -259,7 +259,7 @@ const AddCollegeDetails = () => {
                                     <span className="text-danger">{nameError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" />
+                                    <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" disabled/>
                                     <label>Email address</label>
                                     <span className="text-danger">{emailErr}</span>
                                 </div>
