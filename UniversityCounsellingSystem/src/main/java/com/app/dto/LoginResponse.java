@@ -51,6 +51,26 @@ public class LoginResponse {
 		this.phoneNo = phoneNo;
 		this.courses = courses;
 	}
+	int uniid;
+	String uniname;
+	String uniemail;
+	public LoginResponse(int collegeid, String email, String name, String city, String state, int uniid,String uniemail,String uniname,
+			String phoneNo, Role role, Set<Course> courses) {
+		this.email = email;
+		this.name = name;
+		this.role = role;
+		this.collegeId = collegeid;
+		this.state = state;
+		this.city = city;
+		//this.university = university;
+		this.uniid = uniid;
+		this.uniname = uniname;
+		this.uniemail = uniemail;
+		this.phoneNo = phoneNo;
+		this.courses = courses;
+	}
+	
+	
 	private Address address;
 
 	public LoginResponse(String name, String email, Role role) {

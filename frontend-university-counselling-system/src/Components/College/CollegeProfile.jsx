@@ -1,6 +1,6 @@
-import { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../Login/Login.css"
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
 
 const AddCollegeDetails = () => {
@@ -8,10 +8,12 @@ const AddCollegeDetails = () => {
     const collegeName = window.sessionStorage.getItem("name");
     const collegeEmail = window.sessionStorage.getItem("email");
     const collegeId = window.sessionStorage.getItem("id");
-    const [university, setCollegeUniversity] = useState("");
     const collegestate = window.sessionStorage.getItem("state");
     const collegecity = window.sessionStorage.getItem("city");
     const collegephoneNo = window.sessionStorage.getItem("phone_no");
+    const universityId = window.sessionStorage.getItem("universityId");
+    const universityEmail = window.sessionStorage.getItem("universityEmail");
+    const universityName = window.sessionStorage.getItem("universityName");
 
     const [collegeCourses, setCollegeCourses] = useState([]);
 
@@ -58,6 +60,7 @@ const AddCollegeDetails = () => {
     }
 
     useEffect(() => {
+        window.sessionStorage.setItem("success", "false");
         if (collegeName !== "" && collegeEmail !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "") {
             collegeService.getCollegeProfile(collegeId).then(
                 (response) => {
@@ -66,7 +69,6 @@ const AddCollegeDetails = () => {
                     setState(response.data.state);
                     setCity(response.data.city);
                     setCollegePhoneNo(response.data.phoneNo);
-                    setCollegeUniversity(response.data.university);
                     setCutOff(response.data.cutOffRank);
                     console.log(collegeCourses);
                     setCollegeCourses(response.data.courses.map(
@@ -135,7 +137,9 @@ const AddCollegeDetails = () => {
         window.sessionStorage.removeItem("name");
         window.sessionStorage.removeItem("email");
         window.sessionStorage.removeItem("id");
-        window.sessionStorage.removeItem("university");
+        window.sessionStorage.removeItem("universityId");
+        window.sessionStorage.removeItem("universityEmail");
+        window.sessionStorage.removeItem("universityName");
         window.sessionStorage.removeItem("state");
         window.sessionStorage.removeItem("city");
         window.sessionStorage.removeItem("phone_no");
@@ -212,14 +216,19 @@ const AddCollegeDetails = () => {
         if (validation() === true) {
             addSelectedCourseList();
             console.log(courses);
-            let college = { "id": collegeId, name, email, university, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
+            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
             console.log(college);
             collegeService.updateCollegeDetails(college).then(() => {
                 setSuccessMesg("College Profile Updated");
+                console.log("College Profile Updated");
             }).catch(error => {
                 setErrorMesg("Something went wrong", error);
+                console.log(error);
             });
             setDetailsUpdated(true);
+            window.sessionStorage.setItem("success", "true");
+            // window.sessionStorage.setItem("updated", true);
+            window.sessionStorage.setItem("name", name);
         }
     }
 
@@ -245,7 +254,8 @@ const AddCollegeDetails = () => {
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
             {detailsUpdated && <Navigate to="/collegeDashboard" />}
-            <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
+            {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Back</button> */}
+            <button><Link to="/collegeDashboard" className="dropdown-item" >Back</Link></button>
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Details</h2>
@@ -259,7 +269,7 @@ const AddCollegeDetails = () => {
                                     <span className="text-danger">{nameError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" disabled/>
+                                    <input type="email" className="form-control" value={email} onChange={emailTextHandler} placeholder="name@example.com" disabled />
                                     <label>Email address</label>
                                     <span className="text-danger">{emailErr}</span>
                                 </div>
@@ -323,7 +333,6 @@ const AddCollegeDetails = () => {
                     <span className="text-success"><b>{successMesg}</b></span><span className="text-danger"><b>{errorMesg}</b></span>
                 </div >
             </div >
-
         </>
     );
 }

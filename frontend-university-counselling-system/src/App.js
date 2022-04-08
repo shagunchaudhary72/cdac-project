@@ -1,6 +1,3 @@
-
-<<<<<<< HEAD
-import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import RegisterAsCollege from './Components/College/RegisterAsCollege'
 import Login from './Components/Login/Login'
@@ -8,16 +5,9 @@ import AddStudentDetails from './Components/LoginAsStudent/AddStudentDetails'
 import NotFound from './Components/NotFound/NotFound'
 import RegisterStudent from './Components/RegisterAsStudent/RegisterStudent'
 import StudentDashboard from './Components/StudentDashboard/StudentDashboard'
-=======
+import CollegeSidebar from './Components/CollegeDashboard/CollegeSidebar'
 import React, { useEffect } from "react";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./Components/Login/Login";
-import AddStudentDetails from "./Components/LoginAsStudent/AddStudentDetails";
-import NotFound from "./Components/NotFound/NotFound";
-import RegisterStudent from "./Components/RegisterAsStudent/RegisterStudent";
-
->>>>>>> fdf8b3ffad971518afc2c0fb565d5fa26f465e66
 import Navbar from "./Components/Home/Navbar";
 import HomePage from "./Components/Home/HomePage";
 import About from "./Components/Pages/About";
@@ -68,90 +58,61 @@ const App = () => {
   //  }, 500);
 
 
- 
+
 
   return (
-<<<<<<< HEAD
-    <>
-      <BrowserRouter>
-        <Navbar />
-        <div>
+<BrowserRouter>
+  <Navbar />
+  <div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route exact path="/home" element={<HomePage />} />
 
-          <Routes>
-            <Route exact path="/home" element={<HomePage />} />
-            <Route exact path="/about" element={<About />} />
-            <Route path="/" element={<Login/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/registerStudent" element={<RegisterStudent/>} />
-            <Route path="/addStudentDetails" element={<AddStudentDetails/>} />
-            <Route path="/addCollegeDetails" element={<AddCollegeDetails/>} />
-            <Route path="/studentDashboard" element={<StudentDashboard />} />
-            <Route path="/collegeDashboard" element={<CollegeDashboard/>} />
-            <Route path="*" element={<NotFound/>} />
-            <Route path="/registerCollege" element={<RegisterAsCollege/>}/>
-            <Route path="/collegeProfile" element={<CollegeProfile/>} />
-          </Routes>
-        </div>
-        <footer className="footer section">
-          <Clients />
-          <ExtraInfo />
-          <Copyright />
-        </footer>
-      </BrowserRouter>
-    </>
-  )
-}
-=======
->>>>>>> fdf8b3ffad971518afc2c0fb565d5fa26f465e66
+      <Route path="/about" element={<About />} />
 
-    <BrowserRouter>
-      <Navbar />
-      <div>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route exact path="/home" element={<HomePage />} />
+      <Route path="/contact" element={<Contact />} />
 
-          <Route path="/about" element={<About />} />
+      <Route path="/login" element={<Login />} />
 
-          <Route path="/contact" element={<Contact />} />
+      <Route path="/register/student" element={<RegisterStudent />} />
 
-          <Route path="/login" element={<Login />} />
+      <Route path="/addStudentDetails" element={<AddStudentDetails />} />
 
-          <Route path="/register/student" element={<RegisterStudent />} />
+      {/* <Route path="/addPreference" element={<AddPreference/>} /> */}
 
-          <Route path="/addStudentDetails" element={<AddStudentDetails />} />
+      <Route path="/college_details/:name" element={<CollegePage />} />
+      <Route path="/addCollegeDetails" element={<AddCollegeDetails />} />
+      <Route path="/collegeDashboard" element={<CollegeSidebar />} />
+      <Route path="/registerCollege" element={<RegisterAsCollege />} />
+      <Route path="/collegeProfile" element={<CollegeProfile />} />
 
-          {/* <Route path="/addPreference" element={<AddPreference/>} /> */}
+      <Route path="/course_details/:courseName" element={<CoursePage />} />
 
-          <Route path="/college_details/:name" element={<CollegePage />} />
+      {/* <Route path="/studentDashboard" element={<StudentDashboard />} /> */}
 
-          <Route path="/course_details/:courseName" element={<CoursePage />} />
+      <Route path='/studentDashboard' element={<Sidebar />} />
+      {/* <Route path="/addQualification" element={<AddQualification />} /> */}
 
-         {/* <Route path="/studentDashboard" element={<StudentDashboard />} /> */}
-            
-                        <Route path='/studentDashboard' element={<Sidebar/>} />
-            {/* <Route path="/addQualification" element={<AddQualification />} /> */}
+      <Route path="/team" element={<TeamPage />} />
 
-          <Route path="/team" element={<TeamPage />} />
+      <Route path="/events" element={<EventsPage />} />
 
-          <Route path="/events" element={<EventsPage />} />
+      <Route path="/colleges" element={<CollegeList />} />
 
-          <Route path="/colleges" element={<CollegeList />} />
+      <Route path="/courses" element={<CourseList />} />
 
-          <Route path="/courses" element={<CourseList />} />
+      <Route path="/adminDashboard" element={<AdminDashboard />} />
 
-          <Route path="/adminDashboard" element={<AdminDashboard />} />
+      <Route path="*" element={<NotFound />} />
 
-          <Route path="*" element={<NotFound />} />
-
-        </Routes>
-      </div>
-      <footer className="footer section">
-        {/* <Clients /> */}
-        <ExtraInfo />
-        <Copyright />
-      </footer>
-    </BrowserRouter>
+    </Routes>
+  </div>
+  <footer className="footer section">
+    {/* <Clients /> */}
+    <ExtraInfo />
+    <Copyright />
+  </footer>
+</BrowserRouter>
   );
 };
 

@@ -20,12 +20,9 @@ const Login = () => {
     const [loggedInAsStudent,setLoggedInStudent] = useState(false);
     const [loggedInAsCollege,setLoggedInCollege] = useState(false);
     const [loggedInStudentAfterUpdatingDetails,setLoggedInStudentAfterUpdatingDetails] = useState(false);
-<<<<<<< HEAD
     const [loggedInCollegeAfterUpdatingDetails,setLoggedInCollegeAfterUpdatingDetails] = useState(false);
-=======
     const [show,setShow] = useState("");
     let snackbar2 = window.sessionStorage.getItem("snackbar2");
->>>>>>> fdf8b3ffad971518afc2c0fb565d5fa26f465e66
 
     useEffect(()=>{
         if(snackbar2==="show"){
@@ -116,43 +113,36 @@ const Login = () => {
                     let collegeState = response.data.state;
                     let collegePhonoNo = response.data.phoneNo;
                     let collegeSelectedCourses = response.data.courses;
-                    let university = response.data.university;
+                    let universityId = response.data.uniid;
+                    let universityEmail = response.data.uniemail;
+                    let universityName = response.data.uniname;
                     console.log(collegeId);
                     window.sessionStorage.setItem("id",collegeId);
                     window.sessionStorage.setItem("email",collegeEmail);
                     window.sessionStorage.setItem("name",collegeName);
                     window.sessionStorage.setItem("city",collegeCity);
                     window.sessionStorage.setItem("state",collegeState);
-                    window.sessionStorage.setItem("university", JSON.stringify(university));
+                    window.sessionStorage.setItem("universityId", universityId);
+                    window.sessionStorage.setItem("universityEmail", universityEmail);
+                    window.sessionStorage.setItem("universityName", universityName);
                     window.sessionStorage.setItem("phone_no",collegePhonoNo);
                     window.sessionStorage.setItem("courses",JSON.stringify(collegeSelectedCourses));
+                    window.sessionStorage.setItem("snackbar","show");
                 }
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);
             })
-<<<<<<< HEAD
-=======
         }
-
->>>>>>> fdf8b3ffad971518afc2c0fb565d5fa26f465e66
     }
-}
 
-<<<<<<< HEAD
-    return (
-        <>
-        {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
-        {loggedInAsCollege && <Navigate to="/addCollegeDetails" />}
-        {loggedInStudentAfterUpdatingDetails && <Navigate to="/studentDashboard"/>}
-        {loggedInCollegeAfterUpdatingDetails && <Navigate to="/collegeDashboard"/>}
-        <div className="container-fluid w-50 mt-5">
-=======
   return (
     <>
       {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
       {loggedInStudentAfterUpdatingDetails && (
         <Navigate to="/studentDashboard" />
       )}
+      {loggedInAsCollege && <Navigate to="/addCollegeDetails" />}
+      {loggedInCollegeAfterUpdatingDetails && <Navigate to="/collegeDashboard"/>}
       <div className="container-fluid w-50 mt-5">
         <div className="m-3">
           <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
@@ -160,7 +150,6 @@ const Login = () => {
             Please enter your login and password!
           </p>
           <div className="border border-1 rounded">
->>>>>>> fdf8b3ffad971518afc2c0fb565d5fa26f465e66
             <div className="m-3">
               <form onSubmit={onLoginSubmit}>
                 <div className="form-floating mb-3">
@@ -190,11 +179,7 @@ const Login = () => {
                                 <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
                                 <button type="submit" className="btn1 primary1">Login</button>
                                 <hr className="my-4" />
-<<<<<<< HEAD
                                 <p>Don't have an account? <Link to="/registerStudent" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="/registerCollege" className="link-success">College</a></p>
-=======
-                                <p>Don't have an account? <Link to="/register/student" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="#!" className="link-success">College</a></p>
->>>>>>> fdf8b3ffad971518afc2c0fb565d5fa26f465e66
                             </div>
                         </form>
                     </div>

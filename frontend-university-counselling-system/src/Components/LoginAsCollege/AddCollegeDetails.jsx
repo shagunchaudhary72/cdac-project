@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Login/Login.css"
 import { Navigate } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddCollegeDetails = () => {
 
     const collegeName = window.sessionStorage.getItem("name");
     const collegeEmail = window.sessionStorage.getItem("email");
     const collegeId = window.sessionStorage.getItem("id");
-    const university = JSON.parse(window.sessionStorage.getItem("university"));
+    const universityId = window.sessionStorage.getItem("universityId");
+    const universityEmail = window.sessionStorage.getItem("universityEmail");
+    const universityName = window.sessionStorage.getItem("universityName");
     const collegestate = window.sessionStorage.getItem("state");
     const collegecity = window.sessionStorage.getItem("city");
     const collegephoneNo = window.sessionStorage.getItem("phone_no");
-    const obj = { collegeName, collegeEmail, university, collegestate, collegecity, collegephoneNo };
+    const obj = { collegeName, collegeEmail, university:{"id":universityId, "universityName":universityName, "email":universityEmail}, collegestate, collegecity, collegephoneNo };
     const [loggedInCollegeFalse, setLoggedInCollegeFalse] = useState(false);
     let courses = [];
 
@@ -109,24 +113,71 @@ const AddCollegeDetails = () => {
         window.sessionStorage.removeItem("name");
         window.sessionStorage.removeItem("email");
         window.sessionStorage.removeItem("id");
-        window.sessionStorage.removeItem("university");
+        window.sessionStorage.removeItem("universityId");
+        window.sessionStorage.removeItem("universityEmail");
+        window.sessionStorage.removeItem("universityName");
         window.sessionStorage.removeItem("state");
         window.sessionStorage.removeItem("city");
         window.sessionStorage.removeItem("phone_no");
         setLogOut(true);
     }
 
+    function validation() {
+        let percentFlag = true;
+        let cutOffFlag = true;
+        let totalSeatsFlag = true;
+        let vaccantSeatsFlag = true;
+        setErrorMesg("");
+        setSuccessMesg("");
+        setPercentError("");
+        setCutOffError("");
+        setTotalSeatsError("");
+        setVaccantSeatsError("");
+        if (minimumPercentInBoards < 0) {
+            setPercentError("Please enter valid percentage");
+            percentFlag = false;
+        }
+        if (cutOffRank < 0) {
+            setCutOffError("Please enter valid cutOff Rank");
+            cutOffFlag = false;
+        }
+        if (totalSeats < 0) {
+            setTotalSeatsError("Please enter valid number of seats");
+            totalSeatsFlag = false;
+        }
+        if (vaccantSeats < 0) {
+            setVaccantSeatsError("Please enter valid number of seats");
+            vaccantSeatsFlag = false;
+        }
+        if (percentFlag && cutOffFlag && totalSeatsFlag && vaccantSeatsFlag) {
+            return true;
+        }
+        percentFlag = true;
+        cutOffFlag = true;
+        totalSeatsFlag = true;
+        vaccantSeatsFlag = true;
+        return false;
+    }
+
     let addCollegeDetails = (e) => {
         e.preventDefault();
+        if(validation() === true){
         addSelectedCourseList();
         console.log(courses);
-        let college = { "id": collegeId, name, email, university, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
+        let college = { "id": collegeId, name, email, university:{"id":universityId, "universityName":universityName, "":universityEmail}, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
         console.log(college);
         collegeService.updateCollegeDetails(college).then(() => {
             setSuccessMesg("College Profile Updated");
+            toast.dark("Details updated successfully",{
+                position:"botton-center"
+            });
         }).catch(error => {
             setErrorMesg("Something went wrong", error);
+            toast.danger("Something went wrong",{
+                position:"botton-center"
+            })
         });
+    }
     }
 
     const addSelectedCourseList = () => {
