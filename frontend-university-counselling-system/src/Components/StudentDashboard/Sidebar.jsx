@@ -1,5 +1,5 @@
-import React,{ useEffect, useState } from "react";
-import { Navigate, Link, useNavigate} from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import "../Login/Login.css";
 import "./StudentDashboard.css";
 import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
@@ -11,9 +11,12 @@ import AddQualification from "./AddQualification";
 import AddPreference from "./AddPreference";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
+import { UserContext } from "../../App";
 
 const Sidebar = () => {
-    const userData = window.sessionStorage.getItem("user");
+
+    const {state,dispatch} = useContext(UserContext);
+
     const studentName = window.sessionStorage.getItem("name");
     const studentEmail = window.sessionStorage.getItem("email");
     const studentAge = window.sessionStorage.getItem("age");
@@ -23,21 +26,16 @@ const Sidebar = () => {
     const [show2, setShow2] = useState("");
     const snackbar = window.sessionStorage.getItem("snackbar");
     const snackbar3 = window.sessionStorage.getItem("snackbar3");
-    const [qualification,setQualification] = useState(false);
-    const [preference,setPreference] = useState(false);
-    const [home,setHome] = useState(true);
-    const [dashboard,setDashboard] = useState(false);
-    const navigate = useNavigate();
+    const [qualification, setQualification] = useState(false);
+    const [preference, setPreference] = useState(false);
+    const [home, setHome] = useState(true);
+    const [dashboard, setDashboard] = useState(false);
+    const [unauthorizedStudentAccess, setUnauthorizedStudentAccess] = useState(false);
 
     useEffect(() => {
-        if (studentName === null || studentEmail === null || studentAge === null  ) {
+        if (studentName === null || studentEmail === null || studentAge === null) {
             setLoggedInStudentFalse(true);
-         }
-    // else if (userData.role !== "STUDENT" ){
-    //         //alert("Authorization Failed !!!");
-    //       //  navigate("/adminDashboard");
-    //         console.log( userData.role !== "ADMIN");           
-    // }
+        }
 
         if (snackbar === "show") {
             setShow(snackbar);
@@ -49,7 +47,8 @@ const Sidebar = () => {
             setTimeout(function () { setShow2(""); clearTimeout(); }, 3000)
             window.sessionStorage.removeItem("snackbar3");
         }
-    });
+
+    }, []);
 
     let logoutClick = () => {
         window.sessionStorage.removeItem("name");
@@ -58,55 +57,56 @@ const Sidebar = () => {
         window.sessionStorage.removeItem("id");
         window.sessionStorage.setItem("snackbar2", "show");
         setLogOut(true);
+        dispatch({type:"USER",payload:false});
     }
 
-    let showQualification = () =>{
-        if(home){
+    let showQualification = () => {
+        if (home) {
             setHome(false);
         }
-        if(dashboard){
+        if (dashboard) {
             setDashboard(false);
         }
-        if(preference){
+        if (preference) {
             setPreference(false);
         }
         setQualification(true);
     }
 
-    let showPreference = () =>{
-        if(home){
+    let showPreference = () => {
+        if (home) {
             setHome(false);
         }
-        if(dashboard){
+        if (dashboard) {
             setDashboard(false);
         }
-        if(qualification){
+        if (qualification) {
             setQualification(false);
         }
         setPreference(true);
     }
 
     let showHome = () => {
-        if(dashboard){
+        if (dashboard) {
             setDashboard(false);
         }
-        if(qualification){
+        if (qualification) {
             setQualification(false);
         }
-        if(preference){
+        if (preference) {
             setPreference(false);
         }
         setHome(true);
     }
 
-    let showDashboard = () =>{
-        if(home){
+    let showDashboard = () => {
+        if (home) {
             setHome(false);
         }
-        if(qualification){
+        if (qualification) {
             setQualification(false);
         }
-        if(preference){
+        if (preference) {
             setPreference(false);
         }
         setDashboard(true);
@@ -127,19 +127,19 @@ const Sidebar = () => {
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li onClick={showHome}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Home
+                            Home
                         </li>
                         <li onClick={showDashboard}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Dashboard
+                            Dashboard
                         </li>
                         <li onClick={showQualification}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Add Qualification
+                            Add Qualification
                         </li>
                         <li onClick={showPreference}>
                             <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Add Preferences
+                            Add Preferences
                         </li>
                     </ul>
                     <div style={{ marginTop: "150%" }}>
