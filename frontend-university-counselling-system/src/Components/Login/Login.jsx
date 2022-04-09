@@ -1,26 +1,39 @@
-import { useState } from "react";
+
+import React from 'react'
+import { useState , useEffect } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
 import { Link, Navigate } from "react-router-dom";
 import AddStudentDetails from "../LoginAsStudent/AddStudentDetails";
 
+
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailErr, setEmailErr] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [errorMesg, setErrorMesg] = useState("");
-  const [loggedInAsStudent, setLoggedInStudent] = useState(false);
-  const [
-    loggedInStudentAfterUpdatingDetails,
-    setLoggedInStudentAfterUpdatingDetails,
-  ] = useState(false);
+  
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [emailErr, setEmailErr] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [errorMesg, setErrorMesg] = useState("");
+    const [loggedInAsStudent,setLoggedInStudent] = useState(false);
+    const [loggedInStudentAfterUpdatingDetails,setLoggedInStudentAfterUpdatingDetails] = useState(false);
+    const [show,setShow] = useState("");
+    let snackbar2 = window.sessionStorage.getItem("snackbar2");
+
+    useEffect(()=>{
+        if(snackbar2==="show"){
+            setShow(snackbar2);
+            setTimeout(function(){ setShow("");clearTimeout(); }, 3000)
+            window.sessionStorage.removeItem("snackbar2");
+        }
+    })
 
   let emailTextHandler = (event) => {
     setEmailErr("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setEmail(event.target.value);
   };
+
 
   let passwordTextHandler = (event) => {
     setPasswordError("");
@@ -45,35 +58,38 @@ const Login = () => {
     }
   };
 
-  let onLoginSubmit = (event) => {
-    event.preventDefault();
-    if (validation() === true) {
-      let loginRequest = {
-        email,
-        password,
-      };
-      UserService.login(loginRequest)
-        .then((response) => {
-          setEmail("");
-          setPassword("");
-          if (response.data.role === "STUDENT") {
-            if (response.data.address === null) setLoggedInStudent(true);
-            else setLoggedInStudentAfterUpdatingDetails(true);
-            console.log("Login Successfully", response.data);
-            let studentEmail = response.data.email;
-            let studentName = response.data.name;
-            let studentAge = response.data.age;
-            let studentId = response.data.studentId;
-            console.log(studentId);
-            window.sessionStorage.setItem("id", studentId);
-            window.sessionStorage.setItem("email", studentEmail);
-            window.sessionStorage.setItem("name", studentName);
-            window.sessionStorage.setItem("age", studentAge);
-          }
-        })
-        .catch((error) => {
-          setErrorMesg("Email or Password is incorrect", error);
-        });
+
+    let onLoginSubmit = (event) => {
+        event.preventDefault();
+        if(validation()===true){
+            let loginRequest = {
+                email,password
+            }
+            UserService.login(loginRequest).then(response=>{
+                setEmail("");
+                setPassword("");
+                if(response.data.role === "STUDENT"){
+                    if(response.data.address===null)
+                        setLoggedInStudent(true);
+                    else
+                        setLoggedInStudentAfterUpdatingDetails(true);    
+                    console.log("Login Successfully",response.data);
+                    let studentEmail = response.data.email;
+                    let studentName = response.data.name;
+                    let studentAge = response.data.age;
+                    let studentId = response.data.studentId;
+                    console.log(studentId);
+                    window.sessionStorage.setItem("id",studentId);
+                    window.sessionStorage.setItem("email",studentEmail);
+                    window.sessionStorage.setItem("name",studentName);
+                    window.sessionStorage.setItem("age",studentAge);
+                    window.sessionStorage.setItem("snackbar","show");
+                }
+            }).catch(error=>{
+                setErrorMesg("Email or Password is incorrect",error);
+            })
+        }
+
     }
   };
 
@@ -115,37 +131,22 @@ const Login = () => {
                   <span className="text-danger">{passwordError}</span>
                 </div>
 
-                <div className="row g-1">
-                  <div className="text-center mb-2">
-                    <a href="#!" className="link-success">
-                      Forgot password?
-                    </a>
-                  </div>
-                  <button type="submit" className="btn1 primary1">
-                    Login
-                  </button>
-                  <hr className="my-4" />
-                  <p>
-                    Don't have an account?{" "}
-                    <Link to="/register/student" className="link-success">
-                      Register as Student
-                    </Link>
-                    <span className="text-secondary"> OR </span>
-                    <a href="#!" className="link-success">
-                      College
-                    </a>
-                  </p>
-                </div>
-              </form>
-            </div>
-          </div>
-          <span className="text-danger">
-            <b>{errorMesg}</b>
-          </span>
-        </div>
-      </div>
-    </>
-  );
-};
+                            <div className="row g-1">
+                                <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
+                                <button type="submit" className="btn1 primary1">Login</button>
+                                <hr className="my-4" />
+                                <p>Don't have an account? <Link to="/registerStudent" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="#!" className="link-success">College</a></p>
+                            </div>
+                        </form>
+                    </div >
+                </div >
+                <span className="text-danger"><b>{errorMesg}</b></span>
+            </div >
+        </div >
+        <div className={show} id="snackbar">You have successfully logged out..<output></output></div>
+        </>
+    );
+}
+
 
 export default Login;
