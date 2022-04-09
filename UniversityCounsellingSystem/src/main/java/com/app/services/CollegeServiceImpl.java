@@ -68,10 +68,10 @@ public class CollegeServiceImpl implements ICollegeService {
 
 	@Override
 	public College updateCollegeDetails(College editedCollegeData) {
-//		User user = userRepo.findByEmail(editedCollegeData.getEmail()).orElseThrow(()-> new ResourceNotFoundException("Invalid User Id "));
-//		user.setName(editedCollegeData.getName());
-//		user.setPhoneNo(editedCollegeData.getPhoneNo());
-//		userRepo.save(user);
+		User user = userRepo.findByEmail(editedCollegeData.getEmail()).orElseThrow(()-> new ResourceNotFoundException("Invalid User Id "));
+		user.setName(editedCollegeData.getName());
+		user.setPhoneNo(editedCollegeData.getPhoneNo());
+		userRepo.save(user);
 		return collegeRepo.save(editedCollegeData);
 	}
 
