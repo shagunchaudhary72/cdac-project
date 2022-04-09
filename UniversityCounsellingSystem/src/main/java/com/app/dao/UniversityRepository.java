@@ -10,4 +10,5 @@ public interface UniversityRepository extends JpaRepository<University, Integer>
 
 	//method to find university by email
 	Optional<University> findByEmail(String email);
+	
 }

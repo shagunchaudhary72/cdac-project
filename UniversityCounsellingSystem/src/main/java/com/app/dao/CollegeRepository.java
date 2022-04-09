@@ -16,4 +16,6 @@ public interface CollegeRepository extends JpaRepository<College, Integer> {
 
 	//method to get college by name
 	College findByName(String name);
+
+	College findByEmail(String email);
 }

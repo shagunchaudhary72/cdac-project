@@ -1,17 +1,22 @@
 
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer,useEffect } from "react";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import AddStudentDetails from "./Components/LoginAsStudent/AddStudentDetails";
 import NotFound from "./Components/NotFound/NotFound";
 import RegisterStudent from "./Components/RegisterAsStudent/RegisterStudent";
+import RegisterAsCollege from './Components/College/RegisterAsCollege'
+import CollegeSidebar from './Components/CollegeDashboard/CollegeSidebar'
 
 import HomePage from "./Components/Home/HomePage";
 import About from "./Components/Pages/About";
 import ExtraInfo from "./Components/Home/ExtraInfo";
 import Copyright from "./Components/Home/Copyright";
 import "./App.css";
+import AddCollegeDetails from './Components/LoginAsCollege/AddCollegeDetails'
+import CollegeDashboard from './Components/CollegeDashboard/CollegeDashboard'
+import CollegeProfile from './Components/College/CollegeProfile'
 
 import Sidebar from './Components/StudentDashboard/Sidebar'
 
@@ -42,6 +47,8 @@ const Routing = () =>{
 
       <Route path="/register/student" element={<RegisterStudent />} />
 
+
+
       <Route path="/add_student_details" element={<AddStudentDetails />} />
 
       {/* <Route path="/addPreference" element={<AddPreference/>} /> */}
@@ -65,6 +72,11 @@ const Routing = () =>{
 
       <Route path="/adminDashboard" element={<AdminDashboard />} />
 
+      <Route path="/addCollegeDetails" element={<AddCollegeDetails />} />
+      <Route path="/collegeDashboard" element={<CollegeSidebar />} />
+      <Route path="/register/college" element={<RegisterAsCollege />} />
+      <Route path="/collegeProfile" element={<CollegeProfile />} />
+
       <Route path="*" element={<NotFound />} />
 
     </Routes>
@@ -87,7 +99,65 @@ const App = () => {
         <Copyright />
       </footer>
     </BrowserRouter>
-  );
+  )
+
+
+//   return (
+// <BrowserRouter>
+//   <Navbar />
+//   <div>
+//     <Routes>
+//       <Route path="/" element={<HomePage />} />
+//       <Route exact path="/home" element={<HomePage />} />
+
+//       <Route path="/about" element={<About />} />
+
+//       <Route path="/contact" element={<Contact />} />
+
+//       <Route path="/login" element={<Login />} />
+
+//       <Route path="/register/student" element={<RegisterStudent />} />
+
+//       <Route path="/addStudentDetails" element={<AddStudentDetails />} />
+
+//       {/* <Route path="/addPreference" element={<AddPreference/>} /> */}
+
+//       <Route path="/college_details/:name" element={<CollegePage />} />
+
+
+//       <Route path="/course_details/:courseName" element={<CoursePage />} />
+
+//       {/* <Route path="/studentDashboard" element={<StudentDashboard />} /> */}
+
+//       <Route path='/studentDashboard' element={<Sidebar />} />
+//       {/* <Route path="/addQualification" element={<AddQualification />} /> */}
+
+//       <Route path="/team" element={<TeamPage />} />
+
+//       <Route path="/events" element={<EventsPage />} />
+
+//       <Route path="/colleges" element={<CollegeList />} />
+
+//       <Route path="/courses" element={<CourseList />} />
+
+//       <Route path="/adminDashboard" element={<AdminDashboard />} />
+
+//       <Route path="*" element={<NotFound />} />
+
+//     </Routes>
+//   </div>
+//   <footer className="footer section">
+//     {/* <Clients /> */}
+//     <ExtraInfo />
+//     <Copyright />
+//   </footer>
+// </BrowserRouter>
+  
+
+
+
+
+// );
 };
 
 export default App;
