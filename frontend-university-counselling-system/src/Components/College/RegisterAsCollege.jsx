@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
 import './RegisterAsCollege.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterAsCollege = () => {
 
@@ -24,6 +26,7 @@ const RegisterAsCollege = () => {
     const [errorMessageFlag, setErrorMessageFlag] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const [successMessageFlag, setSuccessMessageFlag] = useState(false);
+    const [navigateToLogin, setNavigateToLogin] = useState(false);
 
 
     function setErrorMessagesBlank() {
@@ -100,6 +103,7 @@ const RegisterAsCollege = () => {
                 setSuccessMessage("college data added successfully");
                 setSuccessMessageFlag(true);
                 console.log('college data added successfully!!!', response.data);
+                setNavigateToLogin(true);
             }
             ).then(setFormDataBlank())
                 .catch(error => {
@@ -117,7 +121,7 @@ const RegisterAsCollege = () => {
     }
 
     const setNameHandler = (e) => { setName(e.target.value) }
-    const setEmailHandler = (e) => { setEmail(e.target.value) }
+    const setEmailHandler = (e) => { setEmail(e.target.value.toLowerCase()) }
     const setPasswordHandler = (e) => { setPassword(e.target.value) }
 
     const setConfimrPasswordHandler = (e) => {
@@ -145,6 +149,8 @@ const RegisterAsCollege = () => {
 
 
     return (
+        <>
+        {navigateToLogin && <Navigate to="/login"/>}
         <div className="container-fluid w-50 mt-5">
             <div className="m-3">
                 <h2 className="fw-bold mb-2 text-uppercase">College Registration</h2>
@@ -212,6 +218,7 @@ const RegisterAsCollege = () => {
                 </div >
             </div >
         </div >
+        </>
     );
 }
 

@@ -112,7 +112,7 @@ const Login = () => {
                     let collegeId = response.data.collegeId;
                     let collegeCity = response.data.city;
                     let collegeState = response.data.state;
-                    let collegePhonoNo = response.data.phoneNo;
+                    let collegePhoneNo = response.data.phoneNo;
                     let collegeSelectedCourses = response.data.courses;
                     let universityId = response.data.uniid;
                     let universityEmail = response.data.uniemail;
@@ -126,7 +126,7 @@ const Login = () => {
                     window.sessionStorage.setItem("universityId", universityId);
                     window.sessionStorage.setItem("universityEmail", universityEmail);
                     window.sessionStorage.setItem("universityName", universityName);
-                    window.sessionStorage.setItem("phone_no",collegePhonoNo);
+                    window.sessionStorage.setItem("phone_no",collegePhoneNo);
                     window.sessionStorage.setItem("courses",JSON.stringify(collegeSelectedCourses));
                     window.sessionStorage.setItem("snackbar","show");
                 }

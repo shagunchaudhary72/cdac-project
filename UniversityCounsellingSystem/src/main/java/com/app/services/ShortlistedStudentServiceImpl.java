@@ -27,6 +27,7 @@ public class ShortlistedStudentServiceImpl implements IShortlistedStudentService
 
 	@Override
 	public List<ShortlistedStudentDto> getAllShortlistedStudentsByCollege(int id) {
+		System.out.println(shortlistStudentRepo.findShortlistedStudentsByCollegeId(id));
 		return shortlistStudentRepo.findShortlistedStudentsByCollegeId(id);
 	}
 

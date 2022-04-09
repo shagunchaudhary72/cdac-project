@@ -15,6 +15,7 @@ import Dashboard from "./CollegeDashboard";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CollegeDetails from '../CollegeDashboard/CollegeDetails'
+import ListShortlistedStudents from './ListShortlistedStudents';
 
 const CollegeSidebar = () => {
     const [collegeName, setCollegeName] = useState(window.sessionStorage.getItem("name"));
@@ -31,6 +32,7 @@ const CollegeSidebar = () => {
     const [home, setHome] = useState(true);
     const [dashboard, setDashboard] = useState(false);
     const [details, setShowDetails] = useState(false);
+    const [listShortlistedStudents, setListShortlistedStudents] = useState(false);
 
     useEffect(() => {
         if (collegeName === null || collegeEmail === null) {
@@ -91,6 +93,9 @@ const CollegeSidebar = () => {
         }
         if (dashboard) {
             setDashboard(false);
+        }
+        if(listShortlistedStudents){
+            setListShortlistedStudents(false); 
         }/*
         if(qualification){
             setQualification(false);
@@ -101,6 +106,9 @@ const CollegeSidebar = () => {
     let showHome = () => {
         if (dashboard) {
             setDashboard(false);
+        }
+        if(listShortlistedStudents){
+            setListShortlistedStudents(false); 
         }
         /*if(qualification){
             setQualification(false);
@@ -115,6 +123,9 @@ const CollegeSidebar = () => {
         if (home) {
             setHome(false);
         }
+        if(listShortlistedStudents){
+            setListShortlistedStudents(false); 
+        }
         /*if(qualification){
             setQualification(false);
         }*/
@@ -122,6 +133,22 @@ const CollegeSidebar = () => {
             setShowDetails(false);
         }
         setDashboard(true);
+    }
+
+    let showListShortlistedStudents = () => {
+        if (home) {
+            setHome(false);
+        }
+        if(dashboard){
+            setDashboard(false); 
+        }
+        /*if(qualification){
+            setQualification(false);
+        }*/
+        if (details) {
+            setShowDetails(false);
+        }
+        setListShortlistedStudents(true);
     }
 
     return (
@@ -148,6 +175,11 @@ const CollegeSidebar = () => {
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             College Details
                         </li>
+                        <li onClick={showListShortlistedStudents}>
+                            <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
+                            Students List Details
+                        </li>
+
                         {/*<li onClick={showQualification}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                                 Add Qualification
@@ -183,6 +215,7 @@ const CollegeSidebar = () => {
                     {/* {profile && <CollegeProfile />} */}
                     {/* {qualification && <AddQualification />} */}
                     {details && <CollegeDetails />}
+                    {listShortlistedStudents && <ListShortlistedStudents />}
                     <div className={show} id="snackbar">Login Successfully..</div>
                     <div className={show2} id="snackbar">College details are added..</div>
                 </div>

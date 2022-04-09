@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../Login/Login.css"
 import { Navigate, Link } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddCollegeDetails = () => {
 

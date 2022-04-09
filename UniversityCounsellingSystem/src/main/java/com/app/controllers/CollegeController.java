@@ -72,9 +72,7 @@ public class CollegeController {
 
 	@GetMapping("/{collegeId}/shortlisted_students")
 	public ResponseEntity<?> fetchAllSelectedStudentsByCollege(@PathVariable int collegeId) {
-
 		return ResponseEntity.ok().body(shortlistedStudentService.getAllShortlistedStudentsByCollege(collegeId));
-
 	}
 
 	@GetMapping("/{collegeId}/course/{courseId}/shortlisted_students")

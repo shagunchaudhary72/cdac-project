@@ -30,7 +30,7 @@ const AddCollegeDetails = () => {
     const [vaccantSeats, setVaccantSeats] = useState("");
     const [phoneNo, setCollegePhoneNo] = useState("");
     const [logOut, setLogOut] = useState(false);
-    const [navigateToLogin, setNavigateToLogin] = useState(false);
+    const [navigateToSidebar, setNavigateToSidebar] = useState(false);
 
     const [percentError, setPercentError] = useState("");
     const [cutOffError, setCutOffError] = useState("");
@@ -134,19 +134,19 @@ const AddCollegeDetails = () => {
         setCutOffError("");
         setTotalSeatsError("");
         setVaccantSeatsError("");
-        if (minimumPercentInBoards < 0) {
+        if (minimumPercentInBoards==="" || minimumPercentInBoards < 0) {
             setPercentError("Please enter valid percentage");
             percentFlag = false;
         }
-        if (cutOffRank < 0) {
+        if (cutOffRank==="" ||cutOffRank < 0) {
             setCutOffError("Please enter valid cutOff Rank");
             cutOffFlag = false;
         }
-        if (totalSeats < 0) {
+        if (totalSeats==="" || totalSeats < 0) {
             setTotalSeatsError("Please enter valid number of seats");
             totalSeatsFlag = false;
         }
-        if (vaccantSeats < 0) {
+        if (vaccantSeats==="" || vaccantSeats < 0) {
             setVaccantSeatsError("Please enter valid number of seats");
             vaccantSeatsFlag = false;
         }
@@ -165,7 +165,7 @@ const AddCollegeDetails = () => {
         if (validation() === true) {
             addSelectedCourseList();
             console.log(courses);
-            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
+            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
             console.log(college);
             collegeService.updateCollegeDetails(college).then(() => {
                 setSuccessMesg("College Profile Updated");
@@ -173,7 +173,7 @@ const AddCollegeDetails = () => {
                     position: "bottom-center"
                 });
                 //window.sessionStorage.setItem("success", "true");
-                setNavigateToLogin(true);
+                setNavigateToSidebar(true);
             }).catch(error => {
                 toast.warn("Something went wrong", {
                     position: "bottom-center"
@@ -196,7 +196,7 @@ const AddCollegeDetails = () => {
     return (
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
-            {navigateToLogin && <Navigate to="/login" />}
+            {navigateToSidebar && <Navigate to="/collegeDashboard" />}
             <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
