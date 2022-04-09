@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../Login/Login.css"
 import { Navigate, Link } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
+import { toast } from "react-toastify";
 
 const AddCollegeDetails = () => {
 
@@ -82,7 +83,10 @@ const AddCollegeDetails = () => {
                     getCourseList();
                 }
             ).catch(error => {
-                setErrorMesg("Something went wrong", error);
+                toast.warn("Something went wrong",{
+                    position:"bottom-center"
+                })
+                console.log("Something went wrong", error);
             });
         }
         else {
@@ -133,18 +137,18 @@ const AddCollegeDetails = () => {
         setEmail(event.target.value);
     }
 
-    let logoutClick = () => {
-        window.sessionStorage.removeItem("name");
-        window.sessionStorage.removeItem("email");
-        window.sessionStorage.removeItem("id");
-        window.sessionStorage.removeItem("universityId");
-        window.sessionStorage.removeItem("universityEmail");
-        window.sessionStorage.removeItem("universityName");
-        window.sessionStorage.removeItem("state");
-        window.sessionStorage.removeItem("city");
-        window.sessionStorage.removeItem("phone_no");
-        setLogOut(true);
-    }
+    // let logoutClick = () => {
+    //     window.sessionStorage.removeItem("name");
+    //     window.sessionStorage.removeItem("email");
+    //     window.sessionStorage.removeItem("id");
+    //     window.sessionStorage.removeItem("universityId");
+    //     window.sessionStorage.removeItem("universityEmail");
+    //     window.sessionStorage.removeItem("universityName");
+    //     window.sessionStorage.removeItem("state");
+    //     window.sessionStorage.removeItem("city");
+    //     window.sessionStorage.removeItem("phone_no");
+    //     setLogOut(true);
+    // }
 
     function validation() {
         let nameFlag = true;
@@ -177,7 +181,7 @@ const AddCollegeDetails = () => {
             setEmailErr("Email is in wrong format. Example: abc@gmail.com");
             emailFlag = false;
         }
-        if (minimumPercentInBoards < 0) {
+        if (minimumPercentInBoards ==="" || minimumPercentInBoards < 0) {
             setPercentError("Please enter valid percentage");
             percentFlag = false;
         }
@@ -255,7 +259,7 @@ const AddCollegeDetails = () => {
             {logOut && <Navigate to="/login" />}
             {detailsUpdated && <Navigate to="/collegeDashboard" />}
             {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Back</button> */}
-            <button><Link to="/collegeDashboard" className="dropdown-item" >Back</Link></button>
+            <button type="button" className="btn1 primary1"><Link to="/collegeDashboard" className="dropdown-item" >Back</Link></button>
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Details</h2>
@@ -282,12 +286,12 @@ const AddCollegeDetails = () => {
                                     <label>State</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" />
+                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" required/>
                                     <label>Phone No</label>
                                     <span className="text-danger">{phoneError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" />
+                                    <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" required/>
                                     <label>Minimum Percentage Required in Boards</label>
                                     <span className="text-danger">{percentError}</span>
                                 </div>
@@ -310,17 +314,17 @@ const AddCollegeDetails = () => {
                                     </table>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={cutOffRank} onChange={cutOffTextHandler} placeholder="Enter CutOff Rank" />
+                                    <input type="text" className="form-control" value={cutOffRank} onChange={cutOffTextHandler} placeholder="Enter CutOff Rank" required/>
                                     <label>Cutt Off Rank</label>
                                     <span className="text-danger">{cutOffError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={totalSeats} onChange={totalSeatsTextHandler} placeholder="Enter Marks" />
+                                    <input type="text" className="form-control" value={totalSeats} onChange={totalSeatsTextHandler} placeholder="Enter Totla Seats" required/>
                                     <label>Total Seats</label>
                                     <span className="text-danger">{totalSeatsError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={vaccantSeats} onChange={vaccantSeatsTextHandler} placeholder="Enter Marks" />
+                                    <input type="text" className="form-control" value={vaccantSeats} onChange={vaccantSeatsTextHandler} placeholder="Enter Vaccant Seats" required/>
                                     <label>Vacant Seats</label>
                                     <span className="text-danger">{vaccantSeatsError}</span>
                                 </div>

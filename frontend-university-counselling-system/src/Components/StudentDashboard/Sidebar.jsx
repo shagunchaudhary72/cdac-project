@@ -13,7 +13,7 @@ import Home from "./Home";
 import Dashboard from "./Dashboard";
 
 const Sidebar = () => {
-    const userData = window.sessionStorage.getItem("user");
+    //const userData = window.sessionStorage.getItem("user");
     const studentName = window.sessionStorage.getItem("name");
     const studentEmail = window.sessionStorage.getItem("email");
     const studentAge = window.sessionStorage.getItem("age");

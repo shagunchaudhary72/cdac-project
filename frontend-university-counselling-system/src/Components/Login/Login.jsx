@@ -101,7 +101,8 @@ const Login = () => {
                     window.sessionStorage.setItem('user',JSON.stringify(response.data));
                 }
                 else if(response.data.role === "COLLEGE"){
-                    if(response.data.cutOffRank==="" || response.data.minimumPercentInBoards==="" || response.data.totalSeats==="" || response.data.vaccantSeats==="" || response.data.courses===null)
+                  console.log(response.data);
+                    if(response.data.cutOffRank==="0" || response.data.minimumPercentInBoards==="0" || response.data.totalSeats==="0" || response.data.vaccantSeats==="0" || response.data.courses.length === 0)
                         setLoggedInCollege(true);      
                     else
                         setLoggedInCollegeAfterUpdatingDetails(true);  
@@ -179,7 +180,7 @@ const Login = () => {
                                 <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
                                 <button type="submit" className="btn1 primary1">Login</button>
                                 <hr className="my-4" />
-                                <p>Don't have an account? <Link to="/registerStudent" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="/registerCollege" className="link-success">College</a></p>
+                                <p>Don't have an account? <Link to="/register/student" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="/registerCollege" className="link-success">College</a></p>
                             </div>
                         </form>
                     </div>

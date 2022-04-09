@@ -4,7 +4,7 @@ import { Navigate, Link } from "react-router-dom";
 import "../Login/Login.css";
 import "./CollegeDashboard.css";
 import { AiFillDashboard, AiTwotoneHome, AiFillSetting } from "react-icons/ai";
-//import { ImBooks } from "react-icons/im";
+import { ImBooks } from "react-icons/im";
 //import { BsFillDoorOpenFill } from "react-icons/bs";
 import "./Sidebar.css";
 import { FaUserGraduate } from "react-icons/fa";
@@ -14,7 +14,7 @@ import Home from "./Home";
 import Dashboard from "./CollegeDashboard";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import CollegeProfile from '../College/CollegeProfile'
+import CollegeDetails from '../CollegeDashboard/CollegeDetails'
 
 const CollegeSidebar = () => {
     const [collegeName, setCollegeName] = useState(window.sessionStorage.getItem("name"));
@@ -30,7 +30,7 @@ const CollegeSidebar = () => {
     //const [preference,setPreference] = useState(false);
     const [home, setHome] = useState(true);
     const [dashboard, setDashboard] = useState(false);
-    // const [profile, setProfile] = useState(false);
+    const [details, setShowDetails] = useState(false);
 
     useEffect(() => {
         if (collegeName === null || collegeEmail === null) {
@@ -85,7 +85,7 @@ const CollegeSidebar = () => {
         setQualification(true);
     }*/
 
-    let showProfile = () => {
+    let showDetails = () => {
         if (home) {
             setHome(false);
         }
@@ -95,7 +95,7 @@ const CollegeSidebar = () => {
         if(qualification){
             setQualification(false);
         }*/
-        // setProfile(true);
+        setShowDetails(true);
     }
 
     let showHome = () => {
@@ -105,9 +105,9 @@ const CollegeSidebar = () => {
         /*if(qualification){
             setQualification(false);
         }*/
-        // if (profile) {
-        //     setProfile(false);
-        // }
+        if (details) {
+            setShowDetails(false);
+        }
         setHome(true);
     }
 
@@ -118,9 +118,9 @@ const CollegeSidebar = () => {
         /*if(qualification){
             setQualification(false);
         }*/
-        // if (profile) {
-        //     setProfile(false);
-        // }
+        if (details) {
+            setShowDetails(false);
+        }
         setDashboard(true);
     }
 
@@ -143,6 +143,10 @@ const CollegeSidebar = () => {
                         <li onClick={showDashboard}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Dashboard
+                        </li>
+                        <li onClick={showDetails}>
+                            <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
+                            College Details
                         </li>
                         {/*<li onClick={showQualification}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
@@ -178,7 +182,7 @@ const CollegeSidebar = () => {
                     {dashboard && <Dashboard />}
                     {/* {profile && <CollegeProfile />} */}
                     {/* {qualification && <AddQualification />} */}
-                    {/* {preference && <AddPreference />} */}
+                    {details && <CollegeDetails />}
                     <div className={show} id="snackbar">Login Successfully..</div>
                     <div className={show2} id="snackbar">College details are added..</div>
                 </div>

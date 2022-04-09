@@ -28,8 +28,6 @@ const CollegeDashboard = () => {
             <div>
                 Hello
             </div>
-            <Link to="/collegeProfile">To College Profile</Link>
-            <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
         </>
     );
 }

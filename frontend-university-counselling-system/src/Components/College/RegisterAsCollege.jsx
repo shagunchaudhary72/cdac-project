@@ -107,7 +107,10 @@ const RegisterAsCollege = () => {
                     setSuccessMessageFlag(false);
                     setErrorMessage(objectToArray.map((e) => { return e }));
                     setErrorMessageFlag(true);
-                    console.log('Something went wrong', error.response.data.email);
+                    toast.warn("Something went wrong",{
+                        position:"bottom-center"
+                    })
+                    console.log("Something went wrong", error);
                 });
         }
 
@@ -118,9 +121,8 @@ const RegisterAsCollege = () => {
     const setPasswordHandler = (e) => { setPassword(e.target.value) }
 
     const setConfimrPasswordHandler = (e) => {
-
+        setConfimrPassword(e.target.value);
         if (password === (e.target.value)) {
-            setConfimrPassword(e.target.value);
             setPasswordMatch(true);
             console.log("Passwords match")
         }
