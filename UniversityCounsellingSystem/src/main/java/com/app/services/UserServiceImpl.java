@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService {
 		
 		User user = userRepo.findByEmailAndPassword(email, password).orElseThrow(()->new AuthenticationException("Email-ID or Password is incorrect"));
 		if( user.getRole().equals(Role.ADMIN)) {	
-			University university = universityRepo.findByEmail( user.getEmail() ).get();
+			//University university = universityRepo.findByEmail( user.getEmail() ).get();
 			return new LoginResponse(user.getName(), user.getEmail(), user.getRole());
 		}
 		else if( user.getRole().equals(Role.STUDENT)) {

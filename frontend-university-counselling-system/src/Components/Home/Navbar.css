@@ -33,7 +33,6 @@
     padding:10px 0;
     margin: 0 10px;
     height: 100%;
-    text-align: center;
 }
 
 .navbar-right-logo{
@@ -75,7 +74,7 @@
 
 .navbar-profile{
     text-decoration: none;
-    font-size: 40px;
+    font-size: 20px;
     color: black;
     margin-left: 20px;
     cursor: pointer;
@@ -108,7 +107,7 @@
         font-size: 12px;
     }
     .navbar-profile{
-        font-size: 30px;
+        font-size: 15px;
         margin-left: 15px;
     }
     .navbar-login{
@@ -157,6 +156,7 @@
     }
 
 }
+
 
 /* @media only screen and (max-width: 800px){
     .navbar-right{

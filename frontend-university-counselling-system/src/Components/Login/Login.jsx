@@ -1,17 +1,17 @@
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState , useEffect } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
 import { Link, Navigate , useNavigate} from "react-router-dom";
-import AddStudentDetails from "../LoginAsStudent/AddStudentDetails";
+import { UserContext } from '../../App';
 
 
 
 const Login = () => {
-  
-    const navigate = useNavigate();
-    const[loggedIn, setLoggedIn] = useState();
+    
+    const {state,dispatch} = useContext(UserContext);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [emailErr, setEmailErr] = useState("");
@@ -21,6 +21,7 @@ const Login = () => {
     const [loggedInStudentAfterUpdatingDetails,setLoggedInStudentAfterUpdatingDetails] = useState(false);
     const [show,setShow] = useState("");
     let snackbar2 = window.sessionStorage.getItem("snackbar2");
+    const [loggedInAsAdmin,setLoggedInAsAdmin] = useState(false);
 
     useEffect(()=>{
         if(snackbar2==="show"){
@@ -28,7 +29,7 @@ const Login = () => {
             setTimeout(function(){ setShow("");clearTimeout(); }, 3000)
             window.sessionStorage.removeItem("snackbar2");
         }
-    },[loggedIn])
+    },[])
 
   let emailTextHandler = (event) => {
     setEmailErr("");
@@ -76,9 +77,7 @@ const Login = () => {
                   window.sessionStorage.setItem("name",user.name);
                   window.sessionStorage.setItem("snackbar","show");
                   console.log(user);
-                  window.sessionStorage.setItem('loggedIn','true');
-                  setLoggedIn(true);
-                  navigate('/adminDashboard');
+                  setLoggedInAsAdmin(true);
                 }
                 else if(response.data.role === "STUDENT"){
                     if(response.data.address===null)
@@ -96,8 +95,8 @@ const Login = () => {
                     window.sessionStorage.setItem("name",studentName);
                     window.sessionStorage.setItem("age",studentAge);
                     window.sessionStorage.setItem("snackbar","show");
-                    window.sessionStorage.setItem('user',JSON.stringify(response.data));
                 }
+                dispatch({type:"USER",payload:true})
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);
             })
@@ -107,9 +106,10 @@ const Login = () => {
 
   return (
     <>
-      {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
+      {loggedInAsAdmin && <Navigate to="/adminDashboard" />}
+      {loggedInAsStudent && <Navigate to="/add_student_details" />}
       {loggedInStudentAfterUpdatingDetails && (
-        <Navigate to="/studentDashboard" />
+        <Navigate to="/student_dashboard" />
       )}
       <div className="container-fluid w-50 mt-5">
         <div className="m-3">
