@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import React from 'react';
 import { Navigate, Link } from "react-router-dom";
 import "../Login/Login.css";
 import "./CollegeDashboard.css";
 import { AiFillDashboard, AiTwotoneHome, AiFillSetting } from "react-icons/ai";
 import { ImBooks } from "react-icons/im";
-//import { BsFillDoorOpenFill } from "react-icons/bs";
+import { BsPeopleFill } from "react-icons/bs";
 import "./Sidebar.css";
 import { FaUserGraduate } from "react-icons/fa";
 //import AddQualification from "./AddQualification";
@@ -15,8 +15,11 @@ import Dashboard from "./CollegeDashboard";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CollegeDetails from '../CollegeDashboard/CollegeDetails'
+import { UserContext } from "../../App";
+import ListShortlistedStudents from "./ListShortlistedStudents";
 
 const CollegeSidebar = () => {
+    const {state,dispatch} = useContext(UserContext);
     const [collegeName, setCollegeName] = useState(window.sessionStorage.getItem("name"));
     const collegeEmail = window.sessionStorage.getItem("email");
     //const studentAge = window.sessionStorage.getItem("age");
@@ -31,6 +34,7 @@ const CollegeSidebar = () => {
     const [home, setHome] = useState(true);
     const [dashboard, setDashboard] = useState(false);
     const [details, setShowDetails] = useState(false);
+    const [shortlistedStudents, setShowShortlistedStudents] = useState(false);
 
     useEffect(() => {
         if (collegeName === null || collegeEmail === null) {
@@ -67,23 +71,11 @@ const CollegeSidebar = () => {
         window.sessionStorage.removeItem("universityName");
         window.sessionStorage.removeItem("phone_no");
         window.sessionStorage.removeItem("courses");
-
+        window.sessionStorage.removeItem('role');
         window.sessionStorage.setItem("snackbar2", "show");
         setLogOut(true);
+        dispatch({type:"USER",payload:false})
     }
-
-    /*let showQualification = () =>{
-        if(home){
-            setHome(false);
-        }
-        if(dashboard){
-            setDashboard(false);
-        }
-        if(profile){
-            setProfile(false);
-        }
-        setQualification(true);
-    }*/
 
     let showDetails = () => {
         if (home) {
@@ -91,10 +83,10 @@ const CollegeSidebar = () => {
         }
         if (dashboard) {
             setDashboard(false);
-        }/*
-        if(qualification){
-            setQualification(false);
-        }*/
+        }
+        if(shortlistedStudents){
+            setShowShortlistedStudents(false);
+        }
         setShowDetails(true);
     }
 
@@ -102,11 +94,11 @@ const CollegeSidebar = () => {
         if (dashboard) {
             setDashboard(false);
         }
-        /*if(qualification){
-            setQualification(false);
-        }*/
         if (details) {
             setShowDetails(false);
+        }
+        if(shortlistedStudents){
+            setShowShortlistedStudents(false);
         }
         setHome(true);
     }
@@ -115,20 +107,33 @@ const CollegeSidebar = () => {
         if (home) {
             setHome(false);
         }
-        /*if(qualification){
-            setQualification(false);
-        }*/
         if (details) {
             setShowDetails(false);
         }
+        if(shortlistedStudents){
+            setShowShortlistedStudents(false);
+        }
         setDashboard(true);
+    }
+
+    let showShortlistedStudents = () =>{
+        if(home){
+            setHome(false);
+        }
+        if(dashboard){
+            setDashboard(false);
+        }
+        if(details){
+            setShowDetails(false);
+        }
+        setShowShortlistedStudents(true);
     }
 
     return (
         <div>
             {loggedInCollegeFalse && <Navigate to="/" />}
             {logOut && <Navigate to="/login" />}
-            <div className="row g-1 bg-light">
+            <div className="row g-1 bg-light w-100">
                 <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
                     <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                         <FaUserGraduate style={{ width: "30px" }} />
@@ -148,14 +153,10 @@ const CollegeSidebar = () => {
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             College Details
                         </li>
-                        {/*<li onClick={showQualification}>
-                            <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Add Qualification
+                        <li onClick={showShortlistedStudents}>
+                            <BsPeopleFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
+                            Shortlisted Students
                         </li>
-                        <li onClick={showPreference}>
-                            <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Add Preferences
-                        </li>*/}
                     </ul>
                     <div style={{ marginTop: "150%" }}>
                         <hr />
@@ -164,7 +165,7 @@ const CollegeSidebar = () => {
                                 <strong>{collegeName}</strong>
                             </a>
                             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                <li><Link to="/collegeProfile" className="dropdown-item" >Profile</Link></li>
+                                <li><Link to="/college_profile" className="dropdown-item" >Profile</Link></li>
                                 {/* <li onClick= { showProfile }>
                                     <AiFillSetting size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                                     Profile
@@ -180,9 +181,8 @@ const CollegeSidebar = () => {
                 <div className="col-10" style={{ backgroundColor: "#d3ded6" }}>
                     {home && <Home />}
                     {dashboard && <Dashboard />}
-                    {/* {profile && <CollegeProfile />} */}
-                    {/* {qualification && <AddQualification />} */}
                     {details && <CollegeDetails />}
+                    {shortlistedStudents && <ListShortlistedStudents />}
                     <div className={show} id="snackbar">Login Successfully..</div>
                     <div className={show2} id="snackbar">College details are added..</div>
                 </div>
