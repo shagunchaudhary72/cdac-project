@@ -10,7 +10,7 @@ const AddStudentDetails = () => {
     const studentId = window.sessionStorage.getItem("id");
     const obj = { studentName, studentEmail, studentAge };
     const [loggedInStudentFalse, setLoggedInStudentFalse] = useState(false);
-    const [logOut, setLogOut] = useState(false);
+    // const [logOut, setLogOut] = useState(false);
     const [studentProfileUpdated, setStudentProfileUpdated] = useState(false);
 
     const [name, setName] = useState("");
@@ -138,13 +138,13 @@ const AddStudentDetails = () => {
         }
     }
 
-    let logoutClick = () => {
-        window.sessionStorage.removeItem("name");
-        window.sessionStorage.removeItem("email");
-        window.sessionStorage.removeItem("age");
-        window.sessionStorage.removeItem("id");
-        setLogOut(true);
-    }
+    // let logoutClick = () => {
+    //     window.sessionStorage.removeItem("name");
+    //     window.sessionStorage.removeItem("email");
+    //     window.sessionStorage.removeItem("age");
+    //     window.sessionStorage.removeItem("id");
+    //     setLogOut(true);
+    // }
 
     let addStudentDetails = (e) => {
         e.preventDefault();
@@ -168,8 +168,8 @@ const AddStudentDetails = () => {
     return (
         <>{loggedInStudentFalse && <Navigate to="/login" />}
             {studentProfileUpdated && <Navigate to="/student_dashboard" />}
-            {logOut && <Navigate to="/login" />}
-            <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
+            {/* {logOut && <Navigate to="/login" />} */}
+            {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button> */}
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">Student Details</h2>

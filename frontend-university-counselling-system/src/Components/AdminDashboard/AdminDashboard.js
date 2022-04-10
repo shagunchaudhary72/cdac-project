@@ -54,6 +54,7 @@ const AdminDashboard = () => {
         window.sessionStorage.removeItem("name");
         window.sessionStorage.removeItem('user');
         window.sessionStorage.removeItem('loggedIn');
+        window.sessionStorage.removeItem('role');
         window.sessionStorage.setItem("snackbar2", "show");
         setLogOut(true);
         dispatch({type:"USER",payload:false})
@@ -116,7 +117,7 @@ const AdminDashboard = () => {
             {unauthorizedAdminAccess && <Navigate to="/" />}
             {notloggedInAsAdmin && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
-            <div className="row g-1 bg-light ">
+            <div className="row g-1 bg-light w-100">
                 <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
                     <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                         <FaUserGraduate style={{ width: "30px" }} />

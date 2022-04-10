@@ -220,7 +220,7 @@ const AddCollegeDetails = () => {
         if (validation() === true) {
             addSelectedCourseList();
             console.log(courses);
-            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
+            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail },phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats };
             console.log(college);
             collegeService.updateCollegeDetails(college).then(() => {
                 setSuccessMesg("College Profile Updated");
@@ -257,9 +257,9 @@ const AddCollegeDetails = () => {
     return (
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
-            {detailsUpdated && <Navigate to="/collegeDashboard" />}
+            {detailsUpdated && <Navigate to="/college_dashboard" />}
             {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Back</button> */}
-            <button type="button" className="btn1 primary1"><Link to="/collegeDashboard" className="dropdown-item" >Back</Link></button>
+            <button type="button" className="btn1 primary1"><Link to="/college_dashboard" className="dropdown-item" >Back</Link></button>
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Details</h2>

@@ -31,4 +31,8 @@ const getCollegeProfile = (collegeId) => {
     return axios.get("http://localhost:8080/college/profile/" + collegeId);
 }
 
-export default { createCollege, login, updateCollegeDetails, getCourseList, getCollegeProfile, getAllCollege, getCoursesOfCollge }
+const getShortlistedStudents= (collegeId) => {
+    return axios.get(COLLEGE_SERVICE_API_URL+"/"+collegeId+"/shortlisted_students")
+}
+
+export default { createCollege, login, updateCollegeDetails, getCourseList, getCollegeProfile, getAllCollege, getCoursesOfCollge, getShortlistedStudents }
