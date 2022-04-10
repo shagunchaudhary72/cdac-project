@@ -29,9 +29,7 @@ const AddCollegeDetails = () => {
     const [totalSeats, setTotalSeats] = useState("");
     const [vaccantSeats, setVaccantSeats] = useState("");
     const [phoneNo, setCollegePhoneNo] = useState("");
-    const [logOut, setLogOut] = useState(false);
-    const [navigateToSidebar, setNavigateToSidebar] = useState(false);
-    const [navigateToLogin, setNavigateToLogin] = useState(false);
+    const [navigateToDashboard, setNavigateToDashboard] = useState(false);
 
     const [percentError, setPercentError] = useState("");
     const [cutOffError, setCutOffError] = useState("");
@@ -111,19 +109,6 @@ const AddCollegeDetails = () => {
         setEmail(event.target.value);
     }
 
-    // let logoutClick = () => {
-    //     window.sessionStorage.removeItem("name");
-    //     window.sessionStorage.removeItem("email");
-    //     window.sessionStorage.removeItem("id");
-    //     window.sessionStorage.removeItem("universityId");
-    //     window.sessionStorage.removeItem("universityEmail");
-    //     window.sessionStorage.removeItem("universityName");
-    //     window.sessionStorage.removeItem("state");
-    //     window.sessionStorage.removeItem("city");
-    //     window.sessionStorage.removeItem("phone_no");
-    //     setLogOut(true);
-    // }
-
     function validation() {
         let percentFlag = true;
         let cutOffFlag = true;
@@ -135,19 +120,19 @@ const AddCollegeDetails = () => {
         setCutOffError("");
         setTotalSeatsError("");
         setVaccantSeatsError("");
-        if (minimumPercentInBoards==="" || minimumPercentInBoards < 0) {
+        if (minimumPercentInBoards < 0) {
             setPercentError("Please enter valid percentage");
             percentFlag = false;
         }
-        if (cutOffRank==="" ||cutOffRank < 0) {
+        if (cutOffRank < 0) {
             setCutOffError("Please enter valid cutOff Rank");
             cutOffFlag = false;
         }
-        if (totalSeats==="" || totalSeats < 0) {
+        if (totalSeats < 0) {
             setTotalSeatsError("Please enter valid number of seats");
             totalSeatsFlag = false;
         }
-        if (vaccantSeats==="" || vaccantSeats < 0) {
+        if (vaccantSeats < 0) {
             setVaccantSeatsError("Please enter valid number of seats");
             vaccantSeatsFlag = false;
         }
@@ -173,8 +158,7 @@ const AddCollegeDetails = () => {
                 toast.dark("Details updated successfully", {
                     position: "bottom-center"
                 });
-                //window.sessionStorage.setItem("success", "true");
-                setNavigateToSidebar(true);
+                setNavigateToDashboard(true);
             }).catch(error => {
                 toast.warn("Something went wrong", {
                     position: "bottom-center"
@@ -196,9 +180,7 @@ const AddCollegeDetails = () => {
 
     return (
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
-            {logOut && <Navigate to="/login" />}
-            {navigateToSidebar && <Navigate to="/collegeDashboard" />}
-            <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
+            {navigateToDashboard && <Navigate to="/college_dashboard" />}
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Details</h2>

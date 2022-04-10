@@ -60,7 +60,6 @@ const AddCollegeDetails = () => {
                     setEmail(response.data.email);
                     setState(response.data.state);
                     setCity(response.data.city);
-                    console.log("Hi"+response.data.phoneNo);
                     setCollegePhoneNo(response.data.phoneNo);
                     setCutOff(response.data.cutOffRank);
                     console.log(collegeCourses);

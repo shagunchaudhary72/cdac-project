@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../Login/Login.css"
 import { Navigate, Link } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddCollegeDetails = () => {
 
@@ -56,7 +57,10 @@ const AddCollegeDetails = () => {
                 setGotCourseList(true);
             }
         ).catch(error => {
-            console.log(error);
+            toast.warn("Something went wrong",{
+                position:"bottom-center"
+            })
+            console.log("Something went wrong", error);
         });
     }
 
@@ -336,6 +340,7 @@ const AddCollegeDetails = () => {
                     </div >
                     <span className="text-success"><b>{successMesg}</b></span><span className="text-danger"><b>{errorMesg}</b></span>
                 </div >
+                <ToastContainer />
             </div >
         </>
     );

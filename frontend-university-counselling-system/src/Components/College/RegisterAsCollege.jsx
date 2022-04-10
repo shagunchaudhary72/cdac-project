@@ -53,33 +53,29 @@ const RegisterAsCollege = () => {
 
         setErrorMessagesBlank();
         let regex = /[a-zA-Z0-9]+@{1}[a-zA-Z0-9]+\.[a-zA-Z]+/;
+        let phoneRegex = /^[0-9]{10}$/;
         if (name === "") {
             setnameError(true);
             return false;
         }
 
-        if (email === "") {
-            setemailError(true);
-            return false;
-        }
-        else if (regex.test(email) === false) {
+        if (regex.test(email) === false) {
             setemailError("true");
             return false;
         }
+
         if (password === "") {
             setpasswordError(true);
             return false;
         }
-        if (phone_no === "") {
+
+        if (phone_no.length != 10) {
             setphoneNoError(true);
             return false;
         }
-        if (city === "") {
-            setcityError(true);
-            return false;
-        }
-        if (state === "") {
-            setstateError(true);
+
+        if(regex.test(email) === false){
+            setphoneNoError(true);
             return false;
         }
         return true;
@@ -162,51 +158,50 @@ const RegisterAsCollege = () => {
                         <form onSubmit={submitHandler}>
 
                             <div className="form-outline mb-4">
-                                {nameError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                 <input type="text" id="name" className="form-control form-control-lg"
-                                    placeholder="Enter College Name" value={name} onChange={setNameHandler} />
+                                    placeholder="Enter College Name" value={name} onChange={setNameHandler} required/>
                                 {/* <label className="form-label" for="name">College Name</label> */}
                             </div>
 
                             <div className="form-outline mb-4">
-                                {emailError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
+                                {emailError && <span style={{ color: 'red' }}>Invalid Email Id</span>}
                                 <input type="email" id="form3Example3" className="form-control form-control-lg"
-                                    placeholder="Enter a valid email address" value={email} onChange={setEmailHandler} />
+                                    placeholder="Enter a valid email address" value={email} onChange={setEmailHandler} required/>
                                 {/* <label className="form-label" for="form3Example3">Email address</label> */}
                             </div>
 
                             <div className="form-outline mb-3">
-                                {passwordError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
+                                {passwordError && <span style={{ color: 'red' }}>Invalid Password</span>}
                                 <input type="password" id="password" className="form-control form-control-lg"
-                                    placeholder="Enter password" value={password} onChange={setPasswordHandler} />
+                                    placeholder="Enter password" value={password} onChange={setPasswordHandler} required/>
                                 {/* <label className="form-label" for="password">Password</label> */}
                             </div>
 
                             <div className="form-outline mb-3">
                                 {!passwordMatch && <span style={{ color: 'red' }}>Password does not match</span>}
                                 <input type="password" id="confirmPassword" value={confirmPassword} className="form-control form-control-lg"
-                                    placeholder="Confirm password" onChange={setConfimrPasswordHandler} />
+                                    placeholder="Confirm password" onChange={setConfimrPasswordHandler} required/>
                                 {/* <label className="form-label" for="confirmPassword">Confirm Password</label> */}
                             </div>
 
                             <div className="form-outline mb-4">
-                                {phoneNoError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
+                                {phoneNoError && <span style={{ color: 'red' }}>Invalid Phone Number</span>}
                                 <input type="text" id="phno" className="form-control form-control-lg"
-                                    placeholder="Enter Phone Number" value={phone_no} onChange={setPhoneNoHandler} />
+                                    placeholder="Enter Phone Number" value={phone_no} onChange={setPhoneNoHandler} required/>
                                 {/* <label className="form-label" for="phno">Phone Number</label> */}
                             </div>
 
                             <div className="form-outline mb-4">
-                                {cityError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
+                                {/* {cityError && <span style={{ color: 'red' }}>Field cannot be empty</span>} */}
                                 <input type="text" id="city" className="form-control form-control-lg"
-                                    placeholder="Enter City" value={city} onChange={setCityHandler} />
+                                    placeholder="Enter City" value={city} onChange={setCityHandler} required/>
                                 {/* <label className="form-label" for="city">City</label> */}
                             </div>
 
                             <div className="form-outline mb-4">
-                                {stateError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
+                                {/* {stateError && <span style={{ color: 'red' }}>Field cannot be empty</span>} */}
                                 <input type="text" id="state" className="form-control form-control-lg"
-                                    placeholder="Enter State" value={state} onChange={setStateHandler} />
+                                    placeholder="Enter State" value={state} onChange={setStateHandler} required/>
                             </div>
                             <div className="row g-1">
                                 <button type="submit" className="btn1 primary1">Register</button>
@@ -217,6 +212,7 @@ const RegisterAsCollege = () => {
                     </div >
                 </div >
             </div >
+            <ToastContainer />
         </div >
         </>
     );
