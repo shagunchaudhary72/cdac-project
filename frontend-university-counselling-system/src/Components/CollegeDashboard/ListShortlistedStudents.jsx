@@ -4,27 +4,42 @@ import CollegeService from '../../Services/CollegeService';
 
 const ListShortlistedStudents = () => {
 
-    const [collegeId, setCollegeId] = useState(window.sessionStorage.getItem("id"));
+    const collegeId = window.sessionStorage.getItem("id");
     const [formList, setFormList] = useState([]);
+    const [noFormData, setNoFormData] = useState(false);
     const [formData, setFormData] = useState(false);
 
     useEffect(() => {
         CollegeService.getShortlistedStudents(collegeId).then(response => {
-            if (response.data === null || response.data === "") {
-                setFormData(false);
+            let studentList = response.data;
+            if (studentList !== null && studentList.length!==0) {
+                console.log(studentList);
+                setFormList(studentList);
+                setFormData(true);
+                setNoFormData(false);
             }
             else {
-                setFormList(response.data);
-                setFormData(true);
+                console.log("Hello");
+                setNoFormData(true);
+                setFormData(false);
             }
         }
         ).catch(error => { console.log(error); });
-    }, []);
+    }, [noFormData, formData]);
+
 
     return (
         <>
-            {!formData && <h1>The result has not been declared yet</h1>}
-            <table className="table table-bordered table-striped">
+            {noFormData && <center>
+              <div className="border border-1 border-secondary w-25 rounded mt-5">
+                <div className="p-2">
+                  <h3 className="my-3">Result Status</h3>
+                  <hr/>
+                  <p className="text-danger">Not declared yet..</p>
+                </div>
+              </div>
+            </center>}
+            {formData && <div><h3 className="fw-bold mt-3 mb-5 text-center" style={{ color: "#1e3a54" }}>List of Shortlisted Students</h3><table className="table table-bordered table-striped">
                 <thead className="thead-dark">
                     <tr className="text-center">
                         <th>Student Id</th>
@@ -35,27 +50,27 @@ const ListShortlistedStudents = () => {
                     </tr>
                 </thead>
                 <tbody>
-                {formData && formList.map((student) => {
-                    return <tr>
-                        <td>
-                            {student.studentId}
-                        </td>
-                        <td>
-                            {student.name}
-                        </td>
-                        <td>
-                            {student.markInComp}
-                        </td>
-                        <td>
-                            {student.rankInComp}
-                        </td>
-                        <td>
-                            {student.courseName}
-                        </td>
-                    </tr>
-                })}
-            </tbody>
-        </table>
+                    {formList.map((student) => {
+                        return <tr className="text-center">
+                            <td>
+                                {student.studentId}
+                            </td>
+                            <td>
+                                {student.name}
+                            </td>
+                            <td>
+                                {student.markInComp}
+                            </td>
+                            <td>
+                                {student.rankInComp}
+                            </td>
+                            <td>
+                                {student.courseName}
+                            </td>
+                        </tr>
+                    })}
+                </tbody>
+            </table></div>}
         </>
     );
 }

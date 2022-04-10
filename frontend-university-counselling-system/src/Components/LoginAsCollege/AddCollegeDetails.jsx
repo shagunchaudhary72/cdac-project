@@ -31,6 +31,7 @@ const AddCollegeDetails = () => {
     const [phoneNo, setCollegePhoneNo] = useState("");
     const [logOut, setLogOut] = useState(false);
     const [navigateToSidebar, setNavigateToSidebar] = useState(false);
+    const [navigateToLogin, setNavigateToLogin] = useState(false);
 
     const [percentError, setPercentError] = useState("");
     const [cutOffError, setCutOffError] = useState("");
@@ -110,18 +111,18 @@ const AddCollegeDetails = () => {
         setEmail(event.target.value);
     }
 
-    let logoutClick = () => {
-        window.sessionStorage.removeItem("name");
-        window.sessionStorage.removeItem("email");
-        window.sessionStorage.removeItem("id");
-        window.sessionStorage.removeItem("universityId");
-        window.sessionStorage.removeItem("universityEmail");
-        window.sessionStorage.removeItem("universityName");
-        window.sessionStorage.removeItem("state");
-        window.sessionStorage.removeItem("city");
-        window.sessionStorage.removeItem("phone_no");
-        setLogOut(true);
-    }
+    // let logoutClick = () => {
+    //     window.sessionStorage.removeItem("name");
+    //     window.sessionStorage.removeItem("email");
+    //     window.sessionStorage.removeItem("id");
+    //     window.sessionStorage.removeItem("universityId");
+    //     window.sessionStorage.removeItem("universityEmail");
+    //     window.sessionStorage.removeItem("universityName");
+    //     window.sessionStorage.removeItem("state");
+    //     window.sessionStorage.removeItem("city");
+    //     window.sessionStorage.removeItem("phone_no");
+    //     setLogOut(true);
+    // }
 
     function validation() {
         let percentFlag = true;

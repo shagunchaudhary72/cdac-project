@@ -1,5 +1,5 @@
-import React,{ useEffect, useState } from "react";
-import { Navigate, Link, useNavigate} from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import "../Login/Login.css";
 import "../StudentDashboard/StudentDashboard.css";
 import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
@@ -9,144 +9,144 @@ import './AdminDashboard.css'
 import { FaUserGraduate } from "react-icons/fa";
 import ListOfStudents from "./ListOfStudents";
 import DeclareResult from "./DeclareResult";
+import { UserContext } from "../../App";
 // import Home from "./Home";
 
 const AdminDashboard = () => {
+    const {state,dispatch} = useContext(UserContext);
     const userData = JSON.parse(window.sessionStorage.getItem("user"));
-    const [loggedInStudentFalse, setLoggedInStudentFalse] = useState(false);
+    const name = window.sessionStorage.getItem("name");
+    const studentId = window.sessionStorage.getItem("id");
     const [logOut, setLogOut] = useState(false);
     const [show, setShow] = useState("");
     const [show2, setShow2] = useState("");
     const snackbar = window.sessionStorage.getItem("snackbar");
     const snackbar3 = window.sessionStorage.getItem("snackbar3");
-    const [listOfStudents,setListOfStudents] = useState(false);
-    const [home,setHome] = useState(true);
-    const [dashboard,setDashboard] = useState(false);
-    const [declareResult,setDeclareResult] = useState(false);
-    const navigate = useNavigate();
+    const [listOfStudents, setListOfStudents] = useState(false);
+    const [home, setHome] = useState(true);
+    const [dashboard, setDashboard] = useState(false);
+    const [notloggedInAsAdmin, setNotLoggedInAsAdmin] = useState(false);
+    const [declareResult, setDeclareResult] = useState(false);
+    const [unauthorizedAdminAccess, setUnauthorizedAdminAccess] = useState(false);
 
     useEffect(() => {
-        if ( userData == null ) {
-            setLoggedInStudentFalse(true);
-
+        if (studentId !== null) {
+            setUnauthorizedAdminAccess(true);
         }
-        // else if (userData.role !== "ADMIN" ){
-        //         //alert("Authorization Failed !!!");
-        //         navigate("/studentDashboard");
-        //         console.log( userData.role !== "ADMIN");           
-        // }
-
-        if (snackbar === "show") {
-            setShow(snackbar);
-            setTimeout(function () { setShow(""); clearTimeout(); }, 3000)
-            window.sessionStorage.removeItem("snackbar");
+        else {
+            if (userData === null) {
+                setNotLoggedInAsAdmin(true);
+            }
+            if (snackbar === "show") {
+                setShow(snackbar);
+                setTimeout(function () { setShow(""); clearTimeout(); }, 3000)
+                window.sessionStorage.removeItem("snackbar");
+            }
+            if (snackbar3 === "show") {
+                setShow2(snackbar3);
+                setTimeout(function () { setShow2(""); clearTimeout(); }, 3000)
+                window.sessionStorage.removeItem("snackbar3");
+            }
         }
-        if (snackbar3 === "show") {
-            setShow2(snackbar3);
-            setTimeout(function () { setShow2(""); clearTimeout(); }, 3000)
-            window.sessionStorage.removeItem("snackbar3");
-        }
-    });
+    }, []);
 
     let logoutClick = () => {
         window.sessionStorage.removeItem("name");
         window.sessionStorage.removeItem('user');
         window.sessionStorage.removeItem('loggedIn');
+        window.sessionStorage.removeItem('role');
         window.sessionStorage.setItem("snackbar2", "show");
         setLogOut(true);
+        dispatch({type:"USER",payload:false})
     }
 
-    let showListOfStudents = () =>{
-        if(home){
+    let showListOfStudents = () => {
+        if (home) {
             setHome(false);
         }
-        if(dashboard){
+        if (dashboard) {
             setDashboard(false);
         }
-        if(declareResult){
+        if (declareResult) {
             setDeclareResult(false);
         }
         setListOfStudents(true);
     }
 
-    let showResultPage = () =>{
-        if(home){
+    let showResultPage = () => {
+        if (home) {
             setHome(false);
         }
-        if(dashboard){
+        if (dashboard) {
             setDashboard(false);
         }
-        if(listOfStudents){
+        if (listOfStudents) {
             setListOfStudents(false);
         }
         setDeclareResult(true);
     }
 
     let showHome = () => {
-        if(dashboard){
+        if (dashboard) {
             setDashboard(false);
         }
-        if(listOfStudents){
+        if (listOfStudents) {
             setListOfStudents(false);
         }
-        if(declareResult){
+        if (declareResult) {
             setDeclareResult(false);
         }
         setHome(true);
     }
 
-    let showDashboard = () =>{
-        if(home){
+    let showDashboard = () => {
+        if (home) {
             setHome(false);
         }
-        if(listOfStudents){
+        if (listOfStudents) {
             setListOfStudents(false);
         }
-        if(declareResult){
+        if (declareResult) {
             setDeclareResult(false);
         }
         setDashboard(true);
     }
 
-    const loginRequired = () =>{
-        alert("Login Required !!!");
-        navigate('/login');
-    }
-
     return (
         <>
-            {loggedInStudentFalse && loginRequired }
+            {unauthorizedAdminAccess && <Navigate to="/" />}
+            {notloggedInAsAdmin && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
-            <div className="row g-1 bg-light ">
+            <div className="row g-1 bg-light w-100">
                 <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
                     <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                         <FaUserGraduate style={{ width: "30px" }} />
-                        <span className="fs-4">Hello <span className="text-success"><b>{userData.name}</b></span></span>
+                        <span className="fs-4">Hello <span className="text-success"><b>{name}</b></span></span>
                     </a>
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li onClick={showHome}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Home
+                            Home
                         </li>
                         <li onClick={showDashboard}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Dashboard
+                            Dashboard
                         </li>
                         <li onClick={showListOfStudents}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                List Of Students
+                            List Of Students
                         </li>
                         <li onClick={showResultPage}>
                             <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                Declare Result
+                            Declare Result
                         </li>
                     </ul>
                     <div style={{ marginTop: "150%" }}>
                         <hr />
                         <div className="dropdown">
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                                <strong>{userData.name}</strong>
+                                <strong>{name}</strong>
                             </a>
                             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                                 <li><Link to="/profile" className="dropdown-item" >Profile</Link></li>
@@ -161,8 +161,8 @@ const AdminDashboard = () => {
                 <div className="col-10" style={{ backgroundColor: "#d3ded6" }}>
                     {/* {home && <Home />} */}
                     {/* {dashboard && <Dashboard />} */}
-                    { listOfStudents && <ListOfStudents />} 
-                    { declareResult && <DeclareResult />}
+                    {listOfStudents && <ListOfStudents />}
+                    {declareResult && <DeclareResult />}
                     <div className={show} id="snackbar">Login Successfully..</div>
                     <div className={show2} id="snackbar">Student details are added..</div>
                 </div>

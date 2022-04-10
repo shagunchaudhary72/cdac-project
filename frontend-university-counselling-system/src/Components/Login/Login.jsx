@@ -1,17 +1,17 @@
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState , useEffect } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
 import { Link, Navigate , useNavigate} from "react-router-dom";
-import AddStudentDetails from "../LoginAsStudent/AddStudentDetails";
+import { UserContext } from '../../App';
 
 
 
 const Login = () => {
-  
-    const navigate = useNavigate();
-    const[loggedIn, setLoggedIn] = useState();
+    
+    const {state,dispatch} = useContext(UserContext);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [emailErr, setEmailErr] = useState("");
@@ -23,6 +23,7 @@ const Login = () => {
     const [loggedInCollegeAfterUpdatingDetails,setLoggedInCollegeAfterUpdatingDetails] = useState(false);
     const [show,setShow] = useState("");
     let snackbar2 = window.sessionStorage.getItem("snackbar2");
+    const [loggedInAsAdmin,setLoggedInAsAdmin] = useState(false);
 
     useEffect(()=>{
         if(snackbar2==="show"){
@@ -30,7 +31,7 @@ const Login = () => {
             setTimeout(function(){ setShow("");clearTimeout(); }, 3000)
             window.sessionStorage.removeItem("snackbar2");
         }
-    },[loggedIn])
+    },[])
 
   let emailTextHandler = (event) => {
     setEmailErr("");
@@ -76,11 +77,10 @@ const Login = () => {
                   const user = response.data;
                   window.sessionStorage.setItem('user',JSON.stringify(user));
                   window.sessionStorage.setItem("name",user.name);
+                  window.sessionStorage.setItem("role",user.role);
                   window.sessionStorage.setItem("snackbar","show");
                   console.log(user);
-                  window.sessionStorage.setItem('loggedIn','true');
-                  setLoggedIn(true);
-                  navigate('/adminDashboard');
+                  setLoggedInAsAdmin(true);
                 }
                 else if(response.data.role === "STUDENT"){
                     if(response.data.address===null)
@@ -97,9 +97,10 @@ const Login = () => {
                     window.sessionStorage.setItem("email",studentEmail);
                     window.sessionStorage.setItem("name",studentName);
                     window.sessionStorage.setItem("age",studentAge);
+                    window.sessionStorage.setItem("role",response.data.role);
                     window.sessionStorage.setItem("snackbar","show");
-                    window.sessionStorage.setItem('user',JSON.stringify(response.data));
                 }
+              
                 else if(response.data.role === "COLLEGE"){
                   console.log(response.data);
                     if(response.data.cutOffRank==="0" || response.data.minimumPercentInBoards==="0" || response.data.totalSeats==="0" || response.data.vaccantSeats==="0" || response.data.courses.length === 0)
@@ -128,8 +129,10 @@ const Login = () => {
                     window.sessionStorage.setItem("universityName", universityName);
                     window.sessionStorage.setItem("phone_no",collegePhoneNo);
                     window.sessionStorage.setItem("courses",JSON.stringify(collegeSelectedCourses));
+                    window.sessionStorage.setItem("role",response.data.role);
                     window.sessionStorage.setItem("snackbar","show");
                 }
+                dispatch({type:"USER",payload:true})
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);
             })
@@ -138,12 +141,13 @@ const Login = () => {
 
   return (
     <>
-      {loggedInAsStudent && <Navigate to="/addStudentDetails" />}
+      {loggedInAsAdmin && <Navigate to="/admin_dashboard" />}
+      {loggedInAsStudent && <Navigate to="/add_student_details" />}
       {loggedInStudentAfterUpdatingDetails && (
-        <Navigate to="/studentDashboard" />
+        <Navigate to="/student_dashboard" />
       )}
-      {loggedInAsCollege && <Navigate to="/addCollegeDetails" />}
-      {loggedInCollegeAfterUpdatingDetails && <Navigate to="/collegeDashboard"/>}
+      {loggedInAsCollege && <Navigate to="/add_college_details" />}
+      {loggedInCollegeAfterUpdatingDetails && <Navigate to="/college_dashboard"/>}
       <div className="container-fluid w-50 mt-5">
         <div className="m-3">
           <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
@@ -180,7 +184,7 @@ const Login = () => {
                                 <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
                                 <button type="submit" className="btn1 primary1">Login</button>
                                 <hr className="my-4" />
-                                <p>Don't have an account? <Link to="/register/student" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="/registerCollege" className="link-success">College</a></p>
+                                <p>Don't have an account? <Link to="/register/student" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="/register/college" className="link-success">College</a></p>
                             </div>
                         </form>
                     </div>
@@ -188,7 +192,7 @@ const Login = () => {
                 <span className="text-danger"><b>{errorMesg}</b></span>
             </div>
         </div>
-        <div className={show} id="snackbar">You have successfully logged out..<output></output></div>
+        <div className={show} id="snackbar">You have successfully logged out..</div>
         </>
     );
 }

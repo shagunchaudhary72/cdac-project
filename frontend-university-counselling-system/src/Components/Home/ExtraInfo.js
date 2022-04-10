@@ -51,13 +51,13 @@ const ExtraInfo = () => {
             <AiOutlineRight /> Our Colleges
           </li>
           <li>
-            <AiOutlineRight /> Our COurses
+            <AiOutlineRight /> Our Courses
           </li>
           <li>
             <AiOutlineRight /> Upcoming Events
           </li>
           <li>
-            <AiOutlineRight /> Faq's
+            <AiOutlineRight /> FAQ
           </li>
         </ul>
       </div>

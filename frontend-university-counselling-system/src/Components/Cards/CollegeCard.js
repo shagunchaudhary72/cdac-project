@@ -29,6 +29,7 @@ const CollegeCard = ({ collegeDetails }) => {
           </p>
           <p className="card-text">
             Available Courses :{" "}
+
             {  collegeDetails.courses.map((course) => {
               return course.courseName;
             })  }
