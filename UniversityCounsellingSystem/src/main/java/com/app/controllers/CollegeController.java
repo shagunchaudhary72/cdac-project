@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.app.services.IShortlistedStudentService;
 
 @RestController
 @RequestMapping("/college")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CollegeController {
 
 	@Autowired
@@ -30,10 +32,20 @@ public class CollegeController {
 	
 	@Autowired
 	IShortlistedStudentService shortlistedStudentService;
+	
+	@GetMapping
+	public ResponseEntity<?> getAllColleges(){
+		return ResponseEntity.ok().body(collegeService.getAllCollege());
+	}
 
 	@GetMapping("/profile/{collegeid}") // Get college profile
 	public ResponseEntity<?> showProfile(@PathVariable("collegeid") int id) {
 		return ResponseEntity.ok().body(collegeService.getCollegeDetails(id));
+	}
+	
+	@GetMapping("/{collegeName}/courses")
+	public ResponseEntity<?> getAllCoursesOfCllege(@PathVariable String collegeName){
+		return ResponseEntity.ok().body(collegeService.getAllCoursesOfCollege(collegeName));
 	}
 
 	@PutMapping("/edit") // Edit profile

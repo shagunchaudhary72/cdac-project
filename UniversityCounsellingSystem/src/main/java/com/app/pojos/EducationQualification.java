@@ -18,7 +18,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//@Embeddable
 @Entity
 @Table(name="education_qualification_tbl",uniqueConstraints = @UniqueConstraint(columnNames = { "edu_type", "student_id"}))
 @Getter

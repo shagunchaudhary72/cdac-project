@@ -3,17 +3,17 @@ import EventCard from "../Cards/EventCard";
 import "./Events.css";
 import { ImArrowRight2 } from "react-icons/im";
 import { Link } from "react-router-dom";
+import events from '../../EventsData'
 
 const Events = () => {
-  const list = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }];
 
-  const [events, SetEvents] = useState(list);
+  const [eventsData, SetEventsData] = useState(events);
 
   return (
     <section className="container events-section ">
       <div className="row justify-content-center">
         <div className="col-4">
-          <h1 className="text-center py-3 heading-bottom-border">
+          <h1 className="event-heading text-center py-3 heading-bottom-border">
             Upcoming Events
           </h1>
         </div>
@@ -21,7 +21,7 @@ const Events = () => {
       <div className="row">
         <div className="col-6 events-section-left"></div>
         <div className="col-6 events-section-right">
-          {events.map((event) => {
+          {eventsData.map((event) => {
             return <EventCard key={event.id} eventDetails={event} />;
           })}
           <div className="more-data">

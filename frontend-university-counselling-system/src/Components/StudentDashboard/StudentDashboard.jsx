@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Login/Login.css";
 import AddQualification from "./AddQualification";
 import Dashboard from "./Dashboard";

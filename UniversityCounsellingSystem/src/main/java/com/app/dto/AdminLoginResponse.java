@@ -10,17 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class LoginResponse {
-	private int studentId;
+public class AdminLoginResponse {
+	private int id;
 	private String email;
 	private String name;
-	private int age;
 	private Role role;
-	private Address address;
 
-	public LoginResponse(String name, String email, Role role) {
-		this.name = name;
-		this.email = email;
-		this.role = role;
-	}
 }

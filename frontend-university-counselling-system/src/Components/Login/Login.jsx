@@ -3,13 +3,15 @@ import React from 'react'
 import { useState , useEffect } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate , useNavigate} from "react-router-dom";
 import AddStudentDetails from "../LoginAsStudent/AddStudentDetails";
+
 
 
 const Login = () => {
   
-
+    const navigate = useNavigate();
+    const[loggedIn, setLoggedIn] = useState();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [emailErr, setEmailErr] = useState("");
@@ -26,7 +28,7 @@ const Login = () => {
             setTimeout(function(){ setShow("");clearTimeout(); }, 3000)
             window.sessionStorage.removeItem("snackbar2");
         }
-    })
+    },[loggedIn])
 
   let emailTextHandler = (event) => {
     setEmailErr("");
@@ -68,7 +70,17 @@ const Login = () => {
             UserService.login(loginRequest).then(response=>{
                 setEmail("");
                 setPassword("");
-                if(response.data.role === "STUDENT"){
+                if( response.data.role === "ADMIN"){
+                  const user = response.data;
+                  window.sessionStorage.setItem('user',JSON.stringify(user));
+                  window.sessionStorage.setItem("name",user.name);
+                  window.sessionStorage.setItem("snackbar","show");
+                  console.log(user);
+                  window.sessionStorage.setItem('loggedIn','true');
+                  setLoggedIn(true);
+                  navigate('/adminDashboard');
+                }
+                else if(response.data.role === "STUDENT"){
                     if(response.data.address===null)
                         setLoggedInStudent(true);
                     else
@@ -84,6 +96,7 @@ const Login = () => {
                     window.sessionStorage.setItem("name",studentName);
                     window.sessionStorage.setItem("age",studentAge);
                     window.sessionStorage.setItem("snackbar","show");
+                    window.sessionStorage.setItem('user',JSON.stringify(response.data));
                 }
             }).catch(error=>{
                 setErrorMesg("Email or Password is incorrect",error);
@@ -91,7 +104,6 @@ const Login = () => {
         }
 
     }
-  };
 
   return (
     <>
@@ -135,14 +147,14 @@ const Login = () => {
                                 <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
                                 <button type="submit" className="btn1 primary1">Login</button>
                                 <hr className="my-4" />
-                                <p>Don't have an account? <Link to="/registerStudent" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="#!" className="link-success">College</a></p>
+                                <p>Don't have an account? <Link to="/register/student" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="#!" className="link-success">College</a></p>
                             </div>
                         </form>
-                    </div >
-                </div >
+                    </div>
+                </div>
                 <span className="text-danger"><b>{errorMesg}</b></span>
-            </div >
-        </div >
+            </div>
+        </div>
         <div className={show} id="snackbar">You have successfully logged out..<output></output></div>
         </>
     );

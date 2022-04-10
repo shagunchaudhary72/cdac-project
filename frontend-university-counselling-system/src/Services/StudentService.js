@@ -14,4 +14,16 @@ const getEducationDetailsOfStudent = (id) =>{
     return axios.get(STUDENT_API_SERVICE_URL + "/student/educations/" + id);
 }
 
-export default { updateStudentDetails, updateEducation, getEducationDetailsOfStudent };
+const addPreference = (id,preference) =>{
+    return axios.post(STUDENT_API_SERVICE_URL+"/students/"+id+"/preference",preference);
+}
+
+const getPreferences = (id) =>{
+    return axios.get(STUDENT_API_SERVICE_URL+"/students/preference/"+id);
+}
+
+const deletePreference = (studentId,preferenceId)=>{
+    return axios.delete(STUDENT_API_SERVICE_URL+"/student/"+studentId+"/preference/"+preferenceId);
+}
+
+export default {updateStudentDetails, updateEducation, getEducationDetailsOfStudent,addPreference,getPreferences,deletePreference};
