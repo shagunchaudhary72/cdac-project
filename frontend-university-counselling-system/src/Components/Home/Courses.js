@@ -36,7 +36,7 @@ const Courses = () => {
       <div className="course-section-row2">
         { isFullfilled ? courseList.map((course) => {
           return <CourseCard key={course.id} courseDetails={course} />;
-        }) : <h3 className="text-center text-success">No Data Available.......</h3>}
+        }) : <h3 className="text-center text-success">No Data Available.</h3>}
       </div>
         {
           isFullfilled &&

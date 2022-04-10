@@ -7,7 +7,7 @@ import { AiFillDashboard, AiTwotoneHome, AiFillSetting } from "react-icons/ai";
 import { ImBooks } from "react-icons/im";
 import { BsPeopleFill } from "react-icons/bs";
 import "./Sidebar.css";
-import { FaUserGraduate } from "react-icons/fa";
+import { FaUniversity } from "react-icons/fa";
 //import AddQualification from "./AddQualification";
 //import AddPreference from "./AddPreference";
 import Home from "./Home";
@@ -136,7 +136,7 @@ const CollegeSidebar = () => {
             <div className="row g-1 bg-light w-100">
                 <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
                     <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                        <FaUserGraduate style={{ width: "30px" }} />
+                        <FaUniversity style={{ width: "30px" }} />
                         <span className="fs-4">Hello <span className="text-success"><b>{collegeName}</b></span></span>
                     </a>
                     <hr />
