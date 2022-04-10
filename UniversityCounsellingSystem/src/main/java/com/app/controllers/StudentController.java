@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dao.StudentRepository;
 import com.app.pojos.EducationQualification;
 import com.app.pojos.Preference;
 import com.app.pojos.Student;
@@ -98,6 +99,14 @@ public class StudentController {
 	@DeleteMapping("/student/{studentId}/preference/{preferenceId}")
 	public ResponseEntity<?> deletePreference(@PathVariable int studentId, @PathVariable int preferenceId){
 		return ResponseEntity.ok().body(preferenceService.deletePreference(studentId, preferenceId));
+	}
+	
+	@DeleteMapping("/student/{studentId}/education/{educationId}")
+	public ResponseEntity<?> deleteQualification(@PathVariable int educationId,@PathVariable int studentId){
+		Student student = studentService.getStudentDetails(studentId);
+		EducationQualification eq = eduService.getEducationById(educationId);
+		student.removeEducation(eq);
+		return ResponseEntity.ok().body(studentService.updateStudent(student));
 	}
 
 }

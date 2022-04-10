@@ -69,7 +69,7 @@ const Header = () => {
     }
 
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" className='sticky-top'>
             <Container>
                 <NavLink to="/">
                     <img src={NavbarLogo} alt="ucs_logo" width={300} height={50} />
@@ -82,7 +82,7 @@ const Header = () => {
                         <NavLink className='navbar-link' to='/events'><BiNews className='navbar-right-logo' /> Events</NavLink>
                         <NavLink className='navbar-link' to='/about'><BiNews className='navbar-right-logo' /> About</NavLink>
                         <NavLink className='navbar-link' to='/contact'><MdContactPage className='navbar-right-logo' /> Contact Us</NavLink>
-                        <NavDropdown title={<IoIosContact/>} className="navbar-profile">
+                        <NavDropdown title={<IoIosContact/>} className="navbar-profile" >
                             <RenderMenu />
                         </NavDropdown>
                     </Nav>

@@ -33,6 +33,7 @@ const Sidebar = () => {
     const [dashboard, setDashboard] = useState(false);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (studentName === null || studentEmail === null || studentAge === null) {
             setLoggedInStudentFalse(true);
         }
@@ -120,25 +121,25 @@ const Sidebar = () => {
             {logOut && <Navigate to="/login" />}
             <div className="row g-1 bg-light w-100">
                 <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
-                    <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" >
                         <FaUserGraduate style={{ width: "30px" }} />
                         <span className="fs-4">Hello <span className="text-success"><b>{studentName}</b></span></span>
                     </a>
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
-                        <li onClick={showHome}>
+                        <li onClick={showHome} style={{cursor:"context-menu"}}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>
-                        <li onClick={showDashboard}>
+                        <li onClick={showDashboard} style={{cursor:"context-menu"}}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Dashboard
                         </li>
-                        <li onClick={showQualification}>
+                        <li onClick={showQualification} style={{cursor:"context-menu"}}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Add Qualification
                         </li>
-                        <li onClick={showPreference}>
+                        <li onClick={showPreference} style={{cursor:"context-menu"}}>
                             <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Add Preferences
                         </li>

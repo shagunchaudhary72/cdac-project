@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import CollegeService from "../../Services/CollegeService";
 import StudentService from "../../Services/StudentService";
@@ -13,10 +13,12 @@ const AddPreference = () => {
     const [courseErr, setCourseErr] = useState("");
     const [show, setShow] = useState("");
     const [show2, setShow2] = useState("");
+    const [show3,setShow3] = useState("");
     const [error, setError] = useState("");
     const [colleges, setColleges] = useState([]);
     const [courses, setCourses] = useState([]);
     const [preferences, setPreferences] = useState([]);
+    const [education, setEducation] = useState([]);
 
     const initCourse = (collegeName) => {
         CollegeService.getCoursesOfCollge(collegeName).then(response => {
@@ -46,6 +48,7 @@ const AddPreference = () => {
     }
     useEffect(() => {
         getPreferenceList(userId);
+        educationChecking(userId);
     }, [])
     useEffect(() => {
         const email = window.sessionStorage.getItem("email");
@@ -91,28 +94,43 @@ const AddPreference = () => {
         }
     }
 
+    let educationChecking = (id) => {
+        StudentService.getEducationDetailsOfStudent(id).then(response => {
+            console.log(response.data);
+            setEducation(response.data);
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     let onAddPreferenceSubmit = (event) => {
         event.preventDefault();
         if (validation()) {
-            let preference = { "collegePreference": college, "coursePreference": course };
-            StudentService.addPreference(userId, preference).then(response => {
-                console.log(response.data);
-                setShow("show");
-                getPreferenceList(userId);
-                setTimeout(function () { setShow(""); clearTimeout(); }, 3000);
-            }).catch(err => {
-                console.log("Something Went Wrong", err);
-                setError("You have already added this preference in list");
-            })
+            if (education.length === 2) {
+                let preference = { "collegePreference": college, "coursePreference": course };
+                StudentService.addPreference(userId, preference).then(response => {
+                    console.log(response.data);
+                    setShow("show");
+                    getPreferenceList(userId);
+                    setTimeout(function () { setShow(""); clearTimeout(); }, 3000);
+                }).catch(err => {
+                    console.log("Something Went Wrong", err);
+                    setError("You have already added this preference in list");
+                })
+            }
+            else{
+                setShow3("show");
+                setTimeout(function () { setShow3(""); clearTimeout(); }, 3000);
+            }
         }
     }
 
-    let handleDelete=(p_id)=>{
-        StudentService.deletePreference(userId,p_id).then(response=>{
+    let handleDelete = (p_id) => {
+        StudentService.deletePreference(userId, p_id).then(response => {
             setShow2("show");
             getPreferenceList(userId);
             setTimeout(function () { setShow2(""); clearTimeout(); }, 3000);
-        }).catch(err=>{
+        }).catch(err => {
             alert("Delete Process Cancelled..");
         })
     }
@@ -159,6 +177,7 @@ const AddPreference = () => {
                     <span className="text-danger">{error}</span>
                     <div className={show} id="snackbar">Preference Added Successfully<output></output></div>
                     <div className={show2} id="snackbar">Preference Deleted Successfully<output></output></div>
+                    <div className={show3} id="snackbar">Please add your Education Details<output></output></div>
                 </div >
 
                 <hr />

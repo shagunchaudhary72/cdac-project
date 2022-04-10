@@ -7,7 +7,7 @@ import { AiFillDashboard, AiTwotoneHome, AiFillSetting } from "react-icons/ai";
 import { ImBooks } from "react-icons/im";
 import { BsPeopleFill } from "react-icons/bs";
 import "./Sidebar.css";
-import { FaUserGraduate } from "react-icons/fa";
+import { FaUniversity } from "react-icons/fa";
 //import AddQualification from "./AddQualification";
 //import AddPreference from "./AddPreference";
 import Home from "./Home";
@@ -35,6 +35,11 @@ const CollegeSidebar = () => {
     const [dashboard, setDashboard] = useState(false);
     const [details, setShowDetails] = useState(false);
     const [shortlistedStudents, setShowShortlistedStudents] = useState(false);
+
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[])
+    
 
     useEffect(() => {
         if (collegeName === null || collegeEmail === null) {
@@ -136,24 +141,24 @@ const CollegeSidebar = () => {
             <div className="row g-1 bg-light w-100">
                 <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
                     <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                        <FaUserGraduate style={{ width: "30px" }} />
+                        <FaUniversity style={{ width: "30px" }} />
                         <span className="fs-4">Hello <span className="text-success"><b>{collegeName}</b></span></span>
                     </a>
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
-                        <li onClick={showHome}>
+                        <li onClick={showHome} style={{cursor:"context-menu"}}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>
-                        <li onClick={showDashboard}>
+                        <li onClick={showDashboard} style={{cursor:"context-menu"}}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Dashboard
                         </li>
-                        <li onClick={showDetails}>
+                        <li onClick={showDetails} style={{cursor:"context-menu"}}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             College Details
                         </li>
-                        <li onClick={showShortlistedStudents}>
+                        <li onClick={showShortlistedStudents} style={{cursor:"context-menu"}}>
                             <BsPeopleFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Shortlisted Students
                         </li>

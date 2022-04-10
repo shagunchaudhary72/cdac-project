@@ -8,4 +8,5 @@ public interface CoureseRepository extends JpaRepository<Course, Integer>{
 
 	//method to get course by name
 	Course findByCourseName(String courseName );
+	
 }
