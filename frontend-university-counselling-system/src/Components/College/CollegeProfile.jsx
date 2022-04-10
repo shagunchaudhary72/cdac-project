@@ -181,7 +181,7 @@ const AddCollegeDetails = () => {
             setEmailErr("Email is in wrong format. Example: abc@gmail.com");
             emailFlag = false;
         }
-        if (minimumPercentInBoards ==="" || minimumPercentInBoards < 0) {
+        if (minimumPercentInBoards < 0) {
             setPercentError("Please enter valid percentage");
             percentFlag = false;
         }
