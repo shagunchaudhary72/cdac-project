@@ -20,6 +20,7 @@ import com.app.dto.CollegeUserDTO;
 import com.app.dto.NewCourse;
 import com.app.pojos.College;
 import com.app.services.ICollegeService;
+import com.app.services.ICourseService;
 import com.app.services.IShortlistedStudentService;
 
 @RestController
@@ -29,6 +30,9 @@ public class CollegeController {
 
 	@Autowired
 	ICollegeService collegeService;
+	
+	@Autowired
+	ICourseService courseService;
 	
 	@Autowired
 	IShortlistedStudentService shortlistedStudentService;
@@ -78,4 +82,9 @@ public class CollegeController {
 			@PathVariable int courseId) {
 		return ResponseEntity.ok().body(shortlistedStudentService.getAllShortlistedStudentsByCollegeCourse(collegeId, courseId));
 	}
+	
+	@GetMapping("/courseList")
+	public ResponseEntity<?> getCourseList() {
+		return ResponseEntity.ok().body(courseService.listOfCourses());
+	} 
 }

@@ -26,10 +26,12 @@ public class CentralExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		System.out.println("In @Valid Error Handler\n");
 		//storing exception fields and messages
 		Map<String, String> exceptionMap = ex.getFieldErrors()	// provides list errors associated to "ex"
 											.stream()
 											.collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+		System.out.println(exceptionMap.values().toString());
 		return ResponseEntity.badRequest().body(exceptionMap);
 	}
 	
