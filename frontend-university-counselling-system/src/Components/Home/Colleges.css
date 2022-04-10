@@ -8,7 +8,7 @@
 
 .college-section-row2{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1.5rem;
