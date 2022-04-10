@@ -15,7 +15,6 @@ import ExtraInfo from "./Components/Home/ExtraInfo";
 import Copyright from "./Components/Home/Copyright";
 import "./App.css";
 import AddCollegeDetails from './Components/LoginAsCollege/AddCollegeDetails'
-import CollegeDashboard from './Components/CollegeDashboard/CollegeDashboard'
 import CollegeProfile from './Components/College/CollegeProfile'
 
 import Sidebar from './Components/StudentDashboard/Sidebar'
@@ -51,16 +50,11 @@ const Routing = () =>{
 
       <Route path="/add_student_details" element={<AddStudentDetails />} />
 
-      {/* <Route path="/addPreference" element={<AddPreference/>} /> */}
-
       <Route path="/college_details/:name" element={<CollegePage />} />
 
       <Route path="/course_details/:courseName" element={<CoursePage />} />
 
-      {/* <Route path="/studentDashboard" element={<StudentDashboard />} /> */}
-
       <Route path='/student_dashboard' element={<Sidebar />} />
-      {/* <Route path="/addQualification" element={<AddQualification />} /> */}
 
       <Route path="/team" element={<TeamPage />} />
 
@@ -70,12 +64,12 @@ const Routing = () =>{
 
       <Route path="/courses" element={<CourseList />} />
 
-      <Route path="/adminDashboard" element={<AdminDashboard />} />
+      <Route path="/admin_dashboard" element={<AdminDashboard />} />
 
-      <Route path="/addCollegeDetails" element={<AddCollegeDetails />} />
-      <Route path="/collegeDashboard" element={<CollegeSidebar />} />
+      <Route path="/add_college_details" element={<AddCollegeDetails />} />
+      <Route path="/college_dashboard" element={<CollegeSidebar />} />
       <Route path="/register/college" element={<RegisterAsCollege />} />
-      <Route path="/collegeProfile" element={<CollegeProfile />} />
+      <Route path="/college_profile" element={<CollegeProfile />} />
 
       <Route path="*" element={<NotFound />} />
 
@@ -86,6 +80,16 @@ const Routing = () =>{
 const App = () => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const username = window.sessionStorage.getItem("name");
+  useEffect(() => {
+    if(username!==null){
+      dispatch({type:"USER",payload:true});
+    }
+    else{
+      dispatch({type:"USER",payload:false});
+    }
+  }, [])
+  
 
   return (
 
@@ -100,64 +104,6 @@ const App = () => {
       </footer>
     </BrowserRouter>
   )
-
-
-//   return (
-// <BrowserRouter>
-//   <Navbar />
-//   <div>
-//     <Routes>
-//       <Route path="/" element={<HomePage />} />
-//       <Route exact path="/home" element={<HomePage />} />
-
-//       <Route path="/about" element={<About />} />
-
-//       <Route path="/contact" element={<Contact />} />
-
-//       <Route path="/login" element={<Login />} />
-
-//       <Route path="/register/student" element={<RegisterStudent />} />
-
-//       <Route path="/addStudentDetails" element={<AddStudentDetails />} />
-
-//       {/* <Route path="/addPreference" element={<AddPreference/>} /> */}
-
-//       <Route path="/college_details/:name" element={<CollegePage />} />
-
-
-//       <Route path="/course_details/:courseName" element={<CoursePage />} />
-
-//       {/* <Route path="/studentDashboard" element={<StudentDashboard />} /> */}
-
-//       <Route path='/studentDashboard' element={<Sidebar />} />
-//       {/* <Route path="/addQualification" element={<AddQualification />} /> */}
-
-//       <Route path="/team" element={<TeamPage />} />
-
-//       <Route path="/events" element={<EventsPage />} />
-
-//       <Route path="/colleges" element={<CollegeList />} />
-
-//       <Route path="/courses" element={<CourseList />} />
-
-//       <Route path="/adminDashboard" element={<AdminDashboard />} />
-
-//       <Route path="*" element={<NotFound />} />
-
-//     </Routes>
-//   </div>
-//   <footer className="footer section">
-//     {/* <Clients /> */}
-//     <ExtraInfo />
-//     <Copyright />
-//   </footer>
-// </BrowserRouter>
-  
-
-
-
-
-// );
 };
 
 export default App;

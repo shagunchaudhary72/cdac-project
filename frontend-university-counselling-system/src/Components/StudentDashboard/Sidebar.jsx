@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import "../Login/Login.css";
 import "./StudentDashboard.css";
 import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
@@ -31,7 +31,6 @@ const Sidebar = () => {
     const [preference, setPreference] = useState(false);
     const [home, setHome] = useState(true);
     const [dashboard, setDashboard] = useState(false);
-    const [unauthorizedStudentAccess, setUnauthorizedStudentAccess] = useState(false);
 
     useEffect(() => {
         if (studentName === null || studentEmail === null || studentAge === null) {
@@ -40,12 +39,12 @@ const Sidebar = () => {
 
         if (snackbar === "show") {
             setShow(snackbar);
-            setTimeout(function () { setShow(""); clearTimeout(); }, 3000)
+            setTimeout(function () { setShow(""); clearTimeout(); }, 3000);
             window.sessionStorage.removeItem("snackbar");
         }
         if (snackbar3 === "show") {
             setShow2(snackbar3);
-            setTimeout(function () { setShow2(""); clearTimeout(); }, 3000)
+            setTimeout(function () { setShow2(""); clearTimeout(); }, 3000);
             window.sessionStorage.removeItem("snackbar3");
         }
 
@@ -56,6 +55,7 @@ const Sidebar = () => {
         window.sessionStorage.removeItem("email");
         window.sessionStorage.removeItem("age");
         window.sessionStorage.removeItem("id");
+        window.sessionStorage.removeItem('role');
         window.sessionStorage.setItem("snackbar2", "show");
         setLogOut(true);
         dispatch({type:"USER",payload:false});
@@ -118,7 +118,7 @@ const Sidebar = () => {
         <>
             {loggedInStudentFalse && <Navigate to="/" />}
             {logOut && <Navigate to="/login" />}
-            <div className="row g-1 bg-light ">
+            <div className="row g-1 bg-light w-100">
                 <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
                     <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                         <FaUserGraduate style={{ width: "30px" }} />

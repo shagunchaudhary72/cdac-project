@@ -29,7 +29,7 @@ const AddCollegeDetails = () => {
     const [totalSeats, setTotalSeats] = useState("");
     const [vaccantSeats, setVaccantSeats] = useState("");
     const [phoneNo, setCollegePhoneNo] = useState("");
-    const [logOut, setLogOut] = useState(false);
+    // const [logOut, setLogOut] = useState(false);
     const [navigateToLogin, setNavigateToLogin] = useState(false);
 
     const [percentError, setPercentError] = useState("");
@@ -110,18 +110,18 @@ const AddCollegeDetails = () => {
         setEmail(event.target.value);
     }
 
-    let logoutClick = () => {
-        window.sessionStorage.removeItem("name");
-        window.sessionStorage.removeItem("email");
-        window.sessionStorage.removeItem("id");
-        window.sessionStorage.removeItem("universityId");
-        window.sessionStorage.removeItem("universityEmail");
-        window.sessionStorage.removeItem("universityName");
-        window.sessionStorage.removeItem("state");
-        window.sessionStorage.removeItem("city");
-        window.sessionStorage.removeItem("phone_no");
-        setLogOut(true);
-    }
+    // let logoutClick = () => {
+    //     window.sessionStorage.removeItem("name");
+    //     window.sessionStorage.removeItem("email");
+    //     window.sessionStorage.removeItem("id");
+    //     window.sessionStorage.removeItem("universityId");
+    //     window.sessionStorage.removeItem("universityEmail");
+    //     window.sessionStorage.removeItem("universityName");
+    //     window.sessionStorage.removeItem("state");
+    //     window.sessionStorage.removeItem("city");
+    //     window.sessionStorage.removeItem("phone_no");
+    //     setLogOut(true);
+    // }
 
     function validation() {
         let percentFlag = true;
@@ -165,7 +165,7 @@ const AddCollegeDetails = () => {
         if (validation() === true) {
             addSelectedCourseList();
             console.log(courses);
-            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
+            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
             console.log(college);
             collegeService.updateCollegeDetails(college).then(() => {
                 setSuccessMesg("College Profile Updated");
@@ -195,9 +195,9 @@ const AddCollegeDetails = () => {
 
     return (
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
-            {logOut && <Navigate to="/login" />}
-            {navigateToLogin && <Navigate to="/login" />}
-            <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button>
+            {/* {logOut && <Navigate to="/login" />} */}
+            {navigateToLogin && <Navigate to="/college_dashboard" />}
+            {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button> */}
             <div className="container-fluid w-50 mt-5">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Details</h2>

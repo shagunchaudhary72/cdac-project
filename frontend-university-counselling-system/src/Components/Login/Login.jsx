@@ -77,6 +77,7 @@ const Login = () => {
                   const user = response.data;
                   window.sessionStorage.setItem('user',JSON.stringify(user));
                   window.sessionStorage.setItem("name",user.name);
+                  window.sessionStorage.setItem("role",user.role);
                   window.sessionStorage.setItem("snackbar","show");
                   console.log(user);
                   setLoggedInAsAdmin(true);
@@ -96,6 +97,7 @@ const Login = () => {
                     window.sessionStorage.setItem("email",studentEmail);
                     window.sessionStorage.setItem("name",studentName);
                     window.sessionStorage.setItem("age",studentAge);
+                    window.sessionStorage.setItem("role",response.data.role);
                     window.sessionStorage.setItem("snackbar","show");
                 }
               
@@ -127,6 +129,7 @@ const Login = () => {
                     window.sessionStorage.setItem("universityName", universityName);
                     window.sessionStorage.setItem("phone_no",collegePhonoNo);
                     window.sessionStorage.setItem("courses",JSON.stringify(collegeSelectedCourses));
+                    window.sessionStorage.setItem("role",response.data.role);
                     window.sessionStorage.setItem("snackbar","show");
                 }
                 dispatch({type:"USER",payload:true})
@@ -138,13 +141,13 @@ const Login = () => {
 
   return (
     <>
-      {loggedInAsAdmin && <Navigate to="/adminDashboard" />}
+      {loggedInAsAdmin && <Navigate to="/admin_dashboard" />}
       {loggedInAsStudent && <Navigate to="/add_student_details" />}
       {loggedInStudentAfterUpdatingDetails && (
         <Navigate to="/student_dashboard" />
       )}
-      {loggedInAsCollege && <Navigate to="/addCollegeDetails" />}
-      {loggedInCollegeAfterUpdatingDetails && <Navigate to="/collegeDashboard"/>}
+      {loggedInAsCollege && <Navigate to="/add_college_details" />}
+      {loggedInCollegeAfterUpdatingDetails && <Navigate to="/college_dashboard"/>}
       <div className="container-fluid w-50 mt-5">
         <div className="m-3">
           <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
@@ -189,7 +192,7 @@ const Login = () => {
                 <span className="text-danger"><b>{errorMesg}</b></span>
             </div>
         </div>
-        <div className={show} id="snackbar">You have successfully logged out..<output></output></div>
+        <div className={show} id="snackbar">You have successfully logged out..</div>
         </>
     );
 }

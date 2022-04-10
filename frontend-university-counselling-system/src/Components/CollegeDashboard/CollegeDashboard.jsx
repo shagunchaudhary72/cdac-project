@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import "../Login/Login.css";
 
 const CollegeDashboard = () => {
@@ -13,13 +13,6 @@ const CollegeDashboard = () => {
             setLoggedInCollegeFalse(true);
         }
     });
-
-    let logoutClick = () => {
-        window.sessionStorage.removeItem("name");
-        window.sessionStorage.removeItem("email");
-        window.sessionStorage.removeItem("id");
-        setLogOut(true);
-    }
 
     return (
         <>

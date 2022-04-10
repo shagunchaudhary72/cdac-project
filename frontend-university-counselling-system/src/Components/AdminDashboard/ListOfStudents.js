@@ -50,7 +50,7 @@ const ListOfStudents = () => {
 
   return (
     <div className="container-fluid my-5">
-        <h3 className="my-3">Applicants List</h3>
+      <h3 className="my-3">Applicants List</h3>
       <table className="table table-success table-striped">
         <thead>
           <tr>
@@ -64,132 +64,144 @@ const ListOfStudents = () => {
         <tbody>
           {isFullfilled
             ? studentsList.map((student) => {
-                return (
-                  <tr>
-                    <th scope="row">{student.id}</th>
-                    <td>{student.name}</td>
-                    <td>{student.marksInComp}</td>
-                    <td>{student.rankInComp}</td>
-                    <td>
-                      <button
-                        className="btn btn-success"
-                        onClick={() => showStudentDetails(student)}
-                      >
-                        Other Details
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
-            : <h3 className="text-success">Processing......</h3>}
+              return (
+                <tr>
+                  <th scope="row">{student.id}</th>
+                  <td>{student.name}</td>
+                  <td>{student.marksInComp}</td>
+                  <td>{student.rankInComp}</td>
+                  <td>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => showStudentDetails(student)}
+                    >
+                      Other Details
+                    </button>
+                  </td>
+                </tr>
+              );
+            })
+            : <h3 className="text-success">Processing..</h3>}
         </tbody>
-        <h3 className="my-3 text-success">Student Details </h3>
+        <h3 className="my-3"><u>Student Details</u>: </h3>
       </table>
 
       {studentDetails != null ? (
-        <table className="">
+        <center><table className="table table-bordered w-75">
           <tbody>
             <tr>
-              <th>Name </th>
-              <td>{studentDetails.name}</td>
+              <th className="text-end">Name: </th>
+              <td >{studentDetails.name}</td>
             </tr>
             <tr>
-              <th>Age </th>
+              <th className="text-end">Age: </th>
               <td>{studentDetails.age}</td>
             </tr>
             <tr>
-              <th>Email </th>
+              <th className="text-end">Email: </th>
               <td>{studentDetails.email}</td>
             </tr>
             <tr>
-              <th>Preferences </th>
+              <th className="text-end">Preferences: </th>
+              <td>
+                <table className="table table-primary">
+                  {isPreferenceAvailabe && studentPreferences.length > 0 ? (
+                    studentPreferences.map((pre, index) => {
+                      return (
+                        <>
+                          <tr>
+                            <td>{index + 1}.</td>
+                            <td width={200}>{pre.collegePreference}</td>
+                            <td>{pre.coursePreference}</td>
+                            <td>&nbsp;</td>
+                          </tr>
+                        </>
+                      );
+                    })
+                  ) : (
+                    "N.A"
+                  )}
+                </table>
+              </td>
             </tr>
-            {isPreferenceAvailabe && studentPreferences.length > 0 ? (
-              studentPreferences.map((pre, index) => {
-                return (
-                  <>
+
+            <tr>
+              <th className="text-end">Address: </th>
+              <td>
+                <table className="table table-primary">
+                  {studentDetails.address != null ? (
+                    <>
+                      <tr>
+                        <th className="text-end" width={50}>City:</th>
+                        <td  >-{studentDetails.address.city}</td>
+                      </tr>
+                      <tr>
+                        <th className="text-end" width={50}>State:</th>
+                        <td >-{studentDetails.address.state}</td>
+                      </tr>
+                      <tr>
+                        <th className="text-end" width={50}>Country:</th>
+                        <td >-{studentDetails.address.country}</td>
+                      </tr>
+                      <tr>
+                        <th className="text-end" width={50}>Pincode:</th>
+                        <td >-{studentDetails.address.pincode}</td>
+                      </tr>
+                    </>
+                  ) : (
                     <tr>
                       <td></td>
-                      <td>
-                        {index + 1}. {pre.collegePreference}
-                      </td>
-                      <td>{pre.coursePreference}</td>
+                      <td></td>
                     </tr>
-                  </>
-                );
-              })
-            ) : (
-              <tr>
-                <td>N.A</td>
-              </tr>
-            )}
-            <tr>
-              <th>Address</th>
-              <td></td>
+                  )}
+                </table>
+              </td>
             </tr>
-            {studentDetails.address != null ? (
-              <>
-                <tr>
-                  <td></td>
-                  <td>City : </td>
-                  <td>{studentDetails.address.city}</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>State : </td>
-                  <td>{studentDetails.address.state}</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Country : </td>
-                  <td>{studentDetails.address.country}</td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>PinCode : </td>
-                  <td>{studentDetails.address.pincode}</td>
-                </tr>
-              </>
-            ) : (
-              <tr>
-                <td>N.A</td>
-              </tr>
-            )}
+
             <tr>
-              <th>Educational Qualification </th>
-            </tr>
-            <tr>
-                <td>Standard</td>
-                <td>Stream</td>
-                <td>Percentage</td>
-                <td>Institute</td>
-                <td>Passing Year</td>
-              </tr>
-            {studentDetails.educationQualifationList.length > 0 ? (
-              
-                studentDetails.educationQualifationList.map((edu, index) => {
-                  return (
+              <th className="text-end">Educational Qualification: </th>
+              <td>
+                <table className="table table-primary">
+                  <tr>
+                    <th>#</th>
+                    <th>Standard</th>
+                    <th>Stream</th>
+                    <th>Percentage</th>
+                    <th>Institute</th>
+                    <th>Passing Year</th>
+                  </tr>
+                  {studentDetails.educationQualifationList.length > 0 ? (
+                    studentDetails.educationQualifationList.map((edu, index) => {
+                      return (
+                        <tr>
+                          <td>
+                            {index+1}.
+                          </td>
+                          <td>
+                            {edu.type}
+                          </td>
+                          <td>{edu.streamName}</td>
+                          <td>{edu.percentage}</td>
+                          <td>{edu.nameOfInstitute}</td>
+                          <td>{edu.yearOfPassing}</td>
+                        </tr>
+                      );
+                    })
+                  ) : (
                     <tr>
-                      <td>
-                        {index + 1}. {edu.type}
-                      </td>
-                      <td>{edu.streamName}</td>
-                      <td>{edu.percentage}</td>
-                      <td>{edu.nameOfInstitute}</td>
-                      <td>{edu.yearOfPassing}</td>
+                      <td></td>
                     </tr>
-                  );
-                })
-              
-            ) : (
-              <tr>
-                <td>N.A</td>
-              </tr>
-            )}
+                  )}
+                </table>
+              </td>
+            </tr>
+
+
           </tbody>
         </table>
+        </center>
       ) : (
-        <h3>No Data Available......</h3>
+        <h3></h3>
       )}
     </div>
   );
