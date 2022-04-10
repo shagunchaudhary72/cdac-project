@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
 import './RegisterAsCollege.css';
@@ -28,6 +28,9 @@ const RegisterAsCollege = () => {
     const [successMessageFlag, setSuccessMessageFlag] = useState(false);
     const [navigateToLogin, setNavigateToLogin] = useState(false);
 
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[])
 
     function setErrorMessagesBlank() {
         setnameError(false);

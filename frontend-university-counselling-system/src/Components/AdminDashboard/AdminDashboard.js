@@ -32,6 +32,7 @@ const AdminDashboard = () => {
     const [unauthorizedAdminAccess, setUnauthorizedAdminAccess] = useState(false);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (studentId !== null) {
             setUnauthorizedAdminAccess(true);
         }
@@ -155,23 +156,23 @@ const AdminDashboard = () => {
                     </a>
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
-                        <li onClick={showHome}>
+                        <li onClick={showHome} style={{cursor:"context-menu"}}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>
-                        <li onClick={showDashboard}>
+                        <li onClick={showDashboard} style={{cursor:"context-menu"}}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Dashboard
                         </li>
-                        <li onClick={showCourse}>
+                        <li onClick={showCourse} style={{cursor:"context-menu"}}>
                             <FaBook size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Add Course
                         </li>
-                        <li onClick={showListOfStudents}>
+                        <li onClick={showListOfStudents} style={{cursor:"context-menu"}}>
                             <BsPeopleFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             List Of Students
                         </li>
-                        <li onClick={showResultPage}>
+                        <li onClick={showResultPage} style={{cursor:"context-menu"}}>
                             <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Declare Result
                         </li>

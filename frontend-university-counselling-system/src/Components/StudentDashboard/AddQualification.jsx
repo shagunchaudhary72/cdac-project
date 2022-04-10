@@ -21,7 +21,8 @@ const AddQualification = () => {
     const [percentageErr, setPercentageErr] = useState("");
     const [yopErr, setYopErr] = useState("");
     const [show, setShow] = useState("");
-    const [error,setError] = useState("");
+    const [show1,setShow1] = useState("");
+    const [error, setError] = useState("");
 
     const [educations, setEducations] = useState([]);
 
@@ -122,6 +123,20 @@ const AddQualification = () => {
 
     }
 
+    let handleDelete = (educationId,studentId) =>{
+        StudentService.deleteEducation(educationId,studentId).then(resp=>{
+            console.log(resp.data);
+            init();
+            setShow1("show");
+            setTimeout(()=>{
+                setShow1("");
+                clearTimeout();
+            },3000);
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
+
 
     let onAddEducationSubmit = (event) => {
         event.preventDefault();
@@ -210,7 +225,8 @@ const AddQualification = () => {
                     </div >
                 </div >
                 <span className="text-danger">{error}</span>
-                <div className={show} id="snackbar">Education Added Successfully<output></output></div>
+                <div className={show} id="snackbar">Education Details Added Successfully<output></output></div>
+                <div className={show1} id="snackbar">Education Details Deleted<output></output></div>
             </div >
 
             <hr />
@@ -222,6 +238,7 @@ const AddQualification = () => {
                         <th>Name of Institute</th>
                         <th>Percentage</th>
                         <th>Year of Passing</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -234,6 +251,11 @@ const AddQualification = () => {
                                 <td>{education.percentage}</td>
                                 <td>
                                     {education.yearOfPassing}
+                                </td>
+                                <td>
+                                    <center><button className="btn1 primary1 rounded" onClick={() => {
+                                        handleDelete(education.id,studentId);
+                                    }}>Delete</button></center>
                                 </td>
                             </tr>
                         ))

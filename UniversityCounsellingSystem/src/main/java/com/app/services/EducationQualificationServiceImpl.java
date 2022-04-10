@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.EducationRepository;
 import com.app.pojos.EducationQualification;
 
@@ -22,5 +23,12 @@ public class EducationQualificationServiceImpl implements IEducationQualificatio
 	public List<EducationQualification> getAllEducationByStudentId(int studentId) {
 		return eduRepo.findAllEducationQualificationsByStudentId(studentId);
 	}
+
+	@Override
+	public EducationQualification getEducationById(int eduId) {
+		return eduRepo.findById(eduId).orElseThrow(()->new ResourceNotFoundException("Education Details Not Found") );
+	}
+	
+	
 
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from "react";
 import "../Login/Login.css";
 import userService from "../../Services/UserService";
@@ -23,41 +23,52 @@ const RegisterStudent = () => {
   const [successMesg, setSuccessMesg] = useState("");
   const [errorMesg, setErrorMesg] = useState("");
 
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  },[])
+
   let emailTextHandler = (event) => {
+    if(emailErr!==""||emailErr!==null) setEmailErr("");
     if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setEmail(event.target.value);
   };
   let passwordTextHandler = (event) => {
+    if (passwordError!=="" || passwordError!==null) setPasswordError("");
     if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setPassword(event.target.value);
   };
   let nameTextHandler = (event) => {
+    if(nameErr!=="" || nameErr!==null) setNameErr("");
     if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setName(event.target.value);
   };
 
   let confirmEmailTextHandler = (event) => {
+    if(confirmEmailErr!=="" || confirmEmailErr!==null) setConfirmEmailErr("");
     if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setConfirmEmail(event.target.value);
   };
 
   let confirmPasswordTextHandler = (event) => {
+    if(confirmPasswordError!=="" || confirmPasswordError!==null) setConfirmPasswordError("");
     if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setConfirmPassword(event.target.value);
   };
 
   let phoneNoTextHandler = (event) => {
+    if(phoneNoErr!=="" || phoneNoErr!==null) setPhoneNoErr("");
     if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setPhoneNo(event.target.value);
   };
 
   let ageTextHandler = (event) => {
+    if(ageError!=="" || ageError!==null) setAgeError("");
     if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setAge(event.target.value);
@@ -73,64 +84,60 @@ const RegisterStudent = () => {
     setPasswordError("");
     setConfirmPasswordError("");
     setAgeError("");
-    let nameFlag = true;
-    let emailFlag = true;
-    let confirmEmailFlag = true;
-    let phoneNoFlag = true;
-    let passwordFlag = true;
-    let confirmPasswordFlag = true;
-    let ageFlag = true;
+    let flag = true;
     let regex = /[a-zA-Z0-9]+@{1}[a-zA-Z0-9]+\.[a-zA-Z]+/;
+    let passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{8,15}$/;
+    let ageRegex = /^\d+$/;
     if (name === "" || name === null) {
       setNameErr("This field is compulsory");
-      nameFlag = false;
+      flag = false;
     }
     if (email === "" || email === null) {
       setEmailErr("This field is compulsory");
-      emailFlag = false;
+      flag = false;
     } else if (regex.test(email) === false) {
       setEmailErr("Email is in wrong format. Example: abc@gmail.com");
-      emailFlag = false;
+      flag = false;
     }
     if (confirmEmail === "" || confirmEmail === null) {
       setConfirmEmailErr("This field is compulsory");
-      confirmEmailFlag = false;
+      flag = false;
     }
 
     if (confirmEmail !== email) {
       setConfirmEmailErr("Email is not matching");
-      emailFlag = false;
+      flag = false;
     }
 
     if (phoneNo === "" || phoneNo === null) {
       setPhoneNoErr("This field is compulsory");
-      phoneNoFlag = false;
+      flag = false;
     }
     if (password === "" || password === null) {
       setPasswordError("This field is compulsory");
-      passwordFlag = false;
+      flag = false;
+    }
+    else if(passwordRegex.test(password)===false){
+      setPasswordError("Password should have atleast one capital letter, one special character and a number.\nAlso, the size of password should lies between 8 to 15 characters");
+      flag = false;
     }
     if (confirmPassword === "" || confirmPassword === null) {
       setConfirmPasswordError("This field is compulsory");
-      confirmPasswordFlag = false;
+      flag = false;
     }
     if (confirmPassword !== password) {
       setConfirmPasswordError("Password is not matching");
-      emailFlag = false;
+      flag = false;
     }
     if (age === "" || age === null) {
       setAgeError("This field is compulsory");
-      ageFlag = false;
+      flag = false;
     }
-    if (
-      nameFlag &&
-      emailFlag &&
-      confirmEmailFlag &&
-      phoneNoFlag &&
-      passwordFlag &&
-      confirmPasswordFlag &&
-      ageFlag
-    ) {
+    else if(ageRegex.test(age)===false){
+      setAgeError("Age should be in numbers");
+      flag = false;
+    }
+    if (flag) {
       return true;
     }
   };

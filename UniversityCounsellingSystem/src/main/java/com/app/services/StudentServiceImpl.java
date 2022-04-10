@@ -58,4 +58,9 @@ public class StudentServiceImpl implements IStudentService {
 		return studentRepo.findAll();
 	}
 
+	@Override
+	public Student deleteEducation(Student student) {
+		return studentRepo.save(student);
+	}
+
 }

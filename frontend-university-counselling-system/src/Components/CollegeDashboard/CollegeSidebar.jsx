@@ -36,6 +36,11 @@ const CollegeSidebar = () => {
     const [details, setShowDetails] = useState(false);
     const [shortlistedStudents, setShowShortlistedStudents] = useState(false);
 
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[])
+    
+
     useEffect(() => {
         if (collegeName === null || collegeEmail === null) {
             setLoggedInCollegeFalse(true);
@@ -141,19 +146,19 @@ const CollegeSidebar = () => {
                     </a>
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
-                        <li onClick={showHome}>
+                        <li onClick={showHome} style={{cursor:"context-menu"}}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>
-                        <li onClick={showDashboard}>
+                        <li onClick={showDashboard} style={{cursor:"context-menu"}}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Dashboard
                         </li>
-                        <li onClick={showDetails}>
+                        <li onClick={showDetails} style={{cursor:"context-menu"}}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             College Details
                         </li>
-                        <li onClick={showShortlistedStudents}>
+                        <li onClick={showShortlistedStudents} style={{cursor:"context-menu"}}>
                             <BsPeopleFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Shortlisted Students
                         </li>

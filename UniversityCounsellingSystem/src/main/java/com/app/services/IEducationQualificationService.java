@@ -7,4 +7,6 @@ import com.app.pojos.EducationQualification;
 public interface IEducationQualificationService {
 
 	List<EducationQualification> getAllEducationByStudentId(int studentId);
+	
+	EducationQualification getEducationById(int eduId);
 }
