@@ -29,8 +29,8 @@ const Sidebar = () => {
     const snackbar3 = window.sessionStorage.getItem("snackbar3");
     const [qualification, setQualification] = useState(false);
     const [preference, setPreference] = useState(false);
-    const [home, setHome] = useState(true);
-    const [dashboard, setDashboard] = useState(false);
+    const [home, setHome] = useState(false);
+    const [dashboard, setDashboard] = useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -127,13 +127,9 @@ const Sidebar = () => {
                     </a>
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
-                        <li onClick={showHome} style={{cursor:"context-menu"}}>
+                        <li onClick={showDashboard} style={{cursor:"context-menu"}}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
-                        </li>
-                        <li onClick={showDashboard} style={{cursor:"context-menu"}}>
-                            <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                            Dashboard
                         </li>
                         <li onClick={showQualification} style={{cursor:"context-menu"}}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
@@ -143,10 +139,14 @@ const Sidebar = () => {
                             <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Add Preferences
                         </li>
+                        <li onClick={showHome} style={{cursor:"context-menu"}}>
+                            <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
+                            Result of Counselling
+                        </li>
                     </ul>
                     <div style={{ marginTop: "150%" }}>
                         <hr />
-                        <div className="dropdown">
+                        <div className="dropdown" style={{cursor:"context-menu"}}>
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <strong>{studentName}</strong>
                             </a>
@@ -161,10 +161,10 @@ const Sidebar = () => {
                     </div>
                 </div>
                 <div className="col-10" style={{ backgroundColor: "#d3ded6" }}>
-                    {home && <Home />}
                     {dashboard && <Dashboard />}
                     {qualification && <AddQualification />}
                     {preference && <AddPreference />}
+                    {home && <Home />}
                     <div className={show} id="snackbar">Login Successfully..</div>
                     <div className={show2} id="snackbar">Student details are added..</div>
                 </div>

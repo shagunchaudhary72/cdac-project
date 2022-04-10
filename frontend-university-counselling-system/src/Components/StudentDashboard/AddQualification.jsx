@@ -5,7 +5,7 @@ import "./StudentDashboard.css";
 
 const AddQualification = () => {
     var yearArray = [];
-    for (let i = 2015; i < 2022; i++) {
+    for (let i = 2008; i < 2018; i++) {
         yearArray.push(i);
     }
     let studentId = window.sessionStorage.getItem("id");

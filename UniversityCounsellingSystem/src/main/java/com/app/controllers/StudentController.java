@@ -108,5 +108,10 @@ public class StudentController {
 		student.removeEducation(eq);
 		return ResponseEntity.ok().body(studentService.updateStudent(student));
 	}
+	
+	@GetMapping("/student/counselling_result/{studentId}")
+	public ResponseEntity<?> getResult(@PathVariable int studentId){
+		return ResponseEntity.ok().body(studentService.getResultOfCounselling(studentId));
+	}
 
 }
