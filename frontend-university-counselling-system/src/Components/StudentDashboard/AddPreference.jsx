@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import AdminService from "../../Services/AdminService";
 import CollegeService from "../../Services/CollegeService";
 import StudentService from "../../Services/StudentService";
 import "./StudentDashboard.css";
@@ -13,12 +14,13 @@ const AddPreference = () => {
     const [courseErr, setCourseErr] = useState("");
     const [show, setShow] = useState("");
     const [show2, setShow2] = useState("");
-    const [show3,setShow3] = useState("");
+    const [show3, setShow3] = useState("");
     const [error, setError] = useState("");
     const [colleges, setColleges] = useState([]);
     const [courses, setCourses] = useState([]);
     const [preferences, setPreferences] = useState([]);
     const [education, setEducation] = useState([]);
+    const [disable, setDisable] = useState("")
 
     const initCourse = (collegeName) => {
         CollegeService.getCoursesOfCollge(collegeName).then(response => {
@@ -34,6 +36,18 @@ const AddPreference = () => {
         CollegeService.getAllCollege().then(response => {
             console.log(response.data);
             setColleges(response.data);
+            AdminService.getAcademicDates().then(resp => {
+                let updationDate = resp.data.updationDate;
+                let resultDate = resp.data.resultDate;
+                if (((Date.parse(updationDate)) <= (Date.parse(new Date()))) || ((Date.parse(resultDate)) <= (Date.parse(new Date())))) {
+                    setDisable("Disabled");
+                }
+                else {
+                    setDisable("");
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         }).catch(err => {
             console.log(err);
         });
@@ -105,34 +119,43 @@ const AddPreference = () => {
 
     let onAddPreferenceSubmit = (event) => {
         event.preventDefault();
-        if (validation()) {
-            if (education.length === 2) {
-                let preference = { "collegePreference": college, "coursePreference": course };
-                StudentService.addPreference(userId, preference).then(response => {
-                    console.log(response.data);
-                    setShow("show");
-                    getPreferenceList(userId);
-                    setTimeout(function () { setShow(""); clearTimeout(); }, 3000);
-                }).catch(err => {
-                    console.log("Something Went Wrong", err);
-                    setError("You have already added this preference in list");
-                })
+        if (disable === "") {
+            if (validation()) {
+                if (education.length === 2) {
+                    let preference = { "collegePreference": college, "coursePreference": course };
+                    StudentService.addPreference(userId, preference).then(response => {
+                        console.log(response.data);
+                        setShow("show");
+                        getPreferenceList(userId);
+                        setTimeout(function () { setShow(""); clearTimeout(); }, 3000);
+                    }).catch(err => {
+                        console.log("Something Went Wrong", err);
+                        setError("You have already added this preference in list");
+                    })
+                }
+                else {
+                    setShow3("show");
+                    setTimeout(function () { setShow3(""); clearTimeout(); }, 3000);
+                }
             }
-            else{
-                setShow3("show");
-                setTimeout(function () { setShow3(""); clearTimeout(); }, 3000);
-            }
+        }
+        else {
+            alert("Last Date for Updating Student Details is OVER..");
         }
     }
 
     let handleDelete = (p_id) => {
-        StudentService.deletePreference(userId, p_id).then(response => {
-            setShow2("show");
-            getPreferenceList(userId);
-            setTimeout(function () { setShow2(""); clearTimeout(); }, 3000);
-        }).catch(err => {
-            alert("Delete Process Cancelled..");
-        })
+        if (disable === "") {
+            StudentService.deletePreference(userId, p_id).then(response => {
+                setShow2("show");
+                getPreferenceList(userId);
+                setTimeout(function () { setShow2(""); clearTimeout(); }, 3000);
+            }).catch(err => {
+                alert("Delete Process Cancelled..");
+            })
+        } else {
+            alert("Last Date for Updating Student Details is OVER..");
+        }
     }
 
     return (
@@ -146,7 +169,7 @@ const AddPreference = () => {
                         <div className="m-3">
                             <form onSubmit={onAddPreferenceSubmit} className="row g-1">
                                 <div className="form-floating col-6">
-                                    <select className="form-select" value={college} onChange={onCollegeHandler}>
+                                    <select className="form-select" value={college} onChange={onCollegeHandler} disabled={disable}>
                                         <option value="" selected>--SELECT--</option>
                                         {colleges.map((ele, key) => {
                                             return (
@@ -158,7 +181,7 @@ const AddPreference = () => {
                                     <span className="text-danger">{collegeErr}</span>
                                 </div>
                                 <div className="form-floating col-6">
-                                    <select className="form-select" value={course} onChange={onCourseHandler}>
+                                    <select className="form-select" value={course} onChange={onCourseHandler} disabled={disable}>
                                         <option value="" selected>--SELECT--</option>
                                         {courses.map((ele, key) => {
                                             return (

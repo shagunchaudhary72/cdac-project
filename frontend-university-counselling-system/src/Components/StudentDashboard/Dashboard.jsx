@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import studentavatar from "../../images/studentavatar.png";
+import AdminService from "../../Services/AdminService";
 
 const Dashboard = () => {
 
     const username = window.sessionStorage.getItem("name");
     const [name, setName] = useState("");
+    const [resultDate,setResultDate] = useState("");
+    const [updationDate,setUpdationDate] = useState("");
 
     useEffect(() => {
         if (username !== null) {
@@ -13,6 +16,13 @@ const Dashboard = () => {
         else {
             setName("");
         }
+
+        AdminService.getAcademicDates().then(resp=>{
+            setResultDate(resp.data.resultDate);
+            setUpdationDate(resp.data.updationDate);
+        }).catch(err=>{
+            console.log("Something Went Wrong",err);
+        })
     }, [])
 
     return (
@@ -30,10 +40,10 @@ const Dashboard = () => {
                 </div>
                 <div className="row g-1 mt-5">
                     <div className="col-5 m-2 text-white text-center">
-                        <b>Result Declaration Date:</b>
+                        <b>Result Declaration Date:</b> {resultDate}
                     </div>
                     <div className="col-5 m-2 text-white text-center">
-                        <b>Last Date to Update your Preference:</b>
+                        <b>Last Date to Update your Preference:</b> {updationDate}
                     </div>
                 </div>
             </div>

@@ -165,11 +165,11 @@ const CollegeSidebar = () => {
                     </ul>
                     <div style={{ marginTop: "150%" }}>
                         <hr />
-                        <div className="dropdown">
+                        <div className="dropdown" style={{cursor:"context-menu"}}>
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <strong>{collegeName}</strong>
                             </a>
-                            <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                            <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" >
                                 <li><Link to="/college_profile" className="dropdown-item" >Profile</Link></li>
                                 {/* <li onClick= { showProfile }>
                                     <AiFillSetting size={20} style={{ width: "30px", paddingBottom: "4px" }} />

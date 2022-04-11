@@ -10,8 +10,6 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { UserContext } from '../../App';
 
 const Header = () => {
-
-
     const {state,dispatch} = useContext(UserContext);
     const navigate = useNavigate();
     const role = window.sessionStorage.getItem("role");    

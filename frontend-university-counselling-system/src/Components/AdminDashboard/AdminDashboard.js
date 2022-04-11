@@ -11,6 +11,7 @@ import ListOfStudents from "./ListOfStudents";
 import DeclareResult from "./DeclareResult";
 import { UserContext } from "../../App";
 import AddCourse from "./AddCourse";
+import UpdateAcademicDates from "./UpdateAcademicDates";
 // import Home from "./Home";
 
 const AdminDashboard = () => {
@@ -162,7 +163,7 @@ const AdminDashboard = () => {
                         </li>
                         <li onClick={showDashboard} style={{cursor:"context-menu"}}>
                             <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                            Dashboard
+                            Declare Academic Events
                         </li>
                         <li onClick={showCourse} style={{cursor:"context-menu"}}>
                             <FaBook size={20} style={{ width: "30px", paddingBottom: "4px" }} />
@@ -179,11 +180,11 @@ const AdminDashboard = () => {
                     </ul>
                     <div style={{ marginTop: "150%" }}>
                         <hr />
-                        <div className="dropdown">
+                        <div className="dropdown" style={{cursor:"context-menu"}}>
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <strong>{name}</strong>
                             </a>
-                            <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                            <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" >
                                 <li><Link to="/profile" className="dropdown-item" >Profile</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li>
@@ -195,6 +196,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="col-10" style={{ backgroundColor: "#d3ded6" }}>
                     {course && <AddCourse />}
+                    {dashboard && <UpdateAcademicDates />}
                     {listOfStudents && <ListOfStudents />}
                     {declareResult && <DeclareResult />}
                     <div className={show} id="snackbar">Login Successfully..</div>

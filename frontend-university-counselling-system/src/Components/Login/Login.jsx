@@ -77,6 +77,7 @@ const Login = () => {
                 if( response.data.role === "ADMIN"){
                   const user = response.data;
                   window.sessionStorage.setItem('user',JSON.stringify(user));
+                  window.sessionStorage.setItem("email",user.email);
                   window.sessionStorage.setItem("name",user.name);
                   window.sessionStorage.setItem("role",user.role);
                   window.sessionStorage.setItem("snackbar","show");
