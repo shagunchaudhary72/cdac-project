@@ -78,6 +78,7 @@ const Header = () => {
                         <NavLink className='navbar-link' to='/home'><IoIosHome className='navbar-right-logo' /> Home</NavLink>
                         <NavLink className='navbar-link' to='/team'><RiTeamFill className='navbar-right-logo' /> Team</NavLink>
                         <NavLink className='navbar-link' to='/events'><BiNews className='navbar-right-logo' /> Events</NavLink>
+                        <NavLink className='navbar-link' to='/about'><BiNews className='navbar-right-logo' /> About</NavLink>
                         <NavLink className='navbar-link' to='/contact'><MdContactPage className='navbar-right-logo' /> Contact Us</NavLink>
                         <NavDropdown title={<IoIosContact/>} className="navbar-profile" >
                             <RenderMenu />

@@ -34,13 +34,13 @@ const Courses = () => {
           </h1>
       </div>
       <div className="course-section-row2">
-        { isFullfilled ? courseList.map((course) => {
+        { isFullfilled ? courseList.slice(0,3).map((course) => {
           return <CourseCard key={course.id} courseDetails={course} />;
         }) : <h3 className="text-center text-success">No Data Available.</h3>}
       </div>
         {
           isFullfilled &&
-        <div className="course-section-row3">
+        <div className="course-section-row3 ">
           <Link className=" more-data" to="/courses">
             See more <ImArrowRight2 />{" "}
           </Link>
