@@ -121,3 +121,14 @@
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
   }
+
+  @media only screen  and (max-width:768px){
+	  .login-section{
+		  width: 80vw !important;
+	  }
+  }
+  @media only screen  and (max-width:576px){
+	  .login-section{
+		  width: 100vw !important;
+	  }
+  }

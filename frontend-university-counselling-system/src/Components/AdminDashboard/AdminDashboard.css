@@ -16,3 +16,104 @@
 .text-color:hover{
     color: white;
 }
+
+
+.students-filter{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-sidebar{
+    z-index: 999 !important;
+}
+
+.dashboard-data-section{
+    z-index: 1 !important;
+}
+
+.sidebar-toggler{
+    padding: 3px;
+    align-items: center;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1rem 1rem;
+    height: 2rem;
+    width: 2rem;
+    background-color: rgb(83, 81, 81);
+    color: white;
+    cursor: pointer;
+    display: none;
+}
+
+#close-sidebar{
+    display: none;
+}
+
+@media only screen and (max-width:768px){
+    #close-sidebar{
+        display: block;
+    }
+    
+    .dashboard-sidebar{
+        display: none;
+    }
+    .sidebar-toggler{
+        display: block;
+    }
+    .hello-text{
+        font-size: 13px !important;
+    }
+    .hello-text>span{
+        font-size: 13px !important;
+    }
+    .sidebar-list{
+        font-size: 13px !important;
+    }   
+
+    .dashboard-data-section-heading{
+        font-size: 20px !important;
+    }
+    .dashboard-data-section-para{
+        font-size: 15px !important;
+    }
+    .filter-container > select {
+        height: 27px !important;
+        width: 20vw !important;
+        font-size: 10px;
+    }
+    
+}
+@media only screen and (max-width:576px){
+
+    .dashboard-data-section-heading{
+        font-size: 15px !important;
+    }
+    .dashboard-data-section-para{
+        font-size: 10px !important;
+    }
+    .filter-container > select {
+        height: 25px !important;
+        width: 5rem !important;
+        font-size: 10px;
+    }
+
+    th{
+        font-size: 12px;
+    }
+    td{
+        font-size: 12px;
+    }
+    td>button{
+        font-size: 10px !important;
+        padding: 3px;
+    }
+    
+}

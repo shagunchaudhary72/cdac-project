@@ -16,3 +16,13 @@
 .text-color:hover{
     color: white;
 }
+
+@media only screen and (max-width:768px){
+    .add-qualification-details{
+        width: 100% !important;
+    }
+
+    .add-prefernece-details{
+        width: 100% !important;
+    }
+}

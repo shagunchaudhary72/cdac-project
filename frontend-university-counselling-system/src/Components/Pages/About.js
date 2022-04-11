@@ -2,7 +2,7 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div className="container-fluid w-50 mt-5" >
+    <div className="container-fluid w-50 my-5 about-page" >
       <div className="m-3">
         <h2 className="fw-bold mb-2 text-uppercase">About us &nbsp;<i className='fas fa-lightbulb' style={{color: "green"}}></i></h2><br/>
         <p>

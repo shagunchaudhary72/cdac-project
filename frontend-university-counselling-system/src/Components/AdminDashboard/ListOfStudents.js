@@ -50,7 +50,8 @@ const ListOfStudents = () => {
 
   return (
     <div className="container-fluid my-5">
-      <h3 className="my-3">Applicants List</h3>
+      <h3 className="my-3 dashboard-data-section-heading">Applicants List</h3>
+      <div className="table-responsive">
       <table className="table table-success table-striped">
         <thead>
           <tr>
@@ -72,22 +73,23 @@ const ListOfStudents = () => {
                   <td>{student.rankInComp}</td>
                   <td>
                     <button
-                      className="btn btn-success"
+                      className="btn btn-sm btn-success"
                       onClick={() => showStudentDetails(student)}
                     >
-                      Other Details
+                      Details
                     </button>
                   </td>
                 </tr>
               );
             })
-            : <h3 className="text-success">Processing..</h3>}
+            : <h3 className="text-success dashboard-data-section-heading">Processing..</h3>}
         </tbody>
-        <h3 className="my-3"><u>Student Details</u>: </h3>
+        <h3 className="my-3 dashboard-data-section-heading"><u>Student Details</u>: </h3>
       </table>
+      </div>
 
       {studentDetails != null ? (
-        <center><table className="table table-bordered w-75">
+        <center className="table-responsive"><table className="table table-bordered w-75">
           <tbody>
             <tr>
               <th className="text-end">Name: </th>
@@ -160,7 +162,7 @@ const ListOfStudents = () => {
 
             <tr>
               <th className="text-end">Educational Qualification: </th>
-              <td>
+              <td className="table-responsive">
                 <table className="table table-primary">
                   <tr>
                     <th>#</th>

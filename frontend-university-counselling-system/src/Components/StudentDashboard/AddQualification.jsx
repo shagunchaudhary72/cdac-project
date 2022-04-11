@@ -155,13 +155,13 @@ const AddQualification = () => {
     }
 
     return (
-        <div className="container-fluid w-50 mt-5">
+        <div className="container-fluid w-50 mt-5 add-qualification-details">
             <div className="m-3">
-                <h2 className="fw-bold mb-2 text-uppercase">Education Qualification</h2>
-                <p className="text-50 text-success mb-3">Please enter your qualification</p>
+                <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">Education Qualification</h2>
+                <p className="text-50 text-success mb-3 dashboard-data-section-para">Please enter your qualification</p>
                 <div className="border border-1 rounded">
                     <div className="m-3">
-                        <form onSubmit={onAddEducationSubmit}>
+                        <form onSubmit={onAddEducationSubmit} className="qualification-form">
                             <div className="form-floating mb-3">
                                 <select className="form-select" value={type} onChange={onTypeHandler}>
                                     <option value="" selected>--SELECT--</option>
@@ -214,6 +214,7 @@ const AddQualification = () => {
             </div >
 
             <hr />
+            <div className="table-responsive">
             <table className="table table-bordered table-striped">
                 <thead className="thead-dark">
                     <tr>
@@ -240,6 +241,7 @@ const AddQualification = () => {
                     }
                 </tbody>
             </table>
+            </div>
         </div>
     );
 }

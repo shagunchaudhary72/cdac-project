@@ -46,7 +46,9 @@
 
 .registration-btn:hover{
     background-color: white;
-    color: black;
+}
+.registration-btn:hover .btn{
+    color: black !important;
 }
 
 @media only screen and (max-width: 1024px){
@@ -119,6 +121,14 @@
     .registration-btn2{
         position: relative;
         top: 40%;
-        right: 43%;
+        right: 47%;
+    }
+}
+
+@media only screen and (max-width: 526px){
+    .registration-btn2{
+        position: relative;
+        top: 10%;
+        right: 0%;
     }
 }
