@@ -89,6 +89,13 @@
         width: 20vw !important;
         font-size: 10px;
     }
+
+    .add-course-section{
+        width: 100% !important;
+    }
+    .update-date-section{
+        width: 100% !important;
+    }
     
 }
 @media only screen and (max-width:576px){
