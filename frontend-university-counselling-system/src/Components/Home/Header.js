@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import './Navbar.css';
 import { IoIosContact, IoIosHome } from 'react-icons/io'
 import { MdContactPage } from 'react-icons/md'
@@ -11,24 +11,10 @@ import { UserContext } from '../../App';
 
 const Header = () => {
 
+
     const {state,dispatch} = useContext(UserContext);
-
-    const [loggedIn, setLoggedIn] = useState();
-    const [isMenuVisible, setIsMenuVisible] = useState(false);
-    const [dashboard, setDashboard] = useState('');
-    const menu = useRef(null);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const userName = window.sessionStorage.getItem('name');
-        if (window.sessionStorage.getItem('loggedIn') === 'true')
-            setLoggedIn(true);
-        if (userName !== null)
-            setLoggedIn(true);
-        else
-            setLoggedIn(false);
-
-    }, [loggedIn, isMenuVisible, dashboard]);
+    const role = window.sessionStorage.getItem("role");    
 
     const logoutUser = () => {
         window.sessionStorage.removeItem('user');
@@ -36,44 +22,40 @@ const Header = () => {
         window.sessionStorage.removeItem("email");
         window.sessionStorage.removeItem("name");
         window.sessionStorage.removeItem("age");
+        window.sessionStorage.removeItem("universityId");
+        window.sessionStorage.removeItem("universityEmail");
+        window.sessionStorage.removeItem("universityName");
+        window.sessionStorage.removeItem("state");
+        window.sessionStorage.removeItem("city");
+        window.sessionStorage.removeItem("phone_no");
         window.sessionStorage.setItem("snackbar2", "show");
         window.sessionStorage.removeItem('loggedIn');
+        window.sessionStorage.removeItem('role');
         dispatch({type:"USER",payload:false});
-        setLoggedIn(false);
         navigate("/login");
     }
 
-    // const showMenu = () => {
-    //     if (isMenuVisible === false) {
-    //         menu.current.style.display = 'block';
-    //         setIsMenuVisible(true);
-    //     }
-    //     else {
-    //         menu.current.style.display = 'none';
-    //         setIsMenuVisible(false);
-    //     }
-    // }
-
-    // const openDashboard = () => {
-    //     const userData = JSON.parse(window.sessionStorage.getItem('user'));
-    //     if (userData === null) {
-    //         alert("Login Required !!");
-    //         navigate('/login');
-    //     }
-    //     else if (userData.role === "ADMIN") {
-    //         navigate('/adminDashboard');
-    //     } else if (userData.role === "STUDENT") {
-    //         navigate('/studentDashboard');
-    //     } else if (userData.role === "COLLEGE") {
-    //         navigate('/collegeDashboard');
-    //     }
-
-    // }
-
     const RenderMenu = () =>{
-        if(state){
+        if(state && role==="STUDENT"){
             return (
                 <>
+                <NavDropdown.Item href="/student_dashboard">Dashboard</NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutUser}>Log Out</NavDropdown.Item>
+                </>
+            )
+        }
+        else if(state && role==="ADMIN"){
+            return (
+                <>
+                <NavDropdown.Item href="/admin_dashboard">Dashboard</NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutUser}>Log Out</NavDropdown.Item>
+                </>
+            )
+        }
+        else if(state && role==="COLLEGE"){
+            return (
+                <>
+                <NavDropdown.Item href="/college_dashboard">Dashboard</NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutUser}>Log Out</NavDropdown.Item>
                 </>
             )
@@ -87,7 +69,7 @@ const Header = () => {
     }
 
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" className='sticky-top'>
             <Container>
                 <NavLink to="/">
                     <img src={NavbarLogo} alt="ucs_logo" width={300} height={50} />
@@ -98,8 +80,9 @@ const Header = () => {
                         <NavLink className='navbar-link' to='/home'><IoIosHome className='navbar-right-logo' /> Home</NavLink>
                         <NavLink className='navbar-link' to='/team'><RiTeamFill className='navbar-right-logo' /> Team</NavLink>
                         <NavLink className='navbar-link' to='/events'><BiNews className='navbar-right-logo' /> Events</NavLink>
+                        <NavLink className='navbar-link' to='/about'><BiNews className='navbar-right-logo' /> About</NavLink>
                         <NavLink className='navbar-link' to='/contact'><MdContactPage className='navbar-right-logo' /> Contact Us</NavLink>
-                        <NavDropdown title={<IoIosContact/>} className="navbar-profile">
+                        <NavDropdown title={<IoIosContact/>} className="navbar-profile" >
                             <RenderMenu />
                         </NavDropdown>
                     </Nav>

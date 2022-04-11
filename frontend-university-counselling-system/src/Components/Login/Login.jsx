@@ -25,6 +25,7 @@ const Login = () => {
     const [loggedInAsAdmin,setLoggedInAsAdmin] = useState(false);
 
     useEffect(()=>{
+      window.scrollTo(0, 0);
         if(snackbar2==="show"){
             setShow(snackbar2);
             setTimeout(function(){ setShow("");clearTimeout(); }, 3000)

@@ -34,7 +34,7 @@ const Colleges = () => {
         <h1 className="text-center py-3 heading-bottom-border">Our Colleges</h1>
       </div>
       <div className="college-section-row2">
-        { isFullfilled ? collegeList.map((college) => {
+        { isFullfilled ? collegeList.slice(0,3).map((college) => {
           return <CollegeCard key={college.id} collegeDetails={college} />;
         }) : <h3 className="text-center text-success">No Data Available........</h3>}
       </div>

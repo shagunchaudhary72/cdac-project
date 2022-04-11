@@ -43,6 +43,12 @@ public class CourseServiceImpl implements ICourseService {
 			throw new ResourceNotFoundException("Course Not Found");
 		return course;
 	}
+
+	@Override
+	public String deleteCourseById(int courseId) {
+		courseRepo.deleteById(courseId);
+		return "Course with id: "+courseId+" is deleted from Course List";
+	}
 	
 	
 
