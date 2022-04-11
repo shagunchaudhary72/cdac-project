@@ -53,7 +53,7 @@ const AddPreference = () => {
             console.log(err);
         });
     }
-  }, [college]);
+  
 
   let onCollegeHandler = (e) => {
     setCollege(e.target.value);
@@ -63,10 +63,20 @@ const AddPreference = () => {
 
   };
 
+
+  const getPreferenceList = (id) => {
+    StudentService.getPreferences(id).then(res => {
+        setPreferences(res.data);
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
     useEffect(() => {
         getPreferenceList(userId);
         educationChecking(userId);
     }, [])
+
     useEffect(() => {
         const email = window.sessionStorage.getItem("email");
         if (email === null) {
@@ -100,6 +110,7 @@ const AddPreference = () => {
       setCourseErr("Please select course");
       flag = false;
     }
+}
 
 
     let educationChecking = (id) => {

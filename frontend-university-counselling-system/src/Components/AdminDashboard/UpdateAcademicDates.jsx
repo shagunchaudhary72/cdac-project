@@ -58,9 +58,9 @@ const UpdateAcademicDates = () => {
     }
 
     return (
-        <div className="container-fluid w-50 mt-5">
+        <div className="container-fluid w-50 mt-5 update-date-section">
             <div className="m-3">
-                <h2 className="fw-bold mb-2 text-uppercase">Update Academic Dates</h2>
+                <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">Update Academic Dates</h2>
                 <p className="text-50 text-success mb-3">
                     Please Choose Dates
                 </p>
@@ -87,7 +87,7 @@ const UpdateAcademicDates = () => {
                                 <label>Form Updation Date for Student</label>
                                 <span className="text-danger">{updationDateErr}</span>
                             </div>
-                            <button type="submit" className="btn1 primary1">Update Dates</button>
+                            <button type="submit" className="btn1 primary1 btn-sm">Update Dates</button>
                         </form>
                     </div>
                 </div>

@@ -23,12 +23,12 @@ const Home = () => {
     },[])
 
     return (
-        <div className="container-fluid mt-5">
-            <h1 className="text-center fw-bolder" style={{fontFamily:"Garamond, serif",color:"#194f38"}}>RESULT OF COUNSELLING</h1>
+        <div className="container-fluid mt-5 dashboard-home-section">
+            <h1 className="text-center fw-bolder dash" style={{fontFamily:"Garamond, serif",color:"#194f38"}}>RESULT OF COUNSELLING</h1>
             <div className="row g-1">
-                <div className="col-5 border border-1 m-5 rounded" style={{backgroundColor:"#548a69"}}>
+                <div className="col-5 border border-1 m-5 rounded box" style={{backgroundColor:"#548a69"}}>
                     <div>
-                        <div className="bg-light my-3 mx-3 rounded text-center" style={{fontFamily:"Garamond, serif",fontSize:"60px",color:"black"}}>
+                        <div className="bg-light my-3 mx-3 rounded text-center rank-box" style={{fontFamily:"Garamond, serif",color:"black"}}>
                             {rank}
                         </div>
                         <div>
@@ -36,9 +36,9 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-5 border border-1 m-5 rounded" style={{backgroundColor:"#548a69"}}>
+                <div className="col-5 border border-1 m-5 rounded box" style={{backgroundColor:"#548a69"}}>
                     <div>
-                        <div className="bg-light my-3 mx-3 rounded text-center" style={{fontFamily:"Garamond, serif",fontSize:"60px",color:"black"}}>
+                        <div className="bg-light my-3 mx-3 rounded text-center course-box" style={{fontFamily:"Garamond, serif",color:"black"}}>
                              {courseAlloted}
                         </div>
                         <div>
@@ -46,9 +46,9 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-11 border border-1 m-5 rounded" style={{backgroundColor:"#548a69"}}>
+                <div className="col-11 border border-1 m-5 rounded box" style={{backgroundColor:"#548a69"}}>
                     <div>
-                        <div className="bg-light my-3 mx-3 rounded text-center" style={{fontFamily:"Garamond, serif",fontSize:"60px",color:"black"}}>
+                        <div className="bg-light my-3 mx-3 rounded text-center college-box" style={{fontFamily:"Garamond, serif", color:"black"}}>
                            {collegeAlloted}
                         </div>
                         <div>

@@ -6,7 +6,7 @@ import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
 import { ImBooks,ImCross } from "react-icons/im";
 import { BsFillDoorOpenFill,BsPeopleFill } from "react-icons/bs";
 import './AdminDashboard.css'
-import { FaUniversity,FaBook } from "react-icons/fa";
+import { FaUniversity,FaBook,FaUserGraduate } from "react-icons/fa";
 import ListOfStudents from "./ListOfStudents";
 import DeclareResult from "./DeclareResult";
 import { UserContext } from "../../App";
