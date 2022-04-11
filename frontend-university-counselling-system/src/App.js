@@ -1,5 +1,5 @@
 
-import React, { createContext, useReducer,useEffect } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Login from "./Components/Login/Login";
@@ -32,8 +32,8 @@ import { initialState, reducer } from "./Reducer/UseReducer";
 
 export const UserContext = createContext();
 
-const Routing = () =>{
-  return (  <div>
+const Routing = () => {
+  return (<div>
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route exact path="/home" element={<HomePage />} />
@@ -82,22 +82,22 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const username = window.sessionStorage.getItem("name");
   useEffect(() => {
-    if(username!==null){
-      dispatch({type:"USER",payload:true});
+    if (username !== null) {
+      dispatch({ type: "USER", payload: true });
     }
-    else{
-      dispatch({type:"USER",payload:false});
+    else {
+      dispatch({ type: "USER", payload: false });
     }
   }, [])
-  
+
 
   return (
 
     <BrowserRouter>
-    <UserContext.Provider value={{state,dispatch}}>
-        <Header />
+      <UserContext.Provider value={{ state, dispatch }}>
+          <Header />
         <Routing />
-        </UserContext.Provider>
+      </UserContext.Provider>
       <footer className="footer section">
         <ExtraInfo />
         <Copyright />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
 import Colleges from "./Colleges";
@@ -7,6 +7,12 @@ import Events from "./Events";
 import Features from "./Features";
 
 const HomePage = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+  
+
   return (
     <>
       <section className="info-section container-fluid">

@@ -1,11 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import AdminService from "../../Services/AdminService";
 import StudentService from "../../Services/StudentService";
 import "./StudentDashboard.css";
 
 const AddQualification = () => {
     var yearArray = [];
-    for (let i = 2015; i < 2022; i++) {
+    for (let i = 2008; i < 2018; i++) {
         yearArray.push(i);
     }
     let studentId = window.sessionStorage.getItem("id");
@@ -21,7 +22,9 @@ const AddQualification = () => {
     const [percentageErr, setPercentageErr] = useState("");
     const [yopErr, setYopErr] = useState("");
     const [show, setShow] = useState("");
-    const [error,setError] = useState("");
+    const [show1, setShow1] = useState("");
+    const [error, setError] = useState("");
+    const [disable, setDisable] = useState("")
 
     const [educations, setEducations] = useState([]);
 
@@ -35,6 +38,18 @@ const AddQualification = () => {
     }
     useEffect(() => {
         init();
+        AdminService.getAcademicDates().then(resp => {
+            let updationDate = resp.data.updationDate;
+            let resultDate = resp.data.resultDate;
+            if (((Date.parse(updationDate)) <= (Date.parse(new Date())))||((Date.parse(resultDate)) <= (Date.parse(new Date())))) {
+                setDisable("Disabled");
+            }
+            else {
+                setDisable("");
+            }
+        }).catch(err => {
+            console.log(err);
+        })
     }, []);
 
     let onTypeHandler = (event) => {
@@ -122,34 +137,58 @@ const AddQualification = () => {
 
     }
 
+    let handleDelete = (educationId, studentId) => {
+        if (disable === "") {
+            StudentService.deleteEducation(educationId, studentId).then(resp => {
+                console.log(resp.data);
+                init();
+                setShow1("show");
+                setTimeout(() => {
+                    setShow1("");
+                    clearTimeout();
+                }, 3000);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+        else {
+            alert("Last Date for Updating Student Details is OVER..");
+        }
+    }
+
 
     let onAddEducationSubmit = (event) => {
         event.preventDefault();
-        if (validation()) {
-            setTypeErr("");
-            setStreamNameErr("");
-            setInstituteErr("");
-            setPercentageErr("");
-            setYopErr("");
-            console.log("...." + studentId);
-            let education = { "type": type, "streamName": streamName, "nameOfInstitute": institute, "percentage": percentage, "yearOfPassing": yop };
-            console.log(education);
-            StudentService.updateEducation(parseInt(studentId), education).then(response => {
-                //console.log("Education Added", response.data);
-                setType("");
-                setStreamName("");
-                setInstitute("");
-                setPercentage("");
-                setYop("");
-                setError("");
-                init();
-                setShow("show");
-                setTimeout(function () { setShow(""); clearTimeout(); }, 3000)
-            }).catch(err => {
-                console.log("Error found", err);
-                setError("Something went wrong");
-            })
+        if (disable === "") {
+            if (validation()) {
+                setTypeErr("");
+                setStreamNameErr("");
+                setInstituteErr("");
+                setPercentageErr("");
+                setYopErr("");
+                console.log("...." + studentId);
+                let education = { "type": type, "streamName": streamName, "nameOfInstitute": institute, "percentage": percentage, "yearOfPassing": yop };
+                console.log(education);
+                StudentService.updateEducation(parseInt(studentId), education).then(response => {
+                    //console.log("Education Added", response.data);
+                    setType("");
+                    setStreamName("");
+                    setInstitute("");
+                    setPercentage("");
+                    setYop("");
+                    setError("");
+                    init();
+                    setShow("show");
+                    setTimeout(function () { setShow(""); clearTimeout(); }, 3000)
+                }).catch(err => {
+                    console.log("Error found", err);
+                    setError("Something went wrong");
+                })
 
+            }
+        }
+        else {
+            alert("Last Date for Updating Student Details is OVER..");
         }
 
     }
@@ -163,7 +202,7 @@ const AddQualification = () => {
                     <div className="m-3">
                         <form onSubmit={onAddEducationSubmit} className="qualification-form">
                             <div className="form-floating mb-3">
-                                <select className="form-select" value={type} onChange={onTypeHandler}>
+                                <select className="form-select" value={type} onChange={onTypeHandler} disabled={disable}>
                                     <option value="" selected>--SELECT--</option>
                                     <option value="SSC">SSC</option>
                                     <option value="HSC">HSC</option>
@@ -172,7 +211,7 @@ const AddQualification = () => {
                                 <span className="text-danger">{typeErr}</span>
                             </div>
                             <div className="form-floating mb-3">
-                                <select className="form-select" value={streamName} onChange={onStreamHandler}>
+                                <select className="form-select" value={streamName} onChange={onStreamHandler} disabled={disable}>
                                     <option value="" selected>--SELECT--</option>
                                     <option value="PCM">PCM</option>
                                     <option value="PCMB">PCMB</option>
@@ -182,17 +221,17 @@ const AddQualification = () => {
                                 <span className="text-danger">{streamNameErr}</span>
                             </div>
                             <div className="form-floating mb-3">
-                                <input type="text" className="form-control" value={institute} onChange={instituteHandler} placeholder="Enter Institute" />
+                                <input type="text" className="form-control" value={institute} onChange={instituteHandler} placeholder="Enter Institute" disabled={disable} />
                                 <label>Name of your Institute</label>
                                 <span className="text-danger">{instituteErr}</span>
                             </div>
                             <div className="form-floating mb-3">
-                                <input type="text" className="form-control" value={percentage} onChange={percentageHandler} placeholder="Enter Percentage" />
+                                <input type="text" className="form-control" value={percentage} onChange={percentageHandler} placeholder="Enter Percentage" disabled={disable} />
                                 <label>Percentage</label>
                                 <span className="text-danger">{percentageErr}</span>
                             </div>
                             <div className="form-floating mb-3">
-                                <select className="form-select" value={yop} onChange={yopHandler}>
+                                <select className="form-select" value={yop} onChange={yopHandler} disabled={disable}>
                                     <option value="" selected>--SELECT--</option>
                                     {yearArray.map((ele, key) => {
                                         return (
@@ -210,7 +249,8 @@ const AddQualification = () => {
                     </div >
                 </div >
                 <span className="text-danger">{error}</span>
-                <div className={show} id="snackbar">Education Added Successfully<output></output></div>
+                <div className={show} id="snackbar">Education Details Added Successfully<output></output></div>
+                <div className={show1} id="snackbar">Education Details Deleted<output></output></div>
             </div >
 
             <hr />
@@ -223,6 +263,7 @@ const AddQualification = () => {
                         <th>Name of Institute</th>
                         <th>Percentage</th>
                         <th>Year of Passing</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -235,6 +276,11 @@ const AddQualification = () => {
                                 <td>{education.percentage}</td>
                                 <td>
                                     {education.yearOfPassing}
+                                </td>
+                                <td>
+                                    <center><button className="btn1 primary1 rounded" onClick={() => {
+                                        handleDelete(education.id, studentId);
+                                    }}>Delete</button></center>
                                 </td>
                             </tr>
                         ))

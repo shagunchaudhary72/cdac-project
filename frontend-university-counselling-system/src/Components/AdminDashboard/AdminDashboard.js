@@ -4,13 +4,15 @@ import "../Login/Login.css";
 import "../StudentDashboard/StudentDashboard.css";
 import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
 import { ImBooks,ImCross } from "react-icons/im";
-import { BsFillDoorOpenFill } from "react-icons/bs";
+import { BsFillDoorOpenFill,BsPeopleFill } from "react-icons/bs";
 import './AdminDashboard.css'
-import { FaUserGraduate } from "react-icons/fa";
+import { FaUniversity,FaBook } from "react-icons/fa";
 import ListOfStudents from "./ListOfStudents";
 import DeclareResult from "./DeclareResult";
 import { UserContext } from "../../App";
 import {MdVerticalDistribute} from "react-icons/md"
+import AddCourse from "./AddCourse";
+import UpdateAcademicDates from "./UpdateAcademicDates";
 // import Home from "./Home";
 
 const AdminDashboard = () => {
@@ -28,6 +30,7 @@ const AdminDashboard = () => {
     const [dashboard, setDashboard] = useState(false);
     const [notloggedInAsAdmin, setNotLoggedInAsAdmin] = useState(false);
     const [declareResult, setDeclareResult] = useState(false);
+    const [course,setCourse] = useState(false);
     const [unauthorizedAdminAccess, setUnauthorizedAdminAccess] = useState(false);
     const sidebarRef = useRef(null);
     const sidebarTogglerRef = useRef(null);
@@ -38,6 +41,7 @@ const AdminDashboard = () => {
       }) 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (studentId !== null) {
             setUnauthorizedAdminAccess(true);
         }
@@ -93,6 +97,9 @@ const AdminDashboard = () => {
         if (home) {
             setHome(false);
         }
+        if(course){
+            setCourse(false);
+        }
         if (dashboard) {
             setDashboard(false);
         }
@@ -105,6 +112,9 @@ const AdminDashboard = () => {
     let showResultPage = () => {
         if (home) {
             setHome(false);
+        }
+        if(course){
+            setCourse(false);
         }
         if (dashboard) {
             setDashboard(false);
@@ -119,6 +129,9 @@ const AdminDashboard = () => {
         if (dashboard) {
             setDashboard(false);
         }
+        if(course){
+            setCourse(false);
+        }
         if (listOfStudents) {
             setListOfStudents(false);
         }
@@ -132,6 +145,9 @@ const AdminDashboard = () => {
         if (home) {
             setHome(false);
         }
+        if(course){
+            setCourse(false);
+        }
         if (listOfStudents) {
             setListOfStudents(false);
         }
@@ -140,7 +156,6 @@ const AdminDashboard = () => {
         }
         setDashboard(true);
     }
-
        
     const showSidebar = () => {
         sidebarRef.current.style.display = "block";
@@ -156,11 +171,29 @@ const AdminDashboard = () => {
         dashboardDataSectionRef.current.style.display = "block";
         sidebarTogglerRef.current.style.display = "block";
     }
+    
+    let showCourse = () => {
+        if (home) {
+            setHome(false);
+        }
+        if (listOfStudents) {
+            setListOfStudents(false);
+        }
+        if (declareResult) {
+            setDeclareResult(false);
+        }
+        if(dashboard){
+            setDashboard(false);
+        }
+        setCourse(true);
+    }
+
     return (
         <>
             {unauthorizedAdminAccess && <Navigate to="/" />}
             {notloggedInAsAdmin && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
+
             <div className="row g-1  w-100 dashboard-section">
              <div className="sidebar-toggler" ref={sidebarTogglerRef} onClick={showSidebar}><MdVerticalDistribute /></div> 
                 <div ref={sidebarRef} className=" dashboard-sidebar bg-light col-md-3 col-sm-3 col-5 bg-light p-3" style={{ height: "650px" }}>
@@ -181,6 +214,10 @@ const AdminDashboard = () => {
                             <AiFillDashboard className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
                             Dashboard
                         </li>
+                         <li onClick={showCourse} style={{cursor:"context-menu"}}>
+                            <FaBook size={20} style={{ width: "30px", paddingBottom: "4px" }} />
+                            Add Course
+                        </li>
                         <li onClick={showListOfStudents}>
                             <ImBooks className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
                             Students
@@ -188,11 +225,11 @@ const AdminDashboard = () => {
                         <li onClick={showResultPage}>
                             <BsFillDoorOpenFill className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
                             Result
-                        </li>
+                         </li>
                     </ul>
                     <div style={{ marginTop: "150%" }}>
                         <hr />
-                        <div className="dropdown">
+                        <div className="dropdown" style={{cursor:"context-menu"}}>
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <strong>{name}</strong>
                             </a>
@@ -206,9 +243,12 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                 </div>
+
                 <div ref={dashboardDataSectionRef} className="col-md-9 col-sm-9 col-7 dashboard-data-section" style={{ backgroundColor: "#d3ded6" }}>
                     {/* {home && <Home />} */}
                     {/* {dashboard && <Dashboard />} */}
+                    {course && <AddCourse />}
+                    {dashboard && <UpdateAcademicDates />}
                     {listOfStudents && <ListOfStudents />}
                     {declareResult && <DeclareResult />}
                     <div className={show} id="snackbar">Login Successfully..</div>

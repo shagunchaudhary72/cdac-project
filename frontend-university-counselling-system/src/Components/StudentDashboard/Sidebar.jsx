@@ -30,6 +30,7 @@ const Sidebar = () => {
     const snackbar3 = window.sessionStorage.getItem("snackbar3");
     const [qualification, setQualification] = useState(false);
     const [preference, setPreference] = useState(false);
+
     const [home, setHome] = useState(true);
     const [dashboard, setDashboard] = useState(false);
     const sidebarRef = useRef(null);
@@ -41,6 +42,7 @@ const Sidebar = () => {
       }) 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (studentName === null || studentEmail === null || studentAge === null) {
             setLoggedInStudentFalse(true);
         }
@@ -164,6 +166,7 @@ const Sidebar = () => {
         <>
             {loggedInStudentFalse && <Navigate to="/" />}
             {logOut && <Navigate to="/login" />}
+
             <div className="row g-1 w-100 dashboard-section">
             <div className="sidebar-toggler" ref={sidebarTogglerRef} onClick={showSidebar}><MdVerticalDistribute /></div> 
             <div ref={sidebarRef} className=" dashboard-sidebar bg-light col-md-3 col-sm-3 col-3 bg-light p-3" style={{ height: "650px" }}>
@@ -175,27 +178,28 @@ const Sidebar = () => {
                         <span className="fs-4">Hello <span className="text-success"><b>{studentName}</b></span></span>
                     </a>
                     <hr />
+
                     <ul className="nav nav-pills flex-column mb-auto  sidebar-list">
-                        <li onClick={showHome}>
+                        <li onClick={showHome}  style={{cursor:"context-menu"}}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>
-                        <li onClick={showDashboard}>
-                            <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                            Dashboard
-                        </li>
-                        <li onClick={showQualification}>
+                        <li onClick={showQualification} style={{cursor:"context-menu"}}>
                             <ImBooks size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Add Qualification
                         </li>
-                        <li onClick={showPreference}>
+                        <li onClick={showPreference} style={{cursor:"context-menu"}}>
                             <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Add Preferences
+                        </li>
+                        <li onClick={showHome} style={{cursor:"context-menu"}}>
+                            <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
+                            Result of Counselling
                         </li>
                     </ul>
                     <div style={{ marginTop: "150%" }}>
                         <hr />
-                        <div className="dropdown">
+                        <div className="dropdown" style={{cursor:"context-menu"}}>
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <strong>{studentName}</strong>
                             </a>
@@ -210,10 +214,11 @@ const Sidebar = () => {
                     </div>
                 </div>
                 <div ref={dashboardDataSectionRef} className="col-md-9 col-sm-9 col-9 dashboard-data-section" style={{ backgroundColor: "#d3ded6" }}>
-                    {home && <Home />}
+                  
                     {dashboard && <Dashboard />}
                     {qualification && <AddQualification />}
                     {preference && <AddPreference />}
+                    {home && <Home />}
                     <div className={show} id="snackbar">Login Successfully..</div>
                     <div className={show2} id="snackbar">Student details are added..</div>
                 </div>

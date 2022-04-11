@@ -41,6 +41,13 @@ const addNewCourseInUniversity = (newCourse) => {
   return axios.post(ADMIN_BASE_URL + `/course`, newCourse);
 };
 
+const updateDates = (emailId,dates)=>{
+  return axios.put(ADMIN_BASE_URL+"/dateupdation/"+emailId,dates);
+}
+
+const getAcademicDates = () =>{
+  return axios.get(ADMIN_BASE_URL+"/academic_dates");
+}
 export default {
   deleteCollegeDetails,
   getListOfStudents,
@@ -50,5 +57,7 @@ export default {
   getListOfShortlistedStudentsByCollege,
   getListOfShortlistedStudentsByCollegeCourse,
   declareResult,
-  addNewCourseInUniversity
+  addNewCourseInUniversity,
+  updateDates,
+  getAcademicDates
 };

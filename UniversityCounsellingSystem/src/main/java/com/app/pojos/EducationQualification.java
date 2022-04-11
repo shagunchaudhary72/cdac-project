@@ -43,7 +43,7 @@ public class EducationQualification extends BaseEntity{
 	private int yearOfPassing;
 	
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="student_id")
 	private Student student;
 

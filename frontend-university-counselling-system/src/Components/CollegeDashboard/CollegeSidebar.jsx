@@ -7,7 +7,7 @@ import { AiFillDashboard, AiTwotoneHome, AiFillSetting } from "react-icons/ai";
 import { ImBooks, ImCross } from "react-icons/im";
 import { BsPeopleFill } from "react-icons/bs";
 import "./Sidebar.css";
-import { FaUserGraduate } from "react-icons/fa";
+import { FaUserGraduate, FaUniversity  } from "react-icons/fa";
 import { MdVerticalDistribute } from "react-icons/md";
 //import AddQualification from "./AddQualification";
 //import AddPreference from "./AddPreference";
@@ -95,6 +95,10 @@ const CollegeSidebar = () => {
 
     return (_) => window.removeEventListener("resize", handleResize);
   }, [collegeName, dimensions]);
+  
+      useEffect(()=>{
+        window.scrollTo(0, 0);
+      },[])
 
   let logoutClick = () => {
     window.sessionStorage.removeItem("id");
@@ -262,10 +266,7 @@ const CollegeSidebar = () => {
                     Profile
                   </Link>
                 </li>
-                {/* <li onClick= { showProfile }>
-                                    <AiFillSetting size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                                    Profile
-                                </li> */}
+                {/* <li onClick= { showProfile }>*/}
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
