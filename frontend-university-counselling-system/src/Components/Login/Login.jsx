@@ -1,12 +1,9 @@
-
-import React, { useContext } from 'react'
-import { useState , useEffect } from "react";
+import React, { useContext } from "react";
+import { useState, useEffect } from "react";
 import "./Login.css";
 import UserService from "../../Services/UserService";
-import { Link, Navigate , useNavigate} from "react-router-dom";
-import { UserContext } from '../../App';
-
-
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
 
 const Login = () => {
     
@@ -40,7 +37,6 @@ const Login = () => {
     setEmail(event.target.value);
   };
 
-
   let passwordTextHandler = (event) => {
     setPasswordError("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
@@ -63,7 +59,6 @@ const Login = () => {
       return true;
     }
   };
-
 
     let onLoginSubmit = (event) => {
         event.preventDefault();
@@ -140,6 +135,7 @@ const Login = () => {
             })
         }
     }
+  };
 
   return (
     <>
@@ -149,8 +145,10 @@ const Login = () => {
         <Navigate to="/student_dashboard" />
       )}
       {loggedInAsCollege && <Navigate to="/add_college_details" />}
-      {loggedInCollegeAfterUpdatingDetails && <Navigate to="/college_dashboard"/>}
-      <div className="container-fluid w-50 mt-5">
+      {loggedInCollegeAfterUpdatingDetails && (
+        <Navigate to="/college_dashboard" />
+      )}
+      <div className="container-fluid w-50 mt-5 login-section">
         <div className="m-3">
           <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
           <p className="text-50 text-success mb-3">
@@ -162,7 +160,7 @@ const Login = () => {
                 <div className="form-floating mb-3">
                   <input
                     type="email"
-                    className="form-control"
+                    className="form-control form-control-sm"
                     value={email}
                     onChange={emailTextHandler}
                     placeholder="name@example.com"
@@ -173,7 +171,7 @@ const Login = () => {
                 <div className="form-floating mb-3">
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control form-control-sm"
                     value={password}
                     onChange={passwordTextHandler}
                     placeholder="password"
@@ -182,22 +180,40 @@ const Login = () => {
                   <span className="text-danger">{passwordError}</span>
                 </div>
 
-                            <div className="row g-1">
-                                <div className="text-center mb-2"><a href="#!" className="link-success">Forgot password?</a></div>
-                                <button type="submit" className="btn1 primary1">Login</button>
-                                <hr className="my-4" />
-                                <p>Don't have an account? <Link to="/register/student" className="link-success">Register as Student</Link><span className="text-secondary"> OR </span><a href="/register/college" className="link-success">College</a></p>
-                            </div>
-                        </form>
-                    </div>
+                <div className="row g-1">
+                  <div className="text-center mb-2">
+                    <a href="#!" className="link-success">
+                      Forgot password?
+                    </a>
+                  </div>
+                  <button type="submit" className="btn1 btn btn-sm primary1">
+                    Login
+                  </button>
+                  <hr className="my-4" />
+                  <p>
+                    Don't have an account?{" "}
+                    <Link to="/register/student" className="link-success">
+                      Register as Student
+                    </Link>
+                    <span className="text-secondary"> OR </span>
+                    <a href="/register/college" className="link-success">
+                      College
+                    </a>
+                  </p>
                 </div>
-                <span className="text-danger"><b>{errorMesg}</b></span>
+              </form>
             </div>
+          </div>
+          <span className="text-danger">
+            <b>{errorMesg}</b>
+          </span>
         </div>
-        <div className={show} id="snackbar">You have successfully logged out..</div>
-        </>
-    );
-}
-
+      </div>
+      <div className={show} id="snackbar">
+        You have successfully logged out..
+      </div>
+    </>
+  );
+};
 
 export default Login;

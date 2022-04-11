@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Navigate, Link } from "react-router-dom";
 import "../Login/Login.css";
 import "./StudentDashboard.css";
 import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
-import { ImBooks } from "react-icons/im";
+import { ImBooks,ImCross } from "react-icons/im";
 import { BsFillDoorOpenFill } from "react-icons/bs";
 import "./Sidebar.css";
 import { FaUserGraduate } from "react-icons/fa";
@@ -12,6 +12,7 @@ import AddPreference from "./AddPreference";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 import { UserContext } from "../../App";
+import {MdVerticalDistribute} from "react-icons/md"
 
 const Sidebar = () => {
 
@@ -29,8 +30,16 @@ const Sidebar = () => {
     const snackbar3 = window.sessionStorage.getItem("snackbar3");
     const [qualification, setQualification] = useState(false);
     const [preference, setPreference] = useState(false);
-    const [home, setHome] = useState(false);
-    const [dashboard, setDashboard] = useState(true);
+
+    const [home, setHome] = useState(true);
+    const [dashboard, setDashboard] = useState(false);
+    const sidebarRef = useRef(null);
+    const sidebarTogglerRef = useRef(null);
+    const dashboardDataSectionRef = useRef(null);
+    const [dimensions, setDimensions] = useState({ 
+        height: window.innerHeight,
+        width: window.innerWidth
+      }) 
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -49,7 +58,29 @@ const Sidebar = () => {
             window.sessionStorage.removeItem("snackbar3");
         }
 
-    }, []);
+        const handleResize = () => {
+            setDimensions({
+              height: window.innerHeight,
+              width: window.innerWidth
+            })
+        }
+
+        if( dimensions.width >= 768){
+            sidebarRef.current.style.width = "25%";
+            dashboardDataSectionRef.current.style.width = "75%";
+            sidebarRef.current.style.display = "block";
+            sidebarTogglerRef.current.style.display = "none";
+        }else{
+            sidebarRef.current.style.display = "none";
+            sidebarTogglerRef.current.style.display = "block";
+        }
+
+        console.log( dimensions.width);
+        window.addEventListener( 'resize', handleResize);
+
+        return _ => window.removeEventListener( 'resize', handleResize);
+
+    }, [dimensions]);
 
     let logoutClick = () => {
         window.sessionStorage.removeItem("name");
@@ -114,20 +145,42 @@ const Sidebar = () => {
         setDashboard(true);
     }
 
+    
+    const showSidebar = () => {
+        sidebarRef.current.style.display = "block";
+        sidebarRef.current.style.width = "80vw";
+        dashboardDataSectionRef.current.style.display = "none";
+        sidebarTogglerRef.current.style.display = "none";
+
+    }
+
+    const hideSidebar = () => {
+        sidebarRef.current.style.display = "none";
+        dashboardDataSectionRef.current.display = "100vw";
+        dashboardDataSectionRef.current.style.display = "block";
+        sidebarTogglerRef.current.style.display = "block";
+    }
+
 
     return (
         <>
             {loggedInStudentFalse && <Navigate to="/" />}
             {logOut && <Navigate to="/login" />}
-            <div className="row g-1 bg-light w-100">
-                <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
-                    <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none" >
+
+            <div className="row g-1 w-100 dashboard-section">
+            <div className="sidebar-toggler" ref={sidebarTogglerRef} onClick={showSidebar}><MdVerticalDistribute /></div> 
+            <div ref={sidebarRef} className=" dashboard-sidebar bg-light col-md-3 col-sm-3 col-3 bg-light p-3" style={{ height: "650px" }}>
+                    
+                    <div id="close-sidebar" className="text-end" onClick={hideSidebar}><ImCross /></div>
+
+                    <a href="#" className="hello-text d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                         <FaUserGraduate style={{ width: "30px" }} />
                         <span className="fs-4">Hello <span className="text-success"><b>{studentName}</b></span></span>
                     </a>
                     <hr />
-                    <ul className="nav nav-pills flex-column mb-auto">
-                        <li onClick={showDashboard} style={{cursor:"context-menu"}}>
+
+                    <ul className="nav nav-pills flex-column mb-auto  sidebar-list">
+                        <li onClick={showHome}  style={{cursor:"context-menu"}}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>
@@ -160,7 +213,8 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-10" style={{ backgroundColor: "#d3ded6" }}>
+                <div ref={dashboardDataSectionRef} className="col-md-9 col-sm-9 col-9 dashboard-data-section" style={{ backgroundColor: "#d3ded6" }}>
+                  
                     {dashboard && <Dashboard />}
                     {qualification && <AddQualification />}
                     {preference && <AddPreference />}

@@ -6,6 +6,7 @@ import StudentService from "../../Services/StudentService";
 import "./StudentDashboard.css";
 
 const AddPreference = () => {
+
     let userId = window.sessionStorage.getItem("id");
     const [college, setCollege] = useState("");
     const [course, setCourse] = useState("");
@@ -52,14 +53,16 @@ const AddPreference = () => {
             console.log(err);
         });
     }
+  }, [college]);
 
-    const getPreferenceList = (id) => {
-        StudentService.getPreferences(id).then(res => {
-            setPreferences(res.data);
-        }).catch(err => {
-            console.log(err);
-        })
+  let onCollegeHandler = (e) => {
+    setCollege(e.target.value);
+    if (collegeErr !== "") {
+      setCollgeErr("");
     }
+
+  };
+
     useEffect(() => {
         getPreferenceList(userId);
         educationChecking(userId);
@@ -79,34 +82,25 @@ const AddPreference = () => {
 
     }, [college])
 
-    let onCollegeHandler = (e) => {
-        setCollege(e.target.value);
-        if (collegeErr !== "") {
-            setCollgeErr("");
-        }
+
+  let onCourseHandler = (e) => {
+    setCourse(e.target.value);
+    if (courseErr !== "") {
+      setCourseErr("");
+    }
+  };
+
+  let validation = () => {
+    let flag = true;
+    if (college === "") {
+      setCollgeErr("Please select any college from the given list");
+      flag = false;
+    }
+    if (course === "") {
+      setCourseErr("Please select course");
+      flag = false;
     }
 
-    let onCourseHandler = (e) => {
-        setCourse(e.target.value);
-        if (courseErr !== "") {
-            setCourseErr("");
-        }
-    }
-
-    let validation = () => {
-        let flag = true;
-        if (college === "") {
-            setCollgeErr("Please select any college from the given list");
-            flag = false;
-        }
-        if (course === "") {
-            setCourseErr("Please select course");
-            flag = false;
-        }
-        if (flag) {
-            return true;
-        }
-    }
 
     let educationChecking = (id) => {
         StudentService.getEducationDetailsOfStudent(id).then(response => {
@@ -161,10 +155,13 @@ const AddPreference = () => {
     return (
         <>
             {loggedOut && <Navigate to="/login" />}
-            <div className="container-fluid w-50 mt-5">
-                <div className="m-3">
-                    <h2 className="fw-bold mb-2 text-uppercase">Enter your Preferences</h2>
-                    <p className="text-50 text-success mb-3">Remember!! you should add college according to your priority</p>
+      <div className="container-fluid w-50 mt-5 add-prefernece-details">
+        <div className="m-3">
+          <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">
+            Enter your Preferences
+          </h2>
+          <p className="text-50 text-success mb-3 dashboard-data-section-para">
+      Remember!! you should add college according to your priority</p>
                     <div className="border border-1 rounded">
                         <div className="m-3">
                             <form onSubmit={onAddPreferenceSubmit} className="row g-1">
@@ -204,6 +201,7 @@ const AddPreference = () => {
                 </div >
 
                 <hr />
+                      <div className="table-responsive">
                 <table className="table table-bordered table-striped">
                     <thead className="thead-dark">
                         <tr className="text-center">
@@ -232,9 +230,11 @@ const AddPreference = () => {
 
                     </tbody>
                 </table>
-            </div>
-        </>
-    );
-}
+              </div>
+
+      </div>
+    </>
+  );
+};
 
 export default AddPreference;

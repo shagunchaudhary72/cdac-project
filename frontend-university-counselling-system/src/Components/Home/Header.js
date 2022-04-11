@@ -67,12 +67,12 @@ const Header = () => {
     }
 
     return (
-        <Navbar bg="light" expand="lg" className='sticky-top'>
+        <Navbar bg="light" expand="lg" className='sticky-top site-navbar' style={{zIndex:'999'}}>
             <Container>
                 <NavLink to="/">
-                    <img src={NavbarLogo} alt="ucs_logo" width={300} height={50} />
+                    <img className="navbar-logo" src={NavbarLogo} alt="ucs_logo" width={300} height={50} />
                 </NavLink>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle className='navbar-toggler' aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end' >
                     <Nav>
                         <NavLink className='navbar-link' to='/home'><IoIosHome className='navbar-right-logo' /> Home</NavLink>

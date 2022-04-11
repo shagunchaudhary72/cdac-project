@@ -179,9 +179,9 @@ const RegisterStudent = () => {
   };
 
   return (
-    <div className="container-fluid w-50 mt-5">
+    <div className="container-fluid w-50 mt-5 register-section">
       <div className="m-3">
-        <h2 className="fw-bold mb-2 text-uppercase">Student Registration</h2>
+        <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">Student Registration</h2>
         <p className="text-50 text-success mb-3">Please fill up the details</p>
         <div className="border border-1 rounded">
           <div className="m-3">
