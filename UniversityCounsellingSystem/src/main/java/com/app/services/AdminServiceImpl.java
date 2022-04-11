@@ -18,6 +18,7 @@ import com.app.dao.StudentRepository;
 import com.app.dao.UniversityRepository;
 import com.app.dto.ShortlistedStudentDto;
 import com.app.dto.StudentRankDto;
+import com.app.dto.UpdationAndResultDates;
 import com.app.pojos.College;
 import com.app.pojos.Course;
 import com.app.pojos.EducationQualification;
@@ -155,6 +156,22 @@ public class AdminServiceImpl implements IAdminService {
 			
 		});
 		return students;
+	}
+
+	@Override
+	public University updateDates(University university) {
+		return universityRepo.save(university);
+	}
+
+	@Override
+	public University getUniversityByEmail(String email) {
+		return universityRepo.findByEmail(email).orElseThrow(()->new ResourceNotFoundException(email));
+	}
+
+	@Override
+	public UpdationAndResultDates getAcademicDates(int id) {
+		University university = universityRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("University Not Found"));
+		return new UpdationAndResultDates(university.getResultDate(), university.getUpdationDate());
 	}
 
 }

@@ -121,7 +121,7 @@ const AddCourse = () => {
                         {
                             courses.map((course, key) => (
                                 <tr key={key}>
-                                    <td>{course.id}</td>
+                                    <td>{key+1}</td>
                                     <td>{course.courseName}</td>
                                     <td><center><button className="btn1 primary1 rounded" onClick={() => {
                                         handleDelete(course.id);

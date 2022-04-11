@@ -170,6 +170,7 @@ const RegisterStudent = () => {
           setConfirmPassword("");
           setAge("");
           setSuccessMesg("User Created Successfully");
+          //toastr.success("Student Profile Created Successfully");
         })
         .catch((error) => {
           setErrorMesg("Something went wrong", error);

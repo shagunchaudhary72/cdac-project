@@ -3,6 +3,7 @@ package com.app.services;
 
 import java.util.List;
 
+import com.app.dto.StudentCounsellingResult;
 import com.app.pojos.Student;
 
 public interface IStudentService {
@@ -18,6 +19,8 @@ public interface IStudentService {
 	List<Student> getAllStudents();
 	
 	List<Student> deleteStudent(int id);
+	
+	StudentCounsellingResult getResultOfCounselling(int id);
 	
 	
 
