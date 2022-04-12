@@ -108,7 +108,7 @@ public class CollegeServiceImpl implements ICollegeService {
 		});
 		User userData = new User(collegeUserData.getName(), collegeUserData.getEmail(), collegeUserData.getPassword(),
 				Role.COLLEGE, collegeUserData.getPhone_no());
-		College collegeData = new College(collegeUserData.getName(), collegeUserData.getEmail(),
+		College collegeData = new College(collegeUserData.getName(), collegeUserData.getEmail(), collegeUserData.getCountry(),
 				collegeUserData.getCity(), collegeUserData.getState(), uni, collegeUserData.getPhone_no());
 		collegeRepo.save(collegeData);
 		return userRepo.save(userData);
