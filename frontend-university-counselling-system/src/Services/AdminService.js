@@ -61,6 +61,10 @@ const getCount = () =>{
   return axios.get(ADMIN_BASE_URL+"/count");
 }
 
+const deleteCourseById = (courseId) =>{
+  return axios.delete(ADMIN_BASE_URL+"/deleteCourse/"+courseId);
+}
+
 export default {
   deleteCollegeDetails,
   getListOfStudents,
@@ -75,5 +79,6 @@ export default {
   getAcademicDates,
   getCount,
   getListOfColleges,
-  getListOfCourses
+  getListOfCourses,
+  deleteCourseById
 };

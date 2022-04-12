@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.app.custom_exceptions.AuthenticationException;
+import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.CollegeRepository;
 import com.app.dao.StudentRepository;
 import com.app.dao.UniversityRepository;
@@ -71,6 +72,14 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User registerAsStudent(User user) {
+		return userRepo.save(user);
+	}
+
+
+	@Override
+	public User updatePassword(String email, String newPassword) {
+		User user = userRepo.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("User with email: "+email+" not found in our database"));
+		user.setPassword(newPassword);
 		return userRepo.save(user);
 	}
 

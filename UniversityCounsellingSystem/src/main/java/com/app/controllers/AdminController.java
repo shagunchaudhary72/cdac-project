@@ -148,4 +148,11 @@ public class AdminController {
 	public ResponseEntity<?> getCounts(){
 		return ResponseEntity.ok().body(adminService.getCount());
 	}
+	
+	@DeleteMapping("/deleteCourse/{id}")
+	public ResponseEntity<?> deleteCourse(@PathVariable int id) {
+		String mesg = courseService.deleteCourseById(id);
+		adminService.declareResult();	
+		return ResponseEntity.ok().body(mesg);
+	} 
 }

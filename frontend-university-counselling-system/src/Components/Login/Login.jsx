@@ -6,37 +6,44 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 
 const Login = () => {
-    
-    const {state,dispatch} = useContext(UserContext);
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [emailErr, setEmailErr] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-    const [errorMesg, setErrorMesg] = useState("");
-    const [loggedInAsStudent,setLoggedInStudent] = useState(false);
-    const [loggedInAsCollege,setLoggedInCollege] = useState(false);
-    const [loggedInStudentAfterUpdatingDetails,setLoggedInStudentAfterUpdatingDetails] = useState(false);
-    const [loggedInCollegeAfterUpdatingDetails,setLoggedInCollegeAfterUpdatingDetails] = useState(false);
-    const [show,setShow] = useState("");
-    const [show1,setShow1] = useState("");
-    let snackbar2 = window.sessionStorage.getItem("snackbar2");
-    let snackbar = window.sessionStorage.getItem("snackbar");
-    const [loggedInAsAdmin,setLoggedInAsAdmin] = useState(false);
+  const { state, dispatch } = useContext(UserContext);
 
-    useEffect(()=>{
-      window.scrollTo(0, 0);
-        if(snackbar2==="show"){
-            setShow(snackbar2);
-            setTimeout(function(){ setShow("");clearTimeout(); }, 3000)
-            window.sessionStorage.removeItem("snackbar2");
-        }
-        if(snackbar==="show"){
-          setShow1(snackbar);
-          setTimeout(function(){ setShow1("");clearTimeout(); }, 3000)
-          window.sessionStorage.removeItem("snackbar");
-      }
-    },[])
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailErr, setEmailErr] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [errorMesg, setErrorMesg] = useState("");
+  const [loggedInAsStudent, setLoggedInStudent] = useState(false);
+  const [loggedInAsCollege, setLoggedInCollege] = useState(false);
+  const [loggedInStudentAfterUpdatingDetails, setLoggedInStudentAfterUpdatingDetails] = useState(false);
+  const [loggedInCollegeAfterUpdatingDetails, setLoggedInCollegeAfterUpdatingDetails] = useState(false);
+  const [show, setShow] = useState("");
+  const [show1, setShow1] = useState("");
+  const [show2, setShow2] = useState("");
+  let snackbar2 = window.sessionStorage.getItem("snackbar2");
+  let snackbar = window.sessionStorage.getItem("snackbar");
+  let snackbar3 = window.sessionStorage.getItem("passwordUpdated");
+  const [loggedInAsAdmin, setLoggedInAsAdmin] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (snackbar2 === "show") {
+      setShow(snackbar2);
+      setTimeout(function () { setShow(""); clearTimeout(); }, 3000)
+      window.sessionStorage.removeItem("snackbar2");
+    }
+    if (snackbar === "show") {
+      setShow1(snackbar);
+      setTimeout(function () { setShow1(""); clearTimeout(); }, 3000)
+      window.sessionStorage.removeItem("snackbar");
+    }
+    if (snackbar3 === "show") {
+      setShow2(snackbar3);
+      setTimeout(function () { setShow2(""); clearTimeout(); }, 3000)
+      window.sessionStorage.removeItem("passwordUpdated");
+    }
+  }, [])
 
   let emailTextHandler = (event) => {
     setEmailErr("");
@@ -67,82 +74,82 @@ const Login = () => {
     }
   };
 
-    let onLoginSubmit = (event) => {
-        event.preventDefault();
-        if(validation()===true){
-            let loginRequest = {
-                email,password
-            }
-            UserService.login(loginRequest).then(response=>{
-                setEmail("");
-                setPassword("");
-                if( response.data.role === "ADMIN"){
-                  const user = response.data;
-                  window.sessionStorage.setItem('user',JSON.stringify(user));
-                  window.sessionStorage.setItem("email",user.email);
-                  window.sessionStorage.setItem("name",user.name);
-                  window.sessionStorage.setItem("role",user.role);
-                  window.sessionStorage.setItem("snackbar","show");
-                  console.log(user);
-                  setLoggedInAsAdmin(true);
-                }
-                else if(response.data.role === "STUDENT"){
-                    if(response.data.address===null)
-                        setLoggedInStudent(true);
-                    else
-                        setLoggedInStudentAfterUpdatingDetails(true);    
-                    console.log("Login Successfully",response.data);
-                    let studentEmail = response.data.email;
-                    let studentName = response.data.name;
-                    let studentAge = response.data.age;
-                    let studentId = response.data.studentId;
-                    console.log(studentId);
-                    window.sessionStorage.setItem("id",studentId);
-                    window.sessionStorage.setItem("email",studentEmail);
-                    window.sessionStorage.setItem("name",studentName);
-                    window.sessionStorage.setItem("age",studentAge);
-                    window.sessionStorage.setItem("role",response.data.role);
-                    window.sessionStorage.setItem("snackbar","show");
-                }
-              
-                else if(response.data.role === "COLLEGE"){
-                  console.log(response.data);
-                    if(response.data.cutOffRank==="0" || response.data.minimumPercentInBoards==="0" || response.data.totalSeats==="0" || response.data.vaccantSeats==="0" || response.data.courses.length === 0)
-                        setLoggedInCollege(true);      
-                    else
-                        setLoggedInCollegeAfterUpdatingDetails(true);  
-                    console.log("Login Successfully",response.data);
-                    let collegeEmail = response.data.email;
-                    let collegeName = response.data.name;
-                    let collegeId = response.data.collegeId;
-                    let collegeCity = response.data.city;
-                    let collegeState = response.data.state;
-                    let collegePhonoNo = response.data.phoneNo;
-                    let collegeSelectedCourses = response.data.courses;
-                    let universityId = response.data.uniid;
-                    let universityEmail = response.data.uniemail;
-                    let universityName = response.data.uniname;
-                    console.log(collegeId);
-                    window.sessionStorage.setItem("id",collegeId);
-                    window.sessionStorage.setItem("email",collegeEmail);
-                    window.sessionStorage.setItem("name",collegeName);
-                    window.sessionStorage.setItem("city",collegeCity);
-                    window.sessionStorage.setItem("state",collegeState);
-                    window.sessionStorage.setItem("universityId", universityId);
-                    window.sessionStorage.setItem("universityEmail", universityEmail);
-                    window.sessionStorage.setItem("universityName", universityName);
-                    window.sessionStorage.setItem("phone_no",collegePhonoNo);
-                    window.sessionStorage.setItem("courses",JSON.stringify(collegeSelectedCourses));
-                    window.sessionStorage.setItem("role",response.data.role);
-                    window.sessionStorage.setItem("snackbar","show");
-                }
-                dispatch({type:"USER",payload:true})
-            }).catch(error=>{
-                setErrorMesg("Email or Password is incorrect",error);
-            })
+  let onLoginSubmit = (event) => {
+    event.preventDefault();
+    if (validation() === true) {
+      let loginRequest = {
+        email, password
+      }
+      UserService.login(loginRequest).then(response => {
+        setEmail("");
+        setPassword("");
+        if (response.data.role === "ADMIN") {
+          const user = response.data;
+          window.sessionStorage.setItem('user', JSON.stringify(user));
+          window.sessionStorage.setItem("email", user.email);
+          window.sessionStorage.setItem("name", user.name);
+          window.sessionStorage.setItem("role", user.role);
+          window.sessionStorage.setItem("snackbar", "show");
+          console.log(user);
+          setLoggedInAsAdmin(true);
         }
+        else if (response.data.role === "STUDENT") {
+          if (response.data.address === null)
+            setLoggedInStudent(true);
+          else
+            setLoggedInStudentAfterUpdatingDetails(true);
+          console.log("Login Successfully", response.data);
+          let studentEmail = response.data.email;
+          let studentName = response.data.name;
+          let studentAge = response.data.age;
+          let studentId = response.data.studentId;
+          console.log(studentId);
+          window.sessionStorage.setItem("id", studentId);
+          window.sessionStorage.setItem("email", studentEmail);
+          window.sessionStorage.setItem("name", studentName);
+          window.sessionStorage.setItem("age", studentAge);
+          window.sessionStorage.setItem("role", response.data.role);
+          window.sessionStorage.setItem("snackbar", "show");
+        }
+
+        else if (response.data.role === "COLLEGE") {
+          console.log(response.data);
+          if (response.data.cutOffRank === "0" || response.data.minimumPercentInBoards === "0" || response.data.totalSeats === "0" || response.data.vaccantSeats === "0" || response.data.courses.length === 0)
+            setLoggedInCollege(true);
+          else
+            setLoggedInCollegeAfterUpdatingDetails(true);
+          console.log("Login Successfully", response.data);
+          let collegeEmail = response.data.email;
+          let collegeName = response.data.name;
+          let collegeId = response.data.collegeId;
+          let collegeCity = response.data.city;
+          let collegeState = response.data.state;
+          let collegePhonoNo = response.data.phoneNo;
+          let collegeSelectedCourses = response.data.courses;
+          let universityId = response.data.uniid;
+          let universityEmail = response.data.uniemail;
+          let universityName = response.data.uniname;
+          console.log(collegeId);
+          window.sessionStorage.setItem("id", collegeId);
+          window.sessionStorage.setItem("email", collegeEmail);
+          window.sessionStorage.setItem("name", collegeName);
+          window.sessionStorage.setItem("city", collegeCity);
+          window.sessionStorage.setItem("state", collegeState);
+          window.sessionStorage.setItem("universityId", universityId);
+          window.sessionStorage.setItem("universityEmail", universityEmail);
+          window.sessionStorage.setItem("universityName", universityName);
+          window.sessionStorage.setItem("phone_no", collegePhonoNo);
+          window.sessionStorage.setItem("courses", JSON.stringify(collegeSelectedCourses));
+          window.sessionStorage.setItem("role", response.data.role);
+          window.sessionStorage.setItem("snackbar", "show");
+        }
+        dispatch({ type: "USER", payload: true })
+      }).catch(error => {
+        setErrorMesg("Email or Password is incorrect", error);
+      })
     }
-  
+  }
+
 
   return (
     <>
@@ -189,9 +196,9 @@ const Login = () => {
 
                 <div className="row g-1">
                   <div className="text-center mb-2">
-                    <a href="#!" className="link-success">
+                    <Link to="/forgot_password" className="link-success">
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                   <button type="submit" className="btn1 btn btn-sm primary1">
                     Login
@@ -221,6 +228,9 @@ const Login = () => {
       </div>
       <div className={show1} id="snackbar">
         College Registered Successfully..
+      </div>
+      <div className={show2} id="snackbar">
+        Password Updated Successfully..
       </div>
     </>
   );

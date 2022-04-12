@@ -35,8 +35,6 @@ const getShortlistedStudents= (collegeId) => {
     return axios.get(COLLEGE_SERVICE_API_URL+"/"+collegeId+"/shortlisted_students")
 }
 
-const deleteCourseById = (courseId) =>{
-    return axios.delete(COLLEGE_SERVICE_API_URL+"/deleteCourse/"+courseId);
-}
 
-export default { createCollege, login, updateCollegeDetails, getCourseList, getCollegeProfile, getAllCollege, getCoursesOfCollge, getShortlistedStudents, deleteCourseById }
+
+export default { createCollege, login, updateCollegeDetails, getCourseList, getCollegeProfile, getAllCollege, getCoursesOfCollge, getShortlistedStudents }
