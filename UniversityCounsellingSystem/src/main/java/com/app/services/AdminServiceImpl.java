@@ -16,6 +16,7 @@ import com.app.dao.PreferenceRepository;
 import com.app.dao.ShortlistedStudentRepository;
 import com.app.dao.StudentRepository;
 import com.app.dao.UniversityRepository;
+import com.app.dto.CollegeCourseStudentCount;
 import com.app.dto.ShortlistedStudentDto;
 import com.app.dto.StudentRankDto;
 import com.app.dto.UpdationAndResultDates;
@@ -172,6 +173,14 @@ public class AdminServiceImpl implements IAdminService {
 	public UpdationAndResultDates getAcademicDates(int id) {
 		University university = universityRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("University Not Found"));
 		return new UpdationAndResultDates(university.getResultDate(), university.getUpdationDate());
+	}
+
+	@Override
+	public CollegeCourseStudentCount getCount() {
+			Long student = studentRepo.findCountOfStudent();
+			Long clg = collegeRepo.findCountOfCollege();
+			Long course = courseRepo.findCountOfCourse();
+		return new CollegeCourseStudentCount(student,course,clg);
 	}
 
 }

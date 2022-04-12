@@ -31,8 +31,8 @@ const Sidebar = () => {
     const [qualification, setQualification] = useState(false);
     const [preference, setPreference] = useState(false);
 
-    const [home, setHome] = useState(true);
-    const [dashboard, setDashboard] = useState(false);
+    const [home, setHome] = useState(false);
+    const [dashboard, setDashboard] = useState(true);
     const sidebarRef = useRef(null);
     const sidebarTogglerRef = useRef(null);
     const dashboardDataSectionRef = useRef(null);
@@ -66,8 +66,8 @@ const Sidebar = () => {
         }
 
         if( dimensions.width >= 768){
-            sidebarRef.current.style.width = "25%";
-            dashboardDataSectionRef.current.style.width = "75%";
+            sidebarRef.current.style.width = "20%";
+            dashboardDataSectionRef.current.style.width = "80%";
             sidebarRef.current.style.display = "block";
             sidebarTogglerRef.current.style.display = "none";
         }else{
@@ -180,7 +180,7 @@ const Sidebar = () => {
                     <hr />
 
                     <ul className="nav nav-pills flex-column mb-auto  sidebar-list">
-                        <li onClick={showHome}  style={{cursor:"context-menu"}}>
+                        <li onClick={showDashboard}  style={{cursor:"context-menu"}}>
                             <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>

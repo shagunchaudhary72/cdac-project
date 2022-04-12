@@ -106,6 +106,7 @@ const RegisterAsCollege = () => {
                 setSuccessMessage("college data added successfully");
                 setSuccessMessageFlag(true);
                 console.log('college data added successfully!!!', response.data);
+                window.sessionStorage.setItem("snackbar","show");
                 setNavigateToLogin(true);
             }
             ).then(setFormDataBlank())

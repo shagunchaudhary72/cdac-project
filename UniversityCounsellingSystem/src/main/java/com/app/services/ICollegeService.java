@@ -33,4 +33,5 @@ public interface ICollegeService {
 
 	College getCollegeDetailsByName(String name);
 	
+	
 }

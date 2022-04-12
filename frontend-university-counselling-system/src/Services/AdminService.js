@@ -10,6 +10,14 @@ const getListOfStudents = () => {
   return axios.get(ADMIN_BASE_URL + "/students");
 };
 
+const getListOfColleges = () => {
+  return axios.get(ADMIN_BASE_URL + "/colleges");
+}
+
+const getListOfCourses = () => {
+  return axios.get(ADMIN_BASE_URL + "/courses");
+}
+
 const getStudentDetails = (id) => {
   return axios.get(ADMIN_BASE_URL + `/student/${id}`);
 };
@@ -48,6 +56,11 @@ const updateDates = (emailId,dates)=>{
 const getAcademicDates = () =>{
   return axios.get(ADMIN_BASE_URL+"/academic_dates");
 }
+
+const getCount = () =>{
+  return axios.get(ADMIN_BASE_URL+"/count");
+}
+
 export default {
   deleteCollegeDetails,
   getListOfStudents,
@@ -59,5 +72,8 @@ export default {
   declareResult,
   addNewCourseInUniversity,
   updateDates,
-  getAcademicDates
+  getAcademicDates,
+  getCount,
+  getListOfColleges,
+  getListOfCourses
 };

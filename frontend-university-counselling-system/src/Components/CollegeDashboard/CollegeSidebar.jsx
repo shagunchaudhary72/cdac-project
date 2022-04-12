@@ -83,8 +83,8 @@ const CollegeSidebar = () => {
     };
 
     if (dimensions.width >= 768) {
-      sidebarRef.current.style.width = "25%";
-      dashboardDataSectionRef.current.style.width = "75%";
+      sidebarRef.current.style.width = "20%";
+      dashboardDataSectionRef.current.style.width = "80%";
       sidebarRef.current.style.display = "block";
       sidebarTogglerRef.current.style.display = "none";
     } else {
@@ -217,28 +217,28 @@ const CollegeSidebar = () => {
           </a>
           <hr />
           <ul className="nav nav-pills flex-column mb-auto sidebar-list">
-            <li onClick={showHome}>
+            <li onClick={showHome}  style={{cursor:"context-menu"}}>
               <AiTwotoneHome
                 size={20}
                 style={{ width: "30px", paddingBottom: "4px" }}
               />
               Home
             </li>
-            <li onClick={showDashboard}>
+            <li onClick={showDashboard}  style={{cursor:"context-menu"}}>
               <AiFillDashboard
                 size={20}
                 style={{ width: "30px", paddingBottom: "4px" }}
               />
               Dashboard
             </li>
-            <li onClick={showDetails}>
+            <li onClick={showDetails}  style={{cursor:"context-menu"}}>
               <ImBooks
                 size={20}
                 style={{ width: "30px", paddingBottom: "4px" }}
               />
               College Details
             </li>
-            <li onClick={showShortlistedStudents}>
+            <li onClick={showShortlistedStudents}  style={{cursor:"context-menu"}}>
               <BsPeopleFill
                 size={20}
                 style={{ width: "30px", paddingBottom: "4px" }}
@@ -248,7 +248,7 @@ const CollegeSidebar = () => {
           </ul>
           <div style={{ marginTop: "150%" }}>
             <hr />
-            <div className="dropdown">
+            <div className="dropdown"  style={{cursor:"context-menu"}}>
               <a
                 className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                 id="dropdownUser2"

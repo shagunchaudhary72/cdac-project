@@ -78,6 +78,16 @@ public class AdminController {
 	public ResponseEntity<?> fetchAllStudents() {
 		return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudents());
 	}
+	
+	@GetMapping("/colleges")
+	public ResponseEntity<?> fetchAllColleges(){
+		return ResponseEntity.status(HttpStatus.OK).body(collegeService.getAllCollege());
+	}
+	
+	@GetMapping("/courses")
+	public ResponseEntity<?> fetchAllCourses(){
+		return ResponseEntity.status(HttpStatus.OK).body(courseService.listOfCourses());
+	}
 
 	@GetMapping("/student/{id}")
 	public ResponseEntity<?> fetchStudentDetails(@PathVariable int id) {
@@ -132,5 +142,10 @@ public class AdminController {
 	@GetMapping("/academic_dates")
 	public ResponseEntity<?> getAcademicDates(){
 		return ResponseEntity.ok().body(adminService.getAcademicDates(1));
+	}
+	
+	@GetMapping("/count")
+	public ResponseEntity<?> getCounts(){
+		return ResponseEntity.ok().body(adminService.getCount());
 	}
 }
