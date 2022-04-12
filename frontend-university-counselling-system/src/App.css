@@ -6,8 +6,6 @@
     --background-color: #d3ded6;
 }
 
-
-
 .footer-copyright-section{
     /* position: absolute;
     bottom: 0; */
@@ -61,6 +59,18 @@
    display: none;
 }
 
+.about-page{
+    width: 80% !important;
+    }
+
+.contact-page{
+    width: 80% !important;
+}
+
+.dashboard-sidebar{
+    height: 100% !important;
+}
+
 @media only screen and (max-width:1200px) {
     .heading-bottom-border{
         font-size: 2.1rem;
@@ -72,4 +82,47 @@
         font-size: 1.5rem;
         border-bottom: 2px solid var(--green-color);
     }
+    .add-details-section{
+        width: 60vw !important;
+    }
+
+    .register-section{
+        width: 60vw !important;
+    }
+}
+
+@media only screen and (max-width:768px){
+    .add-details-section{
+        width: 80vw !important;
+    }
+
+    .register-section{
+        width: 80vw !important;
+    }
+}
+
+@media only screen and (max-width:576px){
+
+    .navbar-logo{
+        width: 200px;
+    }
+
+    .footer-copyright-section>div {
+        font-size: 10px !important;
+    }
+
+    .add-details-section{
+        width: 100vw !important;
+    }
+
+    .register-section{
+        width: 100vw !important;
+    }
+
+    .primary1{
+        padding: 3px !important;
+        font-size: 12px !important;
+    }
+
+
 }

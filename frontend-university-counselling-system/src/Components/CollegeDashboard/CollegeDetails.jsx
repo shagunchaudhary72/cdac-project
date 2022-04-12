@@ -145,7 +145,7 @@ const AddCollegeDetails = () => {
             {/* {detailsUpdated && <Navigate to="/collegeDashboard" />} */}
             {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Back</button> */}
             {/* <button type="button" className="btn1 primary1"><Link to="/collegeDashboard" className="dropdown-item" >Back</Link></button> */}
-            <div className="container-fluid w-50 mt-5">
+            <div className="container-fluid w-50 mt-5 college-details-section">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Details</h2>
 

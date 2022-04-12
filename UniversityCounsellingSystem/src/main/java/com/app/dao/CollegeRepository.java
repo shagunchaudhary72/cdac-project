@@ -18,4 +18,7 @@ public interface CollegeRepository extends JpaRepository<College, Integer> {
 	College findByName(String name);
 
 	College findByEmail(String email);
+	
+	@Query("select count(c) from College c")
+	Long findCountOfCollege();
 }

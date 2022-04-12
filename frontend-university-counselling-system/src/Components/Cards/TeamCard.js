@@ -2,7 +2,7 @@ import React from 'react'
 
 const TeamCard = ({ member }) => {
   return (
-    <div className="col-4 my-4 ">
+    <div className="col-12 col-sm-6 col-lg-4 my-4">
     <div className="card" style={{width:'18rem'}}>
       <img src="..." className="card-img-top" alt="courseImage" />
       <div className="card-body">

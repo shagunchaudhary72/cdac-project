@@ -30,4 +30,8 @@ const deleteEducation = (educationId, studentId) => {
     return axios.delete(STUDENT_API_SERVICE_URL + "/student/" + studentId + "/education/" + educationId);
 }
 
-export default { updateStudentDetails, updateEducation, getEducationDetailsOfStudent, addPreference, getPreferences, deletePreference, deleteEducation };
+const getResult = (studentId) => {
+    return axios.get(STUDENT_API_SERVICE_URL + "/student/counselling_result/" + studentId);
+}
+
+export default { updateStudentDetails, updateEducation, getEducationDetailsOfStudent, addPreference, getPreferences, deletePreference, deleteEducation, getResult };

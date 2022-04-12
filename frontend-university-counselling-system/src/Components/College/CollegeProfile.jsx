@@ -259,8 +259,8 @@ const AddCollegeDetails = () => {
             {logOut && <Navigate to="/login" />}
             {detailsUpdated && <Navigate to="/college_dashboard" />}
             {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Back</button> */}
-            <button type="button" className="btn1 primary1"><Link to="/college_dashboard" className="dropdown-item" >Back</Link></button>
-            <div className="container-fluid w-50 mt-5">
+            {/* <button type="button" className="btn1 primary1"><Link to="/college_dashboard" className="dropdown-item" >Back</Link></button> */}
+            <div className="container-fluid w-50 mt-5 college-details-section">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Details</h2>
                     <p className="text-50 text-success mb-3">Please fill up the form</p>

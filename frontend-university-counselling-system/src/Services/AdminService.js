@@ -10,6 +10,14 @@ const getListOfStudents = () => {
   return axios.get(ADMIN_BASE_URL + "/students");
 };
 
+const getListOfColleges = () => {
+  return axios.get(ADMIN_BASE_URL + "/colleges");
+}
+
+const getListOfCourses = () => {
+  return axios.get(ADMIN_BASE_URL + "/courses");
+}
+
 const getStudentDetails = (id) => {
   return axios.get(ADMIN_BASE_URL + `/student/${id}`);
 };
@@ -41,6 +49,18 @@ const addNewCourseInUniversity = (newCourse) => {
   return axios.post(ADMIN_BASE_URL + `/course`, newCourse);
 };
 
+const updateDates = (emailId,dates)=>{
+  return axios.put(ADMIN_BASE_URL+"/dateupdation/"+emailId,dates);
+}
+
+const getAcademicDates = () =>{
+  return axios.get(ADMIN_BASE_URL+"/academic_dates");
+}
+
+const getCount = () =>{
+  return axios.get(ADMIN_BASE_URL+"/count");
+}
+
 export default {
   deleteCollegeDetails,
   getListOfStudents,
@@ -50,5 +70,10 @@ export default {
   getListOfShortlistedStudentsByCollege,
   getListOfShortlistedStudentsByCollegeCourse,
   declareResult,
-  addNewCourseInUniversity
+  addNewCourseInUniversity,
+  updateDates,
+  getAcademicDates,
+  getCount,
+  getListOfColleges,
+  getListOfCourses
 };

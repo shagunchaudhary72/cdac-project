@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import AdminService from "../../Services/AdminService";
 import CollegeService from "../../Services/CollegeService";
 import StudentService from "../../Services/StudentService";
 import "./StudentDashboard.css";
 
 const AddPreference = () => {
+
     let userId = window.sessionStorage.getItem("id");
     const [college, setCollege] = useState("");
     const [course, setCourse] = useState("");
@@ -13,12 +15,13 @@ const AddPreference = () => {
     const [courseErr, setCourseErr] = useState("");
     const [show, setShow] = useState("");
     const [show2, setShow2] = useState("");
-    const [show3,setShow3] = useState("");
+    const [show3, setShow3] = useState("");
     const [error, setError] = useState("");
     const [colleges, setColleges] = useState([]);
     const [courses, setCourses] = useState([]);
     const [preferences, setPreferences] = useState([]);
     const [education, setEducation] = useState([]);
+    const [disable, setDisable] = useState("")
 
     const initCourse = (collegeName) => {
         CollegeService.getCoursesOfCollge(collegeName).then(response => {
@@ -34,22 +37,46 @@ const AddPreference = () => {
         CollegeService.getAllCollege().then(response => {
             console.log(response.data);
             setColleges(response.data);
+            AdminService.getAcademicDates().then(resp => {
+                let updationDate = resp.data.updationDate;
+                let resultDate = resp.data.resultDate;
+                if (((Date.parse(updationDate)) <= (Date.parse(new Date()))) || ((Date.parse(resultDate)) <= (Date.parse(new Date())))) {
+                    setDisable("Disabled");
+                }
+                else {
+                    setDisable("");
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         }).catch(err => {
             console.log(err);
         });
     }
+  
 
-    const getPreferenceList = (id) => {
-        StudentService.getPreferences(id).then(res => {
-            setPreferences(res.data);
-        }).catch(err => {
-            console.log(err);
-        })
+  let onCollegeHandler = (e) => {
+    setCollege(e.target.value);
+    if (collegeErr !== "") {
+      setCollgeErr("");
     }
+
+  };
+
+
+  const getPreferenceList = (id) => {
+    StudentService.getPreferences(id).then(res => {
+        setPreferences(res.data);
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
     useEffect(() => {
         getPreferenceList(userId);
         educationChecking(userId);
     }, [])
+
     useEffect(() => {
         const email = window.sessionStorage.getItem("email");
         if (email === null) {
@@ -65,34 +92,26 @@ const AddPreference = () => {
 
     }, [college])
 
-    let onCollegeHandler = (e) => {
-        setCollege(e.target.value);
-        if (collegeErr !== "") {
-            setCollgeErr("");
-        }
-    }
 
-    let onCourseHandler = (e) => {
-        setCourse(e.target.value);
-        if (courseErr !== "") {
-            setCourseErr("");
-        }
+  let onCourseHandler = (e) => {
+    setCourse(e.target.value);
+    if (courseErr !== "") {
+      setCourseErr("");
     }
+  };
 
-    let validation = () => {
-        let flag = true;
-        if (college === "") {
-            setCollgeErr("Please select any college from the given list");
-            flag = false;
-        }
-        if (course === "") {
-            setCourseErr("Please select course");
-            flag = false;
-        }
-        if (flag) {
-            return true;
-        }
+  let validation = () => {
+    let flag = true;
+    if (college === "") {
+      setCollgeErr("Please select any college from the given list");
+      flag = false;
     }
+    if (course === "") {
+      setCourseErr("Please select course");
+      flag = false;
+    }
+}
+
 
     let educationChecking = (id) => {
         StudentService.getEducationDetailsOfStudent(id).then(response => {
@@ -105,48 +124,60 @@ const AddPreference = () => {
 
     let onAddPreferenceSubmit = (event) => {
         event.preventDefault();
-        if (validation()) {
-            if (education.length === 2) {
-                let preference = { "collegePreference": college, "coursePreference": course };
-                StudentService.addPreference(userId, preference).then(response => {
-                    console.log(response.data);
-                    setShow("show");
-                    getPreferenceList(userId);
-                    setTimeout(function () { setShow(""); clearTimeout(); }, 3000);
-                }).catch(err => {
-                    console.log("Something Went Wrong", err);
-                    setError("You have already added this preference in list");
-                })
+        if (disable === "") {
+            if (validation()) {
+                if (education.length === 2) {
+                    let preference = { "collegePreference": college, "coursePreference": course };
+                    StudentService.addPreference(userId, preference).then(response => {
+                        console.log(response.data);
+                        setShow("show");
+                        getPreferenceList(userId);
+                        setTimeout(function () { setShow(""); clearTimeout(); }, 3000);
+                    }).catch(err => {
+                        console.log("Something Went Wrong", err);
+                        setError("You have already added this preference in list");
+                    })
+                }
+                else {
+                    setShow3("show");
+                    setTimeout(function () { setShow3(""); clearTimeout(); }, 3000);
+                }
             }
-            else{
-                setShow3("show");
-                setTimeout(function () { setShow3(""); clearTimeout(); }, 3000);
-            }
+        }
+        else {
+            alert("Last Date for Updating Student Details is OVER..");
         }
     }
 
     let handleDelete = (p_id) => {
-        StudentService.deletePreference(userId, p_id).then(response => {
-            setShow2("show");
-            getPreferenceList(userId);
-            setTimeout(function () { setShow2(""); clearTimeout(); }, 3000);
-        }).catch(err => {
-            alert("Delete Process Cancelled..");
-        })
+        if (disable === "") {
+            StudentService.deletePreference(userId, p_id).then(response => {
+                setShow2("show");
+                getPreferenceList(userId);
+                setTimeout(function () { setShow2(""); clearTimeout(); }, 3000);
+            }).catch(err => {
+                alert("Delete Process Cancelled..");
+            })
+        } else {
+            alert("Last Date for Updating Student Details is OVER..");
+        }
     }
 
     return (
         <>
             {loggedOut && <Navigate to="/login" />}
-            <div className="container-fluid w-50 mt-5">
-                <div className="m-3">
-                    <h2 className="fw-bold mb-2 text-uppercase">Enter your Preferences</h2>
-                    <p className="text-50 text-success mb-3">Remember!! you should add college according to your priority</p>
+      <div className="container-fluid w-50 mt-5 add-prefernece-details">
+        <div className="m-3">
+          <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">
+            Enter your Preferences
+          </h2>
+          <p className="text-50 text-success mb-3 dashboard-data-section-para">
+      Remember!! you should add college according to your priority</p>
                     <div className="border border-1 rounded">
                         <div className="m-3">
                             <form onSubmit={onAddPreferenceSubmit} className="row g-1">
                                 <div className="form-floating col-6">
-                                    <select className="form-select" value={college} onChange={onCollegeHandler}>
+                                    <select className="form-select" value={college} onChange={onCollegeHandler} disabled={disable}>
                                         <option value="" selected>--SELECT--</option>
                                         {colleges.map((ele, key) => {
                                             return (
@@ -158,7 +189,7 @@ const AddPreference = () => {
                                     <span className="text-danger">{collegeErr}</span>
                                 </div>
                                 <div className="form-floating col-6">
-                                    <select className="form-select" value={course} onChange={onCourseHandler}>
+                                    <select className="form-select" value={course} onChange={onCourseHandler} disabled={disable}>
                                         <option value="" selected>--SELECT--</option>
                                         {courses.map((ele, key) => {
                                             return (
@@ -181,6 +212,7 @@ const AddPreference = () => {
                 </div >
 
                 <hr />
+                      <div className="table-responsive">
                 <table className="table table-bordered table-striped">
                     <thead className="thead-dark">
                         <tr className="text-center">
@@ -209,9 +241,11 @@ const AddPreference = () => {
 
                     </tbody>
                 </table>
-            </div>
-        </>
-    );
-}
+              </div>
+
+      </div>
+    </>
+  );
+};
 
 export default AddPreference;

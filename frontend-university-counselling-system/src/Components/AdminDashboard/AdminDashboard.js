@@ -1,16 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState,useRef} from "react";
 import { Navigate, Link, useNavigate } from "react-router-dom";
 import "../Login/Login.css";
 import "../StudentDashboard/StudentDashboard.css";
 import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
+import { ImBooks,ImCross } from "react-icons/im";
 import { BsFillDoorOpenFill,BsPeopleFill } from "react-icons/bs";
-import {FaBook} from  "react-icons/fa";
 import './AdminDashboard.css'
-import { FaUniversity } from "react-icons/fa";
+import { FaUniversity,FaBook,FaUserGraduate } from "react-icons/fa";
 import ListOfStudents from "./ListOfStudents";
 import DeclareResult from "./DeclareResult";
 import { UserContext } from "../../App";
+import {MdVerticalDistribute} from "react-icons/md"
 import AddCourse from "./AddCourse";
+import UpdateAcademicDates from "./UpdateAcademicDates";
+import Home from "./Home";
 // import Home from "./Home";
 
 const AdminDashboard = () => {
@@ -30,6 +33,13 @@ const AdminDashboard = () => {
     const [declareResult, setDeclareResult] = useState(false);
     const [course,setCourse] = useState(false);
     const [unauthorizedAdminAccess, setUnauthorizedAdminAccess] = useState(false);
+    const sidebarRef = useRef(null);
+    const sidebarTogglerRef = useRef(null);
+    const dashboardDataSectionRef = useRef(null);
+    const [dimensions, setDimensions] = useState({ 
+        height: window.innerHeight,
+        width: window.innerWidth
+      }) 
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -51,7 +61,28 @@ const AdminDashboard = () => {
                 window.sessionStorage.removeItem("snackbar3");
             }
         }
-    }, []);
+
+        const handleResize = () => {
+            setDimensions({
+              height: window.innerHeight,
+              width: window.innerWidth
+            })
+        }
+
+        if( dimensions.width >= 768){
+            sidebarRef.current.style.width = "20%";
+            dashboardDataSectionRef.current.style.width = "80%";
+            sidebarRef.current.style.display = "block";
+            sidebarTogglerRef.current.style.display = "none";
+        }else{
+            sidebarRef.current.style.display = "none";
+            sidebarTogglerRef.current.style.display = "block";
+        }
+        window.addEventListener( 'resize', handleResize);
+
+        return _ => window.removeEventListener( 'resize', handleResize);
+
+    }, [dimensions]);
 
     let logoutClick = () => {
         window.sessionStorage.removeItem("name");
@@ -126,7 +157,22 @@ const AdminDashboard = () => {
         }
         setDashboard(true);
     }
+       
+    const showSidebar = () => {
+        sidebarRef.current.style.display = "block";
+        sidebarRef.current.style.width = "80vw";
+        dashboardDataSectionRef.current.style.display = "none";
+        sidebarTogglerRef.current.style.display = "none";
 
+    }
+
+    const hideSidebar = () => {
+        sidebarRef.current.style.display = "none";
+        dashboardDataSectionRef.current.display = "100vw";
+        dashboardDataSectionRef.current.style.display = "block";
+        sidebarTogglerRef.current.style.display = "block";
+    }
+    
     let showCourse = () => {
         if (home) {
             setHome(false);
@@ -148,44 +194,49 @@ const AdminDashboard = () => {
             {unauthorizedAdminAccess && <Navigate to="/" />}
             {notloggedInAsAdmin && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
-            <div className="row g-1 bg-light w-100">
-                <div className="col-2 bg-light p-3" style={{ height: "650px" }}>
-                    <a href="#" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                        <FaUniversity style={{ width: "30px" }} />
+
+            <div className="row g-1  w-100 dashboard-section">
+             <div className="sidebar-toggler" ref={sidebarTogglerRef} onClick={showSidebar}><MdVerticalDistribute /></div> 
+                <div ref={sidebarRef} className=" dashboard-sidebar bg-light col-md-3 col-sm-3 col-5 bg-light p-3" style={{ height: "650px" }}>
+                    
+                    <div id="close-sidebar" className="text-end" onClick={hideSidebar}><ImCross /></div>
+                    
+                    <a href="#" className="hello-text d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                        <FaUserGraduate style={{ width: "30px" }} />
                         <span className="fs-4">Hello <span className="text-success"><b>{name}</b></span></span>
                     </a>
                     <hr />
-                    <ul className="nav nav-pills flex-column mb-auto">
+                    <ul className="nav nav-pills flex-column mb-auto sidebar-list">
                         <li onClick={showHome} style={{cursor:"context-menu"}}>
-                            <AiTwotoneHome size={20} style={{ width: "30px", paddingBottom: "4px" }} />
+                            <AiTwotoneHome className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>
                         <li onClick={showDashboard} style={{cursor:"context-menu"}}>
-                            <AiFillDashboard size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                            Dashboard
+                            <AiFillDashboard className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
+                           Academic Events
                         </li>
-                        <li onClick={showCourse} style={{cursor:"context-menu"}}>
+                         <li onClick={showCourse} style={{cursor:"context-menu"}}>
                             <FaBook size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Add Course
                         </li>
-                        <li onClick={showListOfStudents} style={{cursor:"context-menu"}}>
-                            <BsPeopleFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                            List Of Students
+                        <li onClick={showListOfStudents}  style={{cursor:"context-menu"}}>
+                            <ImBooks className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
+                            Students
                         </li>
-                        <li onClick={showResultPage} style={{cursor:"context-menu"}}>
-                            <BsFillDoorOpenFill size={20} style={{ width: "30px", paddingBottom: "4px" }} />
-                            Declare Result
-                        </li>
+                        <li onClick={showResultPage}  style={{cursor:"context-menu"}}>
+                            <BsFillDoorOpenFill className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
+                            Result
+                         </li>
                     </ul>
                     <div style={{ marginTop: "150%" }}>
                         <hr />
-                        <div className="dropdown">
+                        <div className="dropdown" style={{cursor:"context-menu"}}>
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <strong>{name}</strong>
                             </a>
-                            <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                <li><Link to="/profile" className="dropdown-item" >Profile</Link></li>
-                                <li><hr className="dropdown-divider" /></li>
+                            <ul className="dropdown-menu text-small shadow sidebar-list" aria-labelledby="dropdownUser2">
+                                {/* <li><Link to="/profile" className="dropdown-item" >Profile</Link></li>
+                                <li><hr className="dropdown-divider" /></li> */}
                                 <li>
                                     <button type="button" className="btn1 primary1 dropdown-item" onClick={logoutClick}>Logout</button>
                                 </li>
@@ -193,8 +244,11 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-10" style={{ backgroundColor: "#d3ded6" }}>
+
+                <div ref={dashboardDataSectionRef} className="col-md-9 col-sm-9 col-7 dashboard-data-section" style={{ backgroundColor: "#d3ded6" }}>
+                    {home && <Home />}
                     {course && <AddCourse />}
+                    {dashboard && <UpdateAcademicDates />}
                     {listOfStudents && <ListOfStudents />}
                     {declareResult && <DeclareResult />}
                     <div className={show} id="snackbar">Login Successfully..</div>

@@ -106,6 +106,7 @@ const RegisterAsCollege = () => {
                 setSuccessMessage("college data added successfully");
                 setSuccessMessageFlag(true);
                 console.log('college data added successfully!!!', response.data);
+                window.sessionStorage.setItem("snackbar","show");
                 setNavigateToLogin(true);
             }
             ).then(setFormDataBlank())
@@ -154,9 +155,9 @@ const RegisterAsCollege = () => {
     return (
         <>
         {navigateToLogin && <Navigate to="/login"/>}
-        <div className="container-fluid w-50 mt-5">
+        <div className="container-fluid w-50 mt-5 register-section">
             <div className="m-3">
-                <h2 className="fw-bold mb-2 text-uppercase">College Registration</h2>
+                <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">College Registration</h2>
                 <p className="text-50 text-success mb-3">Please fill up the details</p>
                 {errorMessageFlag && <span style={{ color: 'red' }}>{errorMessage}</span>}
                 {successMessageFlag && <span style={{ color: 'green' }}>{successMessage}</span>}

@@ -83,9 +83,9 @@ const AddCourse = () => {
 
     return (
         <>
-            <div className="container-fluid w-50 mt-5">
+            <div className="container-fluid w-50 mt-5 add-course-section">
                 <div className="m-3">
-                    <h2 className="fw-bold mb-2 text-uppercase">Add Course</h2>
+                    <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">Add Course</h2>
                     <p className="text-50 text-success mb-3">
                         Please enter course name
                     </p>
@@ -103,12 +103,13 @@ const AddCourse = () => {
                                     <label>Course Name</label>
                                     <span className="text-danger">{courseErr}</span>
                                 </div>
-                                <button type="submit" className="btn1 primary1">Proceed to Add</button>
+                                <button type="submit" className="btn1 primary1 btn-sm">Proceed to Add</button>
                             </form>
                         </div>
                     </div>
                 </div>
                 <hr />
+                <div className="table-responsive">
                 <table className="table table-bordered table-striped">
                     <thead className="thead-dark">
                         <tr>
@@ -121,7 +122,7 @@ const AddCourse = () => {
                         {
                             courses.map((course, key) => (
                                 <tr key={key}>
-                                    <td>{course.id}</td>
+                                    <td>{key+1}</td>
                                     <td>{course.courseName}</td>
                                     <td><center><button className="btn1 primary1 rounded" onClick={() => {
                                         handleDelete(course.id);
@@ -131,6 +132,7 @@ const AddCourse = () => {
                         }
                     </tbody>
                 </table>
+                </div>
                 <div className={show} id="snackbar">Course Added Successfully</div>
                 <div className={show1} id="snackbar">{responseFromMethod}</div>
             </div>
