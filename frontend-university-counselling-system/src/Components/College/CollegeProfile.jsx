@@ -141,19 +141,6 @@ const AddCollegeDetails = () => {
         setEmail(event.target.value);
     }
 
-    // let logoutClick = () => {
-    //     window.sessionStorage.removeItem("name");
-    //     window.sessionStorage.removeItem("email");
-    //     window.sessionStorage.removeItem("id");
-    //     window.sessionStorage.removeItem("universityId");
-    //     window.sessionStorage.removeItem("universityEmail");
-    //     window.sessionStorage.removeItem("universityName");
-    //     window.sessionStorage.removeItem("state");
-    //     window.sessionStorage.removeItem("city");
-    //     window.sessionStorage.removeItem("phone_no");
-    //     setLogOut(true);
-    // }
-
     function validation() {
         let nameFlag = true;
         let emailFlag = true;
@@ -235,7 +222,6 @@ const AddCollegeDetails = () => {
             });
             setDetailsUpdated(true);
             window.sessionStorage.setItem("success", "true");
-            // window.sessionStorage.setItem("updated", true);
             window.sessionStorage.setItem("name", name);
         }
     }
@@ -262,9 +248,7 @@ const AddCollegeDetails = () => {
         <>{loggedInCollegeFalse && <Navigate to="/login" />}
             {logOut && <Navigate to="/login" />}
             {detailsUpdated && <Navigate to="/college_dashboard" />}
-            {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Back</button> */}
-            <button type="button" className="btn1 primary1"><Link to="/college_dashboard" className="dropdown-item" >Back</Link></button>
-            <div className="container-fluid w-50 mt-5">
+            <div className="container-fluid w-50 mt-5 college-details-section">
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Details</h2>
                     <p className="text-50 text-success mb-3">Please fill up the form</p>

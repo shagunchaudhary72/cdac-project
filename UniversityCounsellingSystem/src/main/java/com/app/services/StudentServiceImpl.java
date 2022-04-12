@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_exceptions.ResourceNotFoundException;
+import com.app.dao.ShortlistedStudentRepository;
 import com.app.dao.StudentRepository;
 import com.app.dao.UserRepository;
+import com.app.dto.ShortlistedStudentDto;
+import com.app.dto.StudentCounsellingResult;
+import com.app.pojos.ShortlistedStudent;
 import com.app.pojos.Student;
 import com.app.pojos.User;
 
@@ -22,6 +26,9 @@ public class StudentServiceImpl implements IStudentService {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private ShortlistedStudentRepository ssRespo;
 
 	@Override
 	public Student addStudent(Student student) {
@@ -56,6 +63,18 @@ public class StudentServiceImpl implements IStudentService {
 		userRepo.delete(user);
 		studentRepo.delete(student);
 		return studentRepo.findAll();
+	}
+
+	@Override
+	public Student deleteEducation(Student student) {
+		return studentRepo.save(student);
+	}
+
+	@Override
+	public StudentCounsellingResult getResultOfCounselling(int id) {
+		//Student student = studentRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("Student Not Found"));
+		ShortlistedStudent ss = ssRespo.findByStudentId(id);
+		return new StudentCounsellingResult(ss.getStudent().getRankInComp(),ss.getCollege().getName()+", "+ss.getCollege().getCity(),ss.getCourse().getCourseName());
 	}
 
 }

@@ -85,4 +85,10 @@ public class CollegeController {
 	public ResponseEntity<?> getCourseList() {
 		return ResponseEntity.ok().body(courseService.listOfCourses());
 	} 
+	
+	@DeleteMapping("/deleteCourse/{id}")
+	public ResponseEntity<?> deleteCourse(@PathVariable int id) {
+		return ResponseEntity.ok().body(courseService.deleteCourseById(id));
+	} 
+	
 }

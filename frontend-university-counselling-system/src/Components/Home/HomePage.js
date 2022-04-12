@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
 import Colleges from "./Colleges";
@@ -7,6 +7,12 @@ import Events from "./Events";
 import Features from "./Features";
 
 const HomePage = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
+  
+
   return (
     <>
       <section className="info-section container-fluid">
@@ -21,11 +27,17 @@ const HomePage = () => {
             fugiat iusto fuga praesentium optio, eaque rerum! Provident
             similique accusantium nemo autem.{" "}
           </p>
-          <Link className="registration-btn registration-btn1" to="/register/college">
-            College Registration
+          <Link
+            className="registration-btn registration-btn1"
+            to="/register/college"
+          >
+            <button className="btn btn-sm text-white">College Registration</button>
           </Link>
-          <Link className="registration-btn registration-btn2" to="/register/student">
-            Student Registration
+          <Link
+            className="registration-btn registration-btn2"
+            to="/register/student"
+          >
+            <button className="btn btn-sm text-white">Student Registration</button>
           </Link>
         </div>
       </section>

@@ -10,8 +10,6 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { UserContext } from '../../App';
 
 const Header = () => {
-
-
     const {state,dispatch} = useContext(UserContext);
     const navigate = useNavigate();
     const role = window.sessionStorage.getItem("role");    
@@ -69,12 +67,12 @@ const Header = () => {
     }
 
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" className='sticky-top site-navbar' style={{zIndex:'999'}}>
             <Container>
                 <NavLink to="/">
-                    <img src={NavbarLogo} alt="ucs_logo" width={300} height={50} />
+                    <img className="navbar-logo" src={NavbarLogo} alt="ucs_logo" width={300} height={50} />
                 </NavLink>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Toggle className='navbar-toggler' aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end' >
                     <Nav>
                         <NavLink className='navbar-link' to='/home'><IoIosHome className='navbar-right-logo' /> Home</NavLink>
@@ -82,7 +80,7 @@ const Header = () => {
                         <NavLink className='navbar-link' to='/events'><BiNews className='navbar-right-logo' /> Events</NavLink>
                         <NavLink className='navbar-link' to='/about'><BiNews className='navbar-right-logo' /> About</NavLink>
                         <NavLink className='navbar-link' to='/contact'><MdContactPage className='navbar-right-logo' /> Contact Us</NavLink>
-                        <NavDropdown title={<IoIosContact/>} className="navbar-profile">
+                        <NavDropdown title={<IoIosContact/>} className="navbar-profile" >
                             <RenderMenu />
                         </NavDropdown>
                     </Nav>

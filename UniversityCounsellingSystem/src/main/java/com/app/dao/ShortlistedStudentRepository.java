@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.app.dto.ShortlistedStudentDto;
 import com.app.pojos.ShortlistedStudent;
+import com.app.pojos.Student;
 
 @Repository
 public interface ShortlistedStudentRepository extends JpaRepository<ShortlistedStudent, Integer> {
@@ -39,4 +40,6 @@ public interface ShortlistedStudentRepository extends JpaRepository<ShortlistedS
 			+ " where s.college.id=:collegeId and s.course.id=:courseId")
 	List<ShortlistedStudentDto> findShortlistedStudentsByCollegeIdCourseId(@Param("collegeId") int collegeId,
 			@Param("courseId") int courseId);
+	
+	ShortlistedStudent findByStudentId(int studentId);
 }

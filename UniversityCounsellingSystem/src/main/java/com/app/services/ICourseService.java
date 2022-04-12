@@ -14,4 +14,6 @@ public interface ICourseService {
 	Course getCourseDetails(int courseId);
 	
 	Course getCourseDetailsByName(String courseName);
+	
+	String deleteCourseById(int courseId);
 }
