@@ -82,16 +82,6 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const username = window.sessionStorage.getItem("name");
   useEffect(() => {
-<<<<<<< HEAD
-    if(username!==null){
-      dispatch({type:"USER",payload:true});
-    }
-    else{
-      dispatch({type:"USER",payload:false});
-    }
-  }, [])
-  
-=======
     if (username !== null) {
       dispatch({ type: "USER", payload: true });
     }
@@ -100,7 +90,7 @@ const App = () => {
     }
   }, [])
 
->>>>>>> 0cb874ab4a9070458b9c3e3d95e3646ed45efa91
+
 
   return (
 
