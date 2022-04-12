@@ -110,6 +110,13 @@ const AddPreference = () => {
       setCourseErr("Please select course");
       flag = false;
     }
+    if(college === "" && course !==""){
+        setCourseErr("Please select course");
+      flag = false;
+    }
+    if(flag){
+        return true;
+    }
 }
 
 
@@ -126,6 +133,7 @@ const AddPreference = () => {
         event.preventDefault();
         if (disable === "") {
             if (validation()) {
+                setError("");
                 if (education.length === 2) {
                     let preference = { "collegePreference": college, "coursePreference": course };
                     StudentService.addPreference(userId, preference).then(response => {
