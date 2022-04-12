@@ -1,10 +1,7 @@
-<<<<<<< HEAD
+
 import React, { useContext } from 'react'
 import { useState , useEffect } from "react";
-=======
-import React, { useContext } from "react";
-import { useState, useEffect } from "react";
->>>>>>> 75901391be264e19e5b623a9fd12954de3492fe8
+
 import "./Login.css";
 import UserService from "../../Services/UserService";
 import { Link, Navigate, useNavigate } from "react-router-dom";
