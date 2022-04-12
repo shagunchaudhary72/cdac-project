@@ -84,7 +84,7 @@ const UpdateAcademicDates = () => {
                                     value={updationDate}
                                     onChange={updationDateHandler}
                                 />
-                                <label>Form Updation Date for Student</label>
+                                <label>Form Updation Date</label>
                                 <span className="text-danger">{updationDateErr}</span>
                             </div>
                             <button type="submit" className="btn1 primary1 btn-sm">Update Dates</button>

@@ -2,6 +2,7 @@ package com.app.services;
 
 import java.util.List;
 
+import com.app.dto.CollegeCourseStudentCount;
 import com.app.dto.ShortlistedStudentDto;
 import com.app.dto.StudentRankDto;
 import com.app.dto.UpdationAndResultDates;
@@ -20,4 +21,6 @@ public interface IAdminService {
 	University getUniversityByEmail(String email);
 	
 	UpdationAndResultDates getAcademicDates(int id);
+	
+	CollegeCourseStudentCount getCount();
 }

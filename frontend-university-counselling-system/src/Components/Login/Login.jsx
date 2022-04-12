@@ -19,7 +19,9 @@ const Login = () => {
     const [loggedInStudentAfterUpdatingDetails,setLoggedInStudentAfterUpdatingDetails] = useState(false);
     const [loggedInCollegeAfterUpdatingDetails,setLoggedInCollegeAfterUpdatingDetails] = useState(false);
     const [show,setShow] = useState("");
+    const [show1,setShow1] = useState("");
     let snackbar2 = window.sessionStorage.getItem("snackbar2");
+    let snackbar = window.sessionStorage.getItem("snackbar");
     const [loggedInAsAdmin,setLoggedInAsAdmin] = useState(false);
 
     useEffect(()=>{
@@ -29,6 +31,11 @@ const Login = () => {
             setTimeout(function(){ setShow("");clearTimeout(); }, 3000)
             window.sessionStorage.removeItem("snackbar2");
         }
+        if(snackbar==="show"){
+          setShow1(snackbar);
+          setTimeout(function(){ setShow1("");clearTimeout(); }, 3000)
+          window.sessionStorage.removeItem("snackbar");
+      }
     },[])
 
   let emailTextHandler = (event) => {
@@ -211,6 +218,9 @@ const Login = () => {
       </div>
       <div className={show} id="snackbar">
         You have successfully logged out..
+      </div>
+      <div className={show1} id="snackbar">
+        College Registered Successfully..
       </div>
     </>
   );

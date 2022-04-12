@@ -13,6 +13,7 @@ import { UserContext } from "../../App";
 import {MdVerticalDistribute} from "react-icons/md"
 import AddCourse from "./AddCourse";
 import UpdateAcademicDates from "./UpdateAcademicDates";
+import Home from "./Home";
 // import Home from "./Home";
 
 const AdminDashboard = () => {
@@ -69,8 +70,8 @@ const AdminDashboard = () => {
         }
 
         if( dimensions.width >= 768){
-            sidebarRef.current.style.width = "25%";
-            dashboardDataSectionRef.current.style.width = "75%";
+            sidebarRef.current.style.width = "20%";
+            dashboardDataSectionRef.current.style.width = "80%";
             sidebarRef.current.style.display = "block";
             sidebarTogglerRef.current.style.display = "none";
         }else{
@@ -206,23 +207,23 @@ const AdminDashboard = () => {
                     </a>
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto sidebar-list">
-                        <li onClick={showHome}>
+                        <li onClick={showHome} style={{cursor:"context-menu"}}>
                             <AiTwotoneHome className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
                             Home
                         </li>
-                        <li onClick={showDashboard}>
+                        <li onClick={showDashboard} style={{cursor:"context-menu"}}>
                             <AiFillDashboard className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
-                            Dashboard
+                           Academic Events
                         </li>
                          <li onClick={showCourse} style={{cursor:"context-menu"}}>
                             <FaBook size={20} style={{ width: "30px", paddingBottom: "4px" }} />
                             Add Course
                         </li>
-                        <li onClick={showListOfStudents}>
+                        <li onClick={showListOfStudents}  style={{cursor:"context-menu"}}>
                             <ImBooks className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
                             Students
                         </li>
-                        <li onClick={showResultPage}>
+                        <li onClick={showResultPage}  style={{cursor:"context-menu"}}>
                             <BsFillDoorOpenFill className="sidebar-list-icon" style={{ width: "30px", paddingBottom: "4px" }} />
                             Result
                          </li>
@@ -234,8 +235,8 @@ const AdminDashboard = () => {
                                 <strong>{name}</strong>
                             </a>
                             <ul className="dropdown-menu text-small shadow sidebar-list" aria-labelledby="dropdownUser2">
-                                <li><Link to="/profile" className="dropdown-item" >Profile</Link></li>
-                                <li><hr className="dropdown-divider" /></li>
+                                {/* <li><Link to="/profile" className="dropdown-item" >Profile</Link></li>
+                                <li><hr className="dropdown-divider" /></li> */}
                                 <li>
                                     <button type="button" className="btn1 primary1 dropdown-item" onClick={logoutClick}>Logout</button>
                                 </li>
@@ -245,8 +246,7 @@ const AdminDashboard = () => {
                 </div>
 
                 <div ref={dashboardDataSectionRef} className="col-md-9 col-sm-9 col-7 dashboard-data-section" style={{ backgroundColor: "#d3ded6" }}>
-                    {/* {home && <Home />} */}
-                    {/* {dashboard && <Dashboard />} */}
+                    {home && <Home />}
                     {course && <AddCourse />}
                     {dashboard && <UpdateAcademicDates />}
                     {listOfStudents && <ListOfStudents />}

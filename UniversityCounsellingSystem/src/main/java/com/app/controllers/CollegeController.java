@@ -92,4 +92,5 @@ public class CollegeController {
 	public ResponseEntity<?> deleteCourse(@PathVariable int id) {
 		return ResponseEntity.ok().body(courseService.deleteCourseById(id));
 	} 
+	
 }

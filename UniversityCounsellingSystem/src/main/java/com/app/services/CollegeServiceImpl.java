@@ -127,5 +127,4 @@ public class CollegeServiceImpl implements ICollegeService {
 		return collegeRepo.findByName(name).getCourses();
 	}
 
-
 }
