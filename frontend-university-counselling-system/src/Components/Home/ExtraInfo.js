@@ -39,7 +39,7 @@ const ExtraInfo = () => {
       </div>
 
       <div className="extra-info-section-middle">
-        <h3>About University</h3>
+        <h3>Usefull Links</h3>
         <ul className="extra-info-section-list">
           <li>
             <AiOutlineRight /> Home
