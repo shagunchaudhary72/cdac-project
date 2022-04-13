@@ -9,8 +9,6 @@ import { BsPeopleFill } from "react-icons/bs";
 import "./Sidebar.css";
 import { FaUserGraduate, FaUniversity  } from "react-icons/fa";
 import { MdVerticalDistribute } from "react-icons/md";
-//import AddQualification from "./AddQualification";
-//import AddPreference from "./AddPreference";
 import Home from "./Home";
 import Dashboard from "./CollegeDashboard";
 import { ToastContainer, toast } from "react-toastify";
@@ -25,15 +23,12 @@ const CollegeSidebar = () => {
     window.sessionStorage.getItem("name")
   );
   const collegeEmail = window.sessionStorage.getItem("email");
-  //const studentAge = window.sessionStorage.getItem("age");
   const [loggedInCollegeFalse, setLoggedInCollegeFalse] = useState(false);
   const [logOut, setLogOut] = useState(false);
   const [show, setShow] = useState("");
   const [show2, setShow2] = useState("");
   const snackbar = window.sessionStorage.getItem("snackbar");
   const snackbar3 = window.sessionStorage.getItem("snackbar3");
-  //const [qualification,setQualification] = useState(false);
-  //const [preference,setPreference] = useState(false);
   const [home, setHome] = useState(true);
   const [dashboard, setDashboard] = useState(false);
   const [details, setShowDetails] = useState(false);
@@ -67,7 +62,6 @@ const CollegeSidebar = () => {
       }, 3000);
       window.sessionStorage.removeItem("snackbar3");
     }
-    //console.log(window.sessionStorage.getItem("success"));
     if (window.sessionStorage.getItem("success") === "true") {
       toast.dark("Details updated successfully", {
         position: "bottom-center",
@@ -198,7 +192,6 @@ const CollegeSidebar = () => {
         <div
           ref={sidebarRef}
           className=" dashboard-sidebar bg-light col-md-3 col-sm-3 col-5 bg-light p-3"
-          style={{ height: "650px" }}
         >
           <div id="close-sidebar" className="text-end" onClick={hideSidebar}>
             <ImCross />
@@ -266,7 +259,6 @@ const CollegeSidebar = () => {
                     Profile
                   </Link>
                 </li>
-                {/* <li onClick= { showProfile }>*/}
                 <li>
                   <hr className="dropdown-divider" />
                 </li>

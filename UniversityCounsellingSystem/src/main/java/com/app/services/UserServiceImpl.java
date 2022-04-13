@@ -58,7 +58,7 @@ public class UserServiceImpl implements IUserService {
 			int uniid = universityRepo.findById(1).get().getId();
 			String uniemail = universityRepo.findById(1).get().getEmail();
 			String uniname = universityRepo.findById(1).get().getUniversityName();
-			return new LoginResponse(college.getId(),user.getEmail(),user.getName(),college.getCity(),college.getState(), uniid, uniemail, uniname, user.getPhoneNo(),user.getRole(), college.getCourses());
+			return new LoginResponse(college.getId(),user.getEmail(),user.getName(),college.getCountry(), college.getCity(),college.getState(), uniid, uniemail, uniname, user.getPhoneNo(),user.getRole(), college.getCourses());
 		}
 		/*
 		 * User user = userRepo.authenticateUser(email, password); if(!(user == null)) {

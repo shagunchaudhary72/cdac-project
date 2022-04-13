@@ -23,6 +23,7 @@ public class LoginResponse {
 	private Role role;
 
 	private int collegeId;
+	private String country;
 	private String state;
 	private String city;
 	private String phoneNo;
@@ -39,12 +40,13 @@ public class LoginResponse {
 		this.address = address;
 	}
 	
-	public LoginResponse(int collegeid, String email, String name, String city, String state, University university,
+	public LoginResponse(int collegeid, String email, String name, String country, String city, String state, University university,
 			String phoneNo, Role role, Set<Course> courses) {
 		this.email = email;
 		this.name = name;
 		this.role = role;
 		this.collegeId = collegeid;
+		this.country = country;
 		this.state = state;
 		this.city = city;
 		this.university = university;
@@ -54,12 +56,13 @@ public class LoginResponse {
 	int uniid;
 	String uniname;
 	String uniemail;
-	public LoginResponse(int collegeid, String email, String name, String city, String state, int uniid,String uniemail,String uniname,
+	public LoginResponse(int collegeid, String email, String name, String country, String city, String state, int uniid,String uniemail,String uniname,
 			String phoneNo, Role role, Set<Course> courses) {
 		this.email = email;
 		this.name = name;
 		this.role = role;
 		this.collegeId = collegeid;
+		this.country = country;
 		this.state = state;
 		this.city = city;
 		//this.university = university;
