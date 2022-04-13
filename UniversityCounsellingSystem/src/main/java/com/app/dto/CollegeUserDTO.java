@@ -17,6 +17,7 @@ public class CollegeUserDTO {
 	private String email;
 	private String password;
 	private String phone_no;
+	private String country;
 	private String city;
 	private String state;
 }

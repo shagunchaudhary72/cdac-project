@@ -1,8 +1,13 @@
 package com.app.exception_handler;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -53,6 +58,18 @@ public class CentralExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<?> runtimeExceptionHandler(RuntimeException ex){
 		ErrorResponse error = new ErrorResponse( "run time exception",ex.getMessage());
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	protected ResponseEntity<Object> handleValidationNotValid(ConstraintViolationException ex) {
+		System.out.println("In @Valid Error Handler\n");
+		//storing exception fields and messages
+		Map<String, String> exceptionMap = new HashMap<>();
+		for (ConstraintViolation violation : ex.getConstraintViolations()) {
+			System.out.println(violation.getMessage());
+			exceptionMap.put(violation.getPropertyPath().toString(), violation.getMessage());
+		}
+		return ResponseEntity.badRequest().body(exceptionMap.values());
 	}
 	
 }

@@ -124,6 +124,7 @@ const Login = () => {
           let collegeEmail = response.data.email;
           let collegeName = response.data.name;
           let collegeId = response.data.collegeId;
+          let collegeCountry = response.data.country;
           let collegeCity = response.data.city;
           let collegeState = response.data.state;
           let collegePhonoNo = response.data.phoneNo;
@@ -135,6 +136,7 @@ const Login = () => {
           window.sessionStorage.setItem("id", collegeId);
           window.sessionStorage.setItem("email", collegeEmail);
           window.sessionStorage.setItem("name", collegeName);
+          window.sessionStorage.setItem("country",collegeCountry);
           window.sessionStorage.setItem("city", collegeCity);
           window.sessionStorage.setItem("state", collegeState);
           window.sessionStorage.setItem("universityId", universityId);

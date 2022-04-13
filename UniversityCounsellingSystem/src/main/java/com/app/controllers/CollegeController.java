@@ -54,6 +54,7 @@ public class CollegeController {
 
 	@PutMapping("/edit") // Edit profile
 	public College editCollegeData(@RequestBody @Valid College editedCollegeData) {
+		System.out.println(editedCollegeData);
 		return collegeService.updateCollegeDetails(editedCollegeData);
 	}
 
@@ -72,9 +73,7 @@ public class CollegeController {
 
 	@GetMapping("/{collegeId}/shortlisted_students")
 	public ResponseEntity<?> fetchAllSelectedStudentsByCollege(@PathVariable int collegeId) {
-
 		return ResponseEntity.ok().body(shortlistedStudentService.getAllShortlistedStudentsByCollege(collegeId));
-
 	}
 
 	@GetMapping("/{collegeId}/course/{courseId}/shortlisted_students")

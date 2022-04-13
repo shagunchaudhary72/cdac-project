@@ -67,9 +67,7 @@
     width: 80% !important;
 }
 
-.dashboard-sidebar{
-    height: 100% !important;
-}
+
 
 @media only screen and (max-width:1200px) {
     .heading-bottom-border{
