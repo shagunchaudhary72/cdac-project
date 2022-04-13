@@ -62,7 +62,6 @@ public class CourseServiceImpl implements ICourseService {
 
 	@Override
 	public String deleteCourseById(int courseId) {
-		
 //		----------------------------------------------------------- Delete records for shortlisted students 
 		ShortlistedStudent ss = ssRepo.findByCourseId(courseId); 
 		if(ss!=null)
