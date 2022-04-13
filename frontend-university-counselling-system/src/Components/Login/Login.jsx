@@ -1,6 +1,6 @@
 
 import React, { useContext } from 'react'
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import "./Login.css";
 import UserService from "../../Services/UserService";
@@ -23,9 +23,11 @@ const Login = () => {
   const [show, setShow] = useState("");
   const [show1, setShow1] = useState("");
   const [show2, setShow2] = useState("");
+  const [show3, setShow3] = useState("");
   let snackbar2 = window.sessionStorage.getItem("snackbar2");
   let snackbar = window.sessionStorage.getItem("snackbar");
   let snackbar3 = window.sessionStorage.getItem("passwordUpdated");
+  let snackbar4 = window.sessionStorage.getItem("snackbar_registration");
   const [loggedInAsAdmin, setLoggedInAsAdmin] = useState(false);
 
   useEffect(() => {
@@ -44,6 +46,11 @@ const Login = () => {
       setShow2(snackbar3);
       setTimeout(function () { setShow2(""); clearTimeout(); }, 3000)
       window.sessionStorage.removeItem("passwordUpdated");
+    }
+    if (snackbar4 === "show") {
+      setShow3(snackbar4);
+      setTimeout(function () { setShow3(""); clearTimeout(); }, 3000)
+      window.sessionStorage.removeItem("snackbar_registration");
     }
   }, [])
 
@@ -136,7 +143,7 @@ const Login = () => {
           window.sessionStorage.setItem("id", collegeId);
           window.sessionStorage.setItem("email", collegeEmail);
           window.sessionStorage.setItem("name", collegeName);
-          window.sessionStorage.setItem("country",collegeCountry);
+          window.sessionStorage.setItem("country", collegeCountry);
           window.sessionStorage.setItem("city", collegeCity);
           window.sessionStorage.setItem("state", collegeState);
           window.sessionStorage.setItem("universityId", universityId);
@@ -235,6 +242,9 @@ const Login = () => {
       </div>
       <div className={show2} id="snackbar">
         Password Updated Successfully..
+      </div>
+      <div className={show3} id="snackbar">
+        Student Registered Successfully..
       </div>
     </>
   );

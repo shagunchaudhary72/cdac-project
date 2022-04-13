@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import "../Login/Login.css";
 import "./StudentDashboard.css";
 import { AiFillDashboard, AiTwotoneHome } from "react-icons/ai";
@@ -30,6 +30,8 @@ const Sidebar = () => {
     const snackbar3 = window.sessionStorage.getItem("snackbar3");
     const [qualification, setQualification] = useState(false);
     const [preference, setPreference] = useState(false);
+    const[show3,setShow3] = useState("");
+    const snackbar2 = window.sessionStorage.getItem("snackbarUpdate");
 
     const [home, setHome] = useState(false);
     const [dashboard, setDashboard] = useState(true);
@@ -41,6 +43,7 @@ const Sidebar = () => {
         width: window.innerWidth
       }) 
 
+    const navigate = useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
         if (studentName === null || studentEmail === null || studentAge === null) {
@@ -56,6 +59,11 @@ const Sidebar = () => {
             setShow2(snackbar3);
             setTimeout(function () { setShow2(""); clearTimeout(); }, 3000);
             window.sessionStorage.removeItem("snackbar3");
+        }
+        if (snackbar2 === "show") {
+            setShow3(snackbar2);
+            setTimeout(function () { setShow3(""); clearTimeout(); }, 3000);
+            window.sessionStorage.removeItem("snackbarUpdate");
         }
 
         const handleResize = () => {
@@ -161,7 +169,6 @@ const Sidebar = () => {
         sidebarTogglerRef.current.style.display = "block";
     }
 
-
     return (
         <>
             {loggedInStudentFalse && <Navigate to="/" />}
@@ -204,7 +211,7 @@ const Sidebar = () => {
                                 <strong>{studentName}</strong>
                             </a>
                             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                <li><Link to="/profile" className="dropdown-item" >Profile</Link></li>
+                                <li><Link to="/student/profile" className="dropdown-item" >Profile</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li>
                                     <button type="button" className="btn1 primary1 dropdown-item" onClick={logoutClick}>Logout</button>
@@ -221,6 +228,7 @@ const Sidebar = () => {
                     {home && <Home />}
                     <div className={show} id="snackbar">Login Successfully..</div>
                     <div className={show2} id="snackbar">Student details are added..</div>
+                    <div className={show3} id="snackbar">Profile Updated..</div>
                 </div>
             </div>
         </>

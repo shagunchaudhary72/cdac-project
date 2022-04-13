@@ -83,4 +83,10 @@ public class UserServiceImpl implements IUserService {
 		return userRepo.save(user);
 	}
 
+
+	@Override
+	public User getUserDetails(String email) {
+		return userRepo.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("User with email "+email+" not found"));
+	}
+
 }

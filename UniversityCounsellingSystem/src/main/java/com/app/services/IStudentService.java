@@ -22,6 +22,4 @@ public interface IStudentService {
 	
 	StudentCounsellingResult getResultOfCounselling(int id);
 	
-	
-
 }

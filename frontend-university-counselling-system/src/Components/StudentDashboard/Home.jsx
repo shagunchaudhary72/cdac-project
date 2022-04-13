@@ -4,9 +4,9 @@ import StudentService from "../../Services/StudentService";
 
 const Home = () => {
     const studentId = window.sessionStorage.getItem("id");
-    const [rank,setRank] = useState("N/A");
-    const [courseAlloted,setCourseAlloted] = useState("N/A");
-    const [collegeAlloted,setCollegeAlloted] = useState("N/A");
+    const [rank,setRank] = useState("");
+    const [courseAlloted,setCourseAlloted] = useState("");
+    const [collegeAlloted,setCollegeAlloted] = useState("");
 
     useEffect(()=>{
         StudentService.getResult(parseInt(studentId)).then(resp=>{
