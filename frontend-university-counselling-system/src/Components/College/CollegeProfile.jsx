@@ -4,12 +4,43 @@ import { Navigate, Link } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Country, State, City } from 'country-state-city';
 
 const AddCollegeDetails = () => {
+
+    let country = Country.getAllCountries();
+    const [countryid, setCountryId] = useState("");
+    const [state, setState] = useState([]);
+    const [stateid, setStateId] = useState("");
+    const [city, setCity] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState("");
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedCity, setSelectedCity] = useState("");
+
+    const handlecountry = (e) => {
+        setCountryId(e.target.value);
+        setState(State.getStatesOfCountry(e.target.value));
+    }
+
+    const handlestate = (e) => {
+        setStateId(e.target.value);
+        setCity(City.getCitiesOfState(countryid, e.target.value));
+    }
+
+    const handlecity = (e) => {
+        setSelectedCountry(Country.getCountryByCode(countryid).name);
+        setSelectedState(State.getStateByCodeAndCountry(stateid, countryid).name);
+        setSelectedCity(e.target.value);
+    }
+
+    const [countryError, setCountryError] = useState(false);
+    const [stateError, setStateError] = useState(false);
+    const [cityError, setCityError] = useState(false);
 
     const collegeName = window.sessionStorage.getItem("name");
     const collegeEmail = window.sessionStorage.getItem("email");
     const collegeId = window.sessionStorage.getItem("id");
+    const collegecountry = window.sessionStorage.getItem("country");
     const collegestate = window.sessionStorage.getItem("state");
     const collegecity = window.sessionStorage.getItem("city");
     const collegephoneNo = window.sessionStorage.getItem("phone_no");
@@ -24,8 +55,6 @@ const AddCollegeDetails = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
     const [cutOffRank, setCutOff] = useState("");
     const [minimumPercentInBoards, setMinimumPercentInBoards] = useState("");
     const [totalSeats, setTotalSeats] = useState("");
@@ -57,8 +86,8 @@ const AddCollegeDetails = () => {
                 setGotCourseList(true);
             }
         ).catch(error => {
-            toast.warn("Something went wrong",{
-                position:"bottom-center"
+            toast.warn("Something went wrong", {
+                position: "bottom-center"
             })
             console.log("Something went wrong", error);
         });
@@ -66,29 +95,31 @@ const AddCollegeDetails = () => {
 
     useEffect(() => {
         window.sessionStorage.setItem("success", "false");
-        if (collegeName !== "" && collegeEmail !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "") {
+        if (collegeName !== "" && collegeEmail !== "" && collegecountry !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "") {
             collegeService.getCollegeProfile(collegeId).then(
                 (response) => {
                     setName(response.data.name);
                     setEmail(response.data.email);
-                    setState(response.data.state);
-                    setCity(response.data.city);
+                    console.log(response.data.country);
+                    setSelectedCountry(response.data.country);
+                    setSelectedState(response.data.state);
+                    setSelectedCity(response.data.city);
                     setCollegePhoneNo(response.data.phoneNo);
                     setCutOff(response.data.cutOffRank);
-                    console.log(collegeCourses);
+                    //console.log(collegeCourses);
                     setCollegeCourses(response.data.courses.map(
                         (SelectedCourse) => {
                             return collegeCourses.push(SelectedCourse.courseName);
                         }));
-                    console.log(collegeCourses);
+                    //console.log(collegeCourses);
                     setMinimumPercentInBoards(response.data.minimumPercentInBoards);
                     setTotalSeats(response.data.totalSeats);
                     setVaccantSeats(response.data.vaccantSeats);
                     getCourseList();
                 }
             ).catch(error => {
-                toast.warn("Something went wrong",{
-                    position:"bottom-center"
+                toast.warn("Something went wrong", {
+                    position: "bottom-center"
                 })
                 console.log("Something went wrong", error);
             });
@@ -97,10 +128,6 @@ const AddCollegeDetails = () => {
             setLoggedInCollegeFalse(true);
         }
     }, [])
-
-    let cityTextHandler = (e) => {
-        setCity(e.target.value);
-    }
 
     let totalSeatsTextHandler = (e) => {
         setTotalSeats(e.target.value);
@@ -112,10 +139,6 @@ const AddCollegeDetails = () => {
 
     let vaccantSeatsTextHandler = (e) => {
         setVaccantSeats(e.target.value);
-    }
-
-    let stateTextHandler = (e) => {
-        setState(e.target.value);
     }
 
     let percentTextHandler = (e) => {
@@ -149,6 +172,9 @@ const AddCollegeDetails = () => {
         let totalSeatsFlag = true;
         let vaccantSeatsFlag = true;
         let phoneFlag = true;
+        let countryFlag = true;
+        let stateFlag = true;
+        let cityFlag = true;
         setErrorMesg("");
         setSuccessMesg("");
         setPercentError("");
@@ -159,6 +185,9 @@ const AddCollegeDetails = () => {
         setNameError("");
         setEmailErr("");
         setPhoneError("");
+        setCountryError("");
+        setCityError("");
+        setStateError("");
         let regex = /[a-zA-Z0-9]+@{1}[a-zA-Z0-9]+\.[a-zA-Z]+/;
         if (name === "") {
             setNameError("This field is compulsory");
@@ -192,9 +221,24 @@ const AddCollegeDetails = () => {
             setPhoneError("Invalid Phone Number");
             phoneFlag = false;
         }
+        if (selectedCountry === "") {
+            setCountryError(true);
+            countryFlag = false;
+        }
+        if (selectedState === "") {
+            setStateError(true);
+            stateFlag = false;
+        }
+        if (selectedCity === "") {
+            setCityError(true);
+            cityFlag = false;
+        }
         if (emailFlag && percentFlag && cutOffFlag && totalSeatsFlag && vaccantSeatsFlag && nameFlag && phoneFlag) {
             return true;
         }
+        countryFlag = true;
+        stateFlag = true;
+        cityFlag = true;
         emailFlag = true;
         percentFlag = true;
         cutOffFlag = true;
@@ -211,8 +255,17 @@ const AddCollegeDetails = () => {
         if (validation() === true) {
             addSelectedCourseList();
             console.log(courses);
-            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail },phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats };
+            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "emailId": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, "country":selectedCountry, "city":selectedCity, "state":selectedState, totalSeats, vaccantSeats };
             console.log(college);
+            window.sessionStorage.setItem("name", name);
+            window.sessionStorage.setItem("country", selectedCountry);
+            window.sessionStorage.setItem("state", selectedState);
+            window.sessionStorage.setItem("city", selectedCity);
+            window.sessionStorage.setItem("phone_no", phoneNo);
+            window.sessionStorage.setItem("universityId", universityId);
+            window.sessionStorage.setItem("universityEmail", universityEmail);
+            window.sessionStorage.setItem("universityName", universityName);
+            // console.log("City"+selectedCity);
             collegeService.updateCollegeDetails(college).then(() => {
                 setSuccessMesg("College Profile Updated");
                 console.log("College Profile Updated");
@@ -220,7 +273,9 @@ const AddCollegeDetails = () => {
                 setErrorMesg("Something went wrong", error);
                 console.log(error);
             });
+
             setDetailsUpdated(true);
+
             window.sessionStorage.setItem("success", "true");
             window.sessionStorage.setItem("name", name);
         }
@@ -265,21 +320,94 @@ const AddCollegeDetails = () => {
                                     <label>Email address</label>
                                     <span className="text-danger">{emailErr}</span>
                                 </div>
-                                <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" required />
-                                    <label>City</label>
+
+                                <div className="form-outline mb-4">
+                                    {countryError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
+                                    {selectedCountry !== "" ?
+                                        <select name="country" className="form-select" onChange={handlecountry}>
+                                            <option>{selectedCountry}</option>
+                                            {
+                                                country.map((getcon, index) => (
+                                                    <option key={index} value={getcon.isoCode}>{getcon.name} </option>
+                                                ))
+                                            }
+                                        </select>
+                                        :
+                                        <select name="country" className="form-select" onChange={handlecountry} >
+                                            <option value="">--Select Country--</option>
+                                            {
+                                                country.map((getcon, index) => (
+                                                    <option key={index} value={getcon.isoCode}>{getcon.name} </option>
+                                                ))
+                                            }
+                                        </select>
+                                    }
+                                </div>
+                                <div className="form-outline mb-4">
+                                    {stateError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
+                                    {selectedState !== "" ?
+                                        <select className="form-select" name="state" onChange={handlestate}>
+                                            <option>{selectedState}</option>
+                                            {
+                                                state.map((getst, index) => (
+                                                    <option key={index} value={getst.isoCode}>{getst.name} </option>
+                                                ))
+                                            }
+                                        </select>
+                                        :
+                                        <select className="form-select" name="state" onChange={handlestate}>
+                                            <option value="">--Select State--</option>
+                                            {
+                                                state.map((getst, index) => (
+                                                    <option key={index} value={getst.isoCode}>{getst.name} </option>
+                                                ))
+                                            }
+                                        </select>
+                                    }
+                                </div>
+
+                                <div className="form-outline mb-4">
+                                    {cityError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
+                                    {selectedCity !== "" ?
+                                        <select className="form-select" name="city" onChange={handlecity}>
+                                            <option>{selectedCity}</option>
+                                            {
+                                                city.map((gcity, index) => (
+                                                    <option key={index} value={gcity.name}> {gcity.name} </option>
+                                                ))
+                                            }
+                                        </select>
+                                        :
+                                        <select className="form-select" name="city" onChange={handlecity}>
+                                            <option value="">--Select City--</option>
+                                            {
+                                                city.map((gcity, index) => (
+                                                    <option key={index} value={gcity.name}> {gcity.name} </option>
+                                                ))
+                                            }
+                                        </select>
+                                    }
+                                </div>
+
+                                {/* <div className="form-floating mb-3">
+                                    <input type="text" className="form-control" value={country} onChange={countryTextHandler} placeholder="Enter Country" required />
+                                    <label>Country</label>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" value={state} onChange={stateTextHandler} placeholder="Enter State" required />
                                     <label>State</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" required/>
+                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" required />
+                                    <label>City</label>
+                                </div> */}
+                                <div className="form-floating mb-3">
+                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" required />
                                     <label>Phone No</label>
                                     <span className="text-danger">{phoneError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" required/>
+                                    <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" required />
                                     <label>Minimum Percentage Required in Boards</label>
                                     <span className="text-danger">{percentError}</span>
                                 </div>
@@ -302,17 +430,17 @@ const AddCollegeDetails = () => {
                                     </table>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={cutOffRank} onChange={cutOffTextHandler} placeholder="Enter CutOff Rank" required/>
+                                    <input type="text" className="form-control" value={cutOffRank} onChange={cutOffTextHandler} placeholder="Enter CutOff Rank" required />
                                     <label>Cutt Off Rank</label>
                                     <span className="text-danger">{cutOffError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={totalSeats} onChange={totalSeatsTextHandler} placeholder="Enter Totla Seats" required/>
+                                    <input type="text" className="form-control" value={totalSeats} onChange={totalSeatsTextHandler} placeholder="Enter Totla Seats" required />
                                     <label>Total Seats</label>
                                     <span className="text-danger">{totalSeatsError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={vaccantSeats} onChange={vaccantSeatsTextHandler} placeholder="Enter Vaccant Seats" required/>
+                                    <input type="text" className="form-control" value={vaccantSeats} onChange={vaccantSeatsTextHandler} placeholder="Enter Vaccant Seats" required />
                                     <label>Vacant Seats</label>
                                     <span className="text-danger">{vaccantSeatsError}</span>
                                 </div>

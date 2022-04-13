@@ -12,6 +12,7 @@ const AddCollegeDetails = () => {
   const universityId = window.sessionStorage.getItem("universityId");
   const universityEmail = window.sessionStorage.getItem("universityEmail");
   const universityName = window.sessionStorage.getItem("universityName");
+  const collegecountry = window.sessionStorage.getItem("country");
   const collegestate = window.sessionStorage.getItem("state");
   const collegecity = window.sessionStorage.getItem("city");
   const collegephoneNo = window.sessionStorage.getItem("phone_no");
@@ -23,6 +24,7 @@ const AddCollegeDetails = () => {
       universityName: universityName,
       email: universityEmail,
     },
+    collegecountry,
     collegestate,
     collegecity,
     collegephoneNo,
@@ -32,6 +34,7 @@ const AddCollegeDetails = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [cutOffRank, setCutOff] = useState("");
@@ -41,16 +44,7 @@ const AddCollegeDetails = () => {
   const [phoneNo, setCollegePhoneNo] = useState("");
   const [navigateToLogin, setNavigateToLogin] = useState(false);
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [cutOffRank, setCutOff] = useState("");
-    const [minimumPercentInBoards, setMinimumPercentInBoards] = useState("");
-    const [totalSeats, setTotalSeats] = useState("");
-    const [vaccantSeats, setVaccantSeats] = useState("");
-    const [phoneNo, setCollegePhoneNo] = useState("");
-    const [navigateToDashboard, setNavigateToDashboard] = useState(false);
+  const [navigateToDashboard, setNavigateToDashboard] = useState(false);
   const [percentError, setPercentError] = useState("");
   const [cutOffError, setCutOffError] = useState("");
   const [totalSeatsError, setTotalSeatsError] = useState("");
@@ -77,6 +71,7 @@ const AddCollegeDetails = () => {
     if (
       collegeName !== "" &&
       collegeEmail !== "" &&
+      collegecountry !== "" &&
       collegestate !== "" &&
       collegecity !== "" &&
       collegephoneNo !== ""
@@ -84,6 +79,7 @@ const AddCollegeDetails = () => {
       getCourseList();
       setName(obj.collegeName);
       setEmail(obj.collegeEmail);
+      setCountry(obj.collegecountry);
       setState(obj.collegestate);
       setCity(obj.collegecity);
       setCollegePhoneNo(obj.collegephoneNo);
@@ -150,66 +146,47 @@ const AddCollegeDetails = () => {
       setCutOffError("Please enter valid cutOff Rank");
       cutOffFlag = false;
     }
-
-    function validation() {
-        let percentFlag = true;
-        let cutOffFlag = true;
-        let totalSeatsFlag = true;
-        let vaccantSeatsFlag = true;
-        setErrorMesg("");
-        setSuccessMesg("");
-        setPercentError("");
-        setCutOffError("");
-        setTotalSeatsError("");
-        setVaccantSeatsError("");
-        if (minimumPercentInBoards < 0) {
-            setPercentError("Please enter valid percentage");
-            percentFlag = false;
-        }
-        if (cutOffRank < 0) {
-            setCutOffError("Please enter valid cutOff Rank");
-            cutOffFlag = false;
-        }
-        if (totalSeats < 0) {
-            setTotalSeatsError("Please enter valid number of seats");
-            totalSeatsFlag = false;
-        }
-        if (vaccantSeats < 0) {
-            setVaccantSeatsError("Please enter valid number of seats");
-            vaccantSeatsFlag = false;
-        }
-        if (percentFlag && cutOffFlag && totalSeatsFlag && vaccantSeatsFlag) {
-            return true;
-        }
-        percentFlag = true;
-        cutOffFlag = true;
-        totalSeatsFlag = true;
-        vaccantSeatsFlag = true;
-        return false;
+    if (totalSeats < 0) {
+      setTotalSeatsError("Please enter valid number of seats");
+      totalSeatsFlag = false;
     }
-
-    let addCollegeDetails = (e) => {
-        e.preventDefault();
-        if (validation() === true) {
-            addSelectedCourseList();
-            console.log(courses);
-            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, city, state, totalSeats, vaccantSeats }
-            console.log(college);
-            collegeService.updateCollegeDetails(college).then(() => {
-                setSuccessMesg("College Profile Updated");
-                toast.dark("Details updated successfully", {
-                    position: "bottom-center"
-                });
-                setNavigateToDashboard(true);
-            }).catch(error => {
-                toast.warn("Something went wrong", {
-                    position: "bottom-center"
-                });
-                console.log("Something went wrong", error);
-            });
-        }
+    if (vaccantSeats < 0) {
+      setVaccantSeatsError("Please enter valid number of seats");
+      vaccantSeatsFlag = false;
     }
-  };
+    if (percentFlag && cutOffFlag && totalSeatsFlag && vaccantSeatsFlag) {
+      return true;
+    }
+    percentFlag = true;
+    cutOffFlag = true;
+    totalSeatsFlag = true;
+    vaccantSeatsFlag = true;
+    return false;
+  }
+
+  const addCollegeDetails = (e) => {
+    e.preventDefault();
+    if (validation() === true) {
+      addSelectedCourseList();
+      console.log(courses);
+      let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, country, city, state, totalSeats, vaccantSeats }
+      console.log(college);
+      collegeService.updateCollegeDetails(college).then(() => {
+        setSuccessMesg("College Profile Updated");
+        toast.dark("Details updated successfully", {
+          position: "bottom-center"
+        });
+        setNavigateToDashboard(true);
+      }).catch(error => {
+        toast.warn("Something went wrong", {
+          position: "bottom-center"
+        });
+
+        console.log("Something went wrong", error);
+
+      });
+    }
+  }
 
   const addSelectedCourseList = () => {
     var markedCheckbox = document.getElementsByName("cl");
@@ -218,11 +195,11 @@ const AddCollegeDetails = () => {
         courses.push({ id: checkbox.id, courseName: checkbox.value });
     }
   };
-  
+
   return (
     <>
       {loggedInCollegeFalse && <Navigate to="/login" />}
-      {navigateToLogin && <Navigate to="/college_dashboard" />}
+      {navigateToDashboard && <Navigate to="/college_dashboard" />}
       <div className="container-fluid w-50 mt-5 add-details-section">
         <div className="m-3">
           <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">

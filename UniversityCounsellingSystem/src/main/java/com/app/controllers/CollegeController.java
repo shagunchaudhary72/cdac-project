@@ -54,6 +54,7 @@ public class CollegeController {
 
 	@PutMapping("/edit") // Edit profile
 	public College editCollegeData(@RequestBody @Valid College editedCollegeData) {
+		System.out.println(editedCollegeData);
 		return collegeService.updateCollegeDetails(editedCollegeData);
 	}
 

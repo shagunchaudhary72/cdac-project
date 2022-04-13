@@ -10,6 +10,7 @@ const AddCollegeDetails = () => {
     const collegeName = window.sessionStorage.getItem("name");
     const collegeEmail = window.sessionStorage.getItem("email");
     const collegeId = window.sessionStorage.getItem("id");
+    const collegecountry = window.sessionStorage.getItem("country");
     const collegestate = window.sessionStorage.getItem("state");
     const collegecity = window.sessionStorage.getItem("city");
     const collegephoneNo = window.sessionStorage.getItem("phone_no");
@@ -24,6 +25,7 @@ const AddCollegeDetails = () => {
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [country, setCountry] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [cutOffRank, setCutOff] = useState("");
@@ -53,11 +55,12 @@ const AddCollegeDetails = () => {
     }
 
     useEffect(() => {
-        if (collegeName !== "" && collegeEmail !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "") {
+        if (collegeName !== "" && collegeEmail !== "" && collegecountry !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "") {
             collegeService.getCollegeProfile(collegeId).then(
                 (response) => {
                     setName(response.data.name);
                     setEmail(response.data.email);
+                    setCountry(response.data.country);
                     setState(response.data.state);
                     setCity(response.data.city);
                     setCollegePhoneNo(response.data.phoneNo);
@@ -99,6 +102,10 @@ const AddCollegeDetails = () => {
 
     let vaccantSeatsTextHandler = (e) => {
         setVaccantSeats(e.target.value);
+    }
+
+    let countryTextHandler = (e) => {
+        setCountry(e.target.value);
     }
 
     let stateTextHandler = (e) => {
@@ -158,12 +165,16 @@ const AddCollegeDetails = () => {
 
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" disabled />
-                                    <label>City</label>
+                                    <input type="text" className="form-control" value={country} onChange={countryTextHandler} placeholder="Enter City" disabled />
+                                    <label>Country</label>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" value={state} onChange={stateTextHandler} placeholder="Enter State" disabled />
                                     <label>State</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" disabled />
+                                    <label>City</label>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" value={universityName} onChange={stateTextHandler} placeholder="Enter State" disabled />

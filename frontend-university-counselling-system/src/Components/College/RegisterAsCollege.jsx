@@ -35,6 +35,7 @@ const RegisterAsCollege = () => {
         setSelectedCountry(Country.getCountryByCode(countryid).name);
         setSelectedState(State.getStateByCodeAndCountry(stateid, countryid).name);
         setSelectedCity(e.target.value);
+        
     }
 
     const [name, setName] = useState("");
@@ -262,8 +263,6 @@ const RegisterAsCollege = () => {
 
                                 <div className="form-outline mb-4">
                                     {cityError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
-                                    {/* <input type="text" id="state" className="form-control form-control-lg"
-                                        placeholder="Enter State" value={state} onChange={setStateHandler} required /> */}
                                     <select className="form-select" name="city" onChange={handlecity}>
                                         <option value="">--Select City--</option>
                                         {

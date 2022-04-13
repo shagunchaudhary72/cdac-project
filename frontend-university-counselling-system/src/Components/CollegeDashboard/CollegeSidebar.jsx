@@ -192,7 +192,6 @@ const CollegeSidebar = () => {
         <div
           ref={sidebarRef}
           className=" dashboard-sidebar bg-light col-md-3 col-sm-3 col-5 bg-light p-3"
-          style={{ height: "650px" }}
         >
           <div id="close-sidebar" className="text-end" onClick={hideSidebar}>
             <ImCross />
