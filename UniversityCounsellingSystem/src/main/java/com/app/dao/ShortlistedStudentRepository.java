@@ -42,4 +42,6 @@ public interface ShortlistedStudentRepository extends JpaRepository<ShortlistedS
 			@Param("courseId") int courseId);
 	
 	ShortlistedStudent findByStudentId(int studentId);
+	
+	ShortlistedStudent findByCourseId(int courseId);
 }

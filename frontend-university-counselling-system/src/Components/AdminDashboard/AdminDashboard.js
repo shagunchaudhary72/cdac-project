@@ -197,7 +197,7 @@ const AdminDashboard = () => {
 
             <div className="row g-1  w-100 dashboard-section">
              <div className="sidebar-toggler" ref={sidebarTogglerRef} onClick={showSidebar}><MdVerticalDistribute /></div> 
-                <div ref={sidebarRef} className=" dashboard-sidebar bg-light col-md-3 col-sm-3 col-5 bg-light p-3" style={{ height: "650px" }}>
+                <div ref={sidebarRef} className=" dashboard-sidebar bg-light col-md-3 col-sm-3 col-5 bg-light p-3" >
                     
                     <div id="close-sidebar" className="text-end" onClick={hideSidebar}><ImCross /></div>
                     

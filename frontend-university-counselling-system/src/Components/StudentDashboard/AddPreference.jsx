@@ -102,6 +102,8 @@ const AddPreference = () => {
 
   let validation = () => {
     let flag = true;
+    console.log(college);
+    console.log(course);
     if (college === "") {
       setCollgeErr("Please select any college from the given list");
       flag = false;
