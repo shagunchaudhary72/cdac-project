@@ -4,7 +4,7 @@ import { useState , useEffect } from "react";
 
 import "./Login.css";
 import UserService from "../../Services/UserService";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { UserContext } from "../../App";
 
 const Login = () => {
