@@ -29,6 +29,7 @@ import Contact from "./Components/Pages/Contact";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import Header from "./Components/Home/Header";
 import { initialState, reducer } from "./Reducer/UseReducer";
+import ForgotPassword from "./Components/Login/ForgotPassword";
 
 export const UserContext = createContext();
 
@@ -70,6 +71,7 @@ const Routing = () => {
       <Route path="/college_dashboard" element={<CollegeSidebar />} />
       <Route path="/register/college" element={<RegisterAsCollege />} />
       <Route path="/college_profile" element={<CollegeProfile />} />
+      <Route path="/forgot_password" element={<ForgotPassword />} />
 
       <Route path="*" element={<NotFound />} />
 
@@ -89,6 +91,7 @@ const App = () => {
       dispatch({ type: "USER", payload: false });
     }
   }, [])
+
 
 
   return (

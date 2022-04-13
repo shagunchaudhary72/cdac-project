@@ -205,9 +205,11 @@ const Home = () => {
                     </Modal.Header>
                     <Modal.Body>
                         <Container>
+                            <div className="table-responsive">
                             {collegeState && body1}
                             {courseState && body2}
                             {studentSate && body3}
+                            </div>
                         </Container>
                     </Modal.Body>
                     <Modal.Footer>

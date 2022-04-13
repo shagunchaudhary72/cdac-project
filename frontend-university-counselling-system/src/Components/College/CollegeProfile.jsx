@@ -5,6 +5,7 @@ import collegeService from "../../Services/CollegeService";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Country, State, City } from 'country-state-city';
+import AdminService from "../../Services/AdminService";
 
 const AddCollegeDetails = () => {
 
@@ -75,6 +76,8 @@ const AddCollegeDetails = () => {
     const [gotCourseList, setGotCourseList] = useState(false);
     const [selectedCourseList, setSelectedCourseList] = useState([]);
     const [detailsUpdated, setDetailsUpdated] = useState(false);
+    //const [resultDate,setResultDate] = useState("");
+    const [disable,setDisable] = useState("");
 
     const getCourseList = () => {
         collegeService.getCourseList().then(
@@ -123,10 +126,24 @@ const AddCollegeDetails = () => {
                 })
                 console.log("Something went wrong", error);
             });
+            AdminService.getAcademicDates().then(resp=>{
+                let resultDate = resp.data.resultDate;
+                console.log(Date.parse(resultDate));
+                console.log(Date.parse(new Date()))
+                if(Date.parse(resultDate)<=Date.parse(new Date())){
+                    setDisable("disabled")
+                }
+                else{
+                    setDisable("");
+                }
+            }).catch(err=>{
+                console.log("Something Went Wrong",err);
+            })
         }
         else {
             setLoggedInCollegeFalse(true);
         }
+        
     }, [])
 
     let totalSeatsTextHandler = (e) => {
@@ -311,7 +328,7 @@ const AddCollegeDetails = () => {
                         <div className="m-3">
                             <form onSubmit={addCollegeDetails}>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" />
+                                    <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" disabled={disable}/>
                                     <label>Name</label>
                                     <span className="text-danger">{nameError}</span>
                                 </div>
@@ -320,7 +337,6 @@ const AddCollegeDetails = () => {
                                     <label>Email address</label>
                                     <span className="text-danger">{emailErr}</span>
                                 </div>
-
                                 <div className="form-outline mb-4">
                                     {countryError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     {selectedCountry !== "" ?
@@ -392,9 +408,14 @@ const AddCollegeDetails = () => {
                                 {/* <div className="form-floating mb-3">
                                     <input type="text" className="form-control" value={country} onChange={countryTextHandler} placeholder="Enter Country" required />
                                     <label>Country</label>
+=======
+                                <div className="form-floating mb-3">
+                                    <input type="text" className="form-control" value={city} onChange={cityTextHandler} placeholder="Enter City" required disabled={disable}/>
+                                    <label>City</label>
+>>>>>>> 10d2c1ed96da4c76d3a5798c36c121ddd8ccabe8
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={state} onChange={stateTextHandler} placeholder="Enter State" required />
+                                    <input type="text" className="form-control" value={state} onChange={stateTextHandler} placeholder="Enter State" required disabled={disable}/>
                                     <label>State</label>
                                 </div>
                                 <div className="form-floating mb-3">
@@ -402,12 +423,12 @@ const AddCollegeDetails = () => {
                                     <label>City</label>
                                 </div> */}
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" required />
+                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" required disabled={disable}/>
                                     <label>Phone No</label>
                                     <span className="text-danger">{phoneError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" required />
+                                    <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" required disabled={disable}/>
                                     <label>Minimum Percentage Required in Boards</label>
                                     <span className="text-danger">{percentError}</span>
                                 </div>
@@ -419,8 +440,8 @@ const AddCollegeDetails = () => {
                                             {gotCourseList && courseList.map((course) => (
                                                 <tr>{console.log(selectedCourseList)}
                                                     <td>{checkIfExists(course) ?
-                                                        <input type="checkbox" name="cl" id={course.id} value={course.courseName} defaultChecked />
-                                                        : <input type="checkbox" name="cl" id={course.id} value={course.courseName} />
+                                                        <input type="checkbox" name="cl" id={course.id} value={course.courseName} defaultChecked disabled={disable}/>
+                                                        : <input type="checkbox" name="cl" id={course.id} value={course.courseName} disabled={disable}/>
                                                     }
                                                     </td>
                                                     <td className="form-control">{course.courseName}</td>
@@ -430,17 +451,17 @@ const AddCollegeDetails = () => {
                                     </table>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={cutOffRank} onChange={cutOffTextHandler} placeholder="Enter CutOff Rank" required />
+                                    <input type="text" className="form-control" value={cutOffRank} onChange={cutOffTextHandler} placeholder="Enter CutOff Rank" required disabled={disable}/>
                                     <label>Cutt Off Rank</label>
                                     <span className="text-danger">{cutOffError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={totalSeats} onChange={totalSeatsTextHandler} placeholder="Enter Totla Seats" required />
+                                    <input type="text" className="form-control" value={totalSeats} onChange={totalSeatsTextHandler} placeholder="Enter Totla Seats" required disabled={disable}/>
                                     <label>Total Seats</label>
                                     <span className="text-danger">{totalSeatsError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={vaccantSeats} onChange={vaccantSeatsTextHandler} placeholder="Enter Vaccant Seats" required />
+                                    <input type="text" className="form-control" value={vaccantSeats} onChange={vaccantSeatsTextHandler} placeholder="Enter Vaccant Seats" required disabled={disable}/>
                                     <label>Vacant Seats</label>
                                     <span className="text-danger">{vaccantSeatsError}</span>
                                 </div>

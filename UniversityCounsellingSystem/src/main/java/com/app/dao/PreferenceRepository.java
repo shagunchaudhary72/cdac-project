@@ -9,4 +9,6 @@ import com.app.pojos.Preference;
 public interface PreferenceRepository extends JpaRepository<Preference, Integer>{
 	
 	List<Preference> findAllPreferencesByStudentId(int studentid);
+	
+	List<Preference> findAllPreferencesByCoursePreference(String courseName);
 }
