@@ -47,6 +47,7 @@ const RegisterAsCollege = () => {
     const [nameError, setnameError] = useState(false);
     const [emailError, setemailError] = useState(false);
     const [passwordError, setpasswordError] = useState(false);
+    const [passwordValidationError, setpasswordValidatonError] = useState(false);
     const [passwordMatch, setPasswordMatch] = useState(true);
     const [phoneNoError, setphoneNoError] = useState(false);
     const [errorMessage, setErrorMessage] = useState({});
@@ -82,6 +83,7 @@ const RegisterAsCollege = () => {
         setErrorMessagesBlank();
         let regex = /[a-zA-Z0-9]+@{1}[a-zA-Z0-9]+\.[a-zA-Z]+/;
         let phoneRegex = /^[0-9]{10}$/;
+        let passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{8,15}$/;
         if (name === "") {
             setnameError(true);
             return false;
@@ -96,6 +98,10 @@ const RegisterAsCollege = () => {
             setpasswordError(true);
             return false;
         }
+        else if(passwordRegex.test(password)===false){
+            setpasswordValidatonError(true);
+            return false;
+          }
 
         if (phone_no.length != 10) {
             setphoneNoError(true);
@@ -218,6 +224,7 @@ const RegisterAsCollege = () => {
 
                                 <div className="form-outline mb-3">
                                     {passwordError && <span style={{ color: 'red' }}>Invalid Password</span>}
+                                    {passwordValidationError && <span style={{ color: 'red' }}>Password should have atleast one capital letter, one special character and a number. Also, the size of password should lies between 8 to 15 characters</span>}
                                     <input type="password" id="password" className="form-control form-control-lg"
                                         placeholder="Enter password" value={password} onChange={setPasswordHandler} required />
                                     {/* <label className="form-label" for="password">Password</label> */}

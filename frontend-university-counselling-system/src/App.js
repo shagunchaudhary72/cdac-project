@@ -30,6 +30,7 @@ import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import Header from "./Components/Home/Header";
 import { initialState, reducer } from "./Reducer/UseReducer";
 import ForgotPassword from "./Components/Login/ForgotPassword";
+import ProfileUpdate from "./Components/StudentDashboard/ProfileUpdate";
 
 export const UserContext = createContext();
 
@@ -73,6 +74,8 @@ const Routing = () => {
       <Route path="/college_profile" element={<CollegeProfile />} />
       <Route path="/forgot_password" element={<ForgotPassword />} />
 
+      <Route path="/student/profile" element={<ProfileUpdate />} />
+
       <Route path="*" element={<NotFound />} />
 
     </Routes>
@@ -101,7 +104,7 @@ const App = () => {
           <Header />
         <Routing />
       </UserContext.Provider>
-      <footer className="footer section">
+      <footer className="footer section ">
         <ExtraInfo />
         <Copyright />
       </footer>

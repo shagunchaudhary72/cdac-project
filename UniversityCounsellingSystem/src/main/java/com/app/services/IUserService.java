@@ -11,5 +11,7 @@ public interface IUserService {
 	User registerAsStudent(User user);
 	
 	User updatePassword(String email,String newPassword);
+	
+	User getUserDetails(String email);
 
 }

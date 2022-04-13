@@ -152,7 +152,6 @@ public class AdminController {
 	@DeleteMapping("/deleteCourse/{id}")
 	public ResponseEntity<?> deleteCourse(@PathVariable int id) {
 		String mesg = courseService.deleteCourseById(id);
-		adminService.declareResult();	
 		return ResponseEntity.ok().body(mesg);
 	} 
 }

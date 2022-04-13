@@ -25,9 +25,6 @@ const AddCourse = () => {
         })
     }
 
-
-
-
     useEffect(() => {
         courseList();
     }, [])
@@ -163,7 +160,7 @@ const AddCourse = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <p>
-                        If this course present in some college profiles in their courses offering details then, it will be deleted immediately from there plus those students who got this course in counselling won't be able to get admission for this particular course.
+                        If this course present in some college profiles in their courses offering then, it will be deleted immediately from there plus those students who got this course in counselling won't be able to get admission for this particular course.
                     </p>
                 </Modal.Body>
                 <Modal.Footer>

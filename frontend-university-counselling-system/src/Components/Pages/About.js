@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const About = () => {
+
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[])
   return (
-    <div className="container-fluid w-50 my-5 about-page" >
-      <div className="m-3">
+    <div className="container-fluid w-50 about-page" style={{marginBottom:"10%"}}>
+      <div className="m-5">
         <h2 className="fw-bold mb-2 text-uppercase">About us &nbsp;<i className='fas fa-lightbulb' style={{color: "green"}}></i></h2><br/>
         <p>
           We are a team of 6 people who have developed this University Counselling System.

@@ -17,6 +17,7 @@ const CourseList = () => {
 
   useEffect(() => {
     getCourseList();
+    window.scrollTo(0,0);
   },[]);
 
   return (

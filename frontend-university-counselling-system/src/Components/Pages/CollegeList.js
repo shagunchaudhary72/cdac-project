@@ -21,6 +21,7 @@ const CollegeList = () => {
 
   useEffect(() =>{
     getCollegeList();
+    window.scrollTo(0,0);
   },[]);
 
   return (

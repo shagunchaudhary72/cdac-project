@@ -34,4 +34,12 @@ const getResult = (studentId) => {
     return axios.get(STUDENT_API_SERVICE_URL + "/student/counselling_result/" + studentId);
 }
 
-export default { updateStudentDetails, updateEducation, getEducationDetailsOfStudent, addPreference, getPreferences, deletePreference, deleteEducation, getResult };
+const getStudentDeatils = (studentId) => {
+    return axios.get(STUDENT_API_SERVICE_URL + "/student/profile/" + studentId);
+}
+
+const updateStudentAndUserDetails = (student,phone) =>{
+    return axios.put(STUDENT_API_SERVICE_URL+"/updateStudentProfile/"+phone,student);
+}
+
+export default { updateStudentDetails, updateEducation, getEducationDetailsOfStudent, addPreference, getPreferences, deletePreference, deleteEducation, getResult,getStudentDeatils,updateStudentAndUserDetails};

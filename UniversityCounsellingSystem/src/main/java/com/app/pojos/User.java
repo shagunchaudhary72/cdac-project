@@ -37,4 +37,5 @@ public class User extends BaseEntity {
 	@Column(name = "phone_no")
 	@Pattern(regexp = "^\\d{10}$", message = "Invalid Phone Number")
 	private String phoneNo;
+		
 }
