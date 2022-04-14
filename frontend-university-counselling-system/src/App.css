@@ -73,6 +73,12 @@
         border-bottom: 2px solid var(--green-color);
     }
 }
+@media only screen and (max-width:1024px) {
+    .event-card{
+        width: 400px !important;
+    }
+}
+
 @media only screen and (max-width:992px) {
     .heading-bottom-border{
         font-size: 1.5rem;
@@ -118,6 +124,10 @@
     .primary1{
         padding: 3px !important;
         font-size: 12px !important;
+    }
+
+    .event-card{
+        width: 300px !important;
     }
 
 
