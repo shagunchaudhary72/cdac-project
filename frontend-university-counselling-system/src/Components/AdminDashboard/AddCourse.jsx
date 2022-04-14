@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import AdminService from "../../Services/AdminService";
 import CollegeService from "../../Services/CollegeService";
+
 
 const AddCourse = () => {
 
@@ -10,6 +12,9 @@ const AddCourse = () => {
     const [courses, setCourses] = useState([]);
     const [responseFromMethod, setResponseFromMethod] = useState("");
     const [show1, setShow1] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const [courseId, setCourseId] = useState("");
+
 
     let courseList = () => {
         CollegeService.getCourseList().then(response => {
@@ -43,21 +48,23 @@ const AddCourse = () => {
     }
 
     let handleDelete = (id) => {
-
-        CollegeService.deleteCourseById(id).then(resp => {
-            setResponseFromMethod(resp.data);
-            // if(responseFromMethod!==""){
-            console.log(resp.data);
-            setShow1("show");
-            courseList();
-            setTimeout(function () {
-                setShow1("");
-                clearTimeout();
-            }, 3000)
-            // }
-        }).catch(err => {
-            console.log(err);
-        })
+        console.log(id);
+        if (id !== null) {
+            AdminService.deleteCourseById(id).then(resp => {
+                setResponseFromMethod(resp.data);
+                console.log(resp.data);
+                setShow1("show");
+                courseList();
+                setTimeout(function () {
+                    setShow1("");
+                    clearTimeout();
+                }, 3000)
+                setCourseId("");
+                setShowModal(false);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
 
     }
 
@@ -78,6 +85,12 @@ const AddCourse = () => {
                 console.log(err);
             })
         }
+    }
+    const handleClose = () => setShowModal(false);
+    const handleShow = (id) => {
+        console.log(id);
+        setShowModal(true);
+        setCourseId(id);
     }
 
 
@@ -110,32 +123,51 @@ const AddCourse = () => {
                 </div>
                 <hr />
                 <div className="table-responsive">
-                <table className="table table-bordered table-striped">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>Course Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            courses.map((course, key) => (
-                                <tr key={key}>
-                                    <td>{key+1}</td>
-                                    <td>{course.courseName}</td>
-                                    <td><center><button className="btn1 primary1 rounded" onClick={() => {
-                                        handleDelete(course.id);
-                                    }}>Delete</button></center></td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
+                    <table className="table table-bordered table-striped">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Course Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                courses.map((course, key) => (
+                                    <tr key={key}>
+                                        <td>{key + 1}</td>
+                                        <td>{course.courseName}</td>
+                                        <td><center><button className="btn1 primary1 rounded" onClick={() => {
+                                            handleShow(course.id);
+                                        }}>Delete</button></center></td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
                 </div>
                 <div className={show} id="snackbar">Course Added Successfully</div>
                 <div className={show1} id="snackbar">{responseFromMethod}</div>
             </div>
+            <Modal show={showModal} onHide={handleClose}
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Are you sure?
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>
+                        If this course present in some college profiles in their courses offering then, it will be deleted immediately from there plus those students who got this course in counselling won't be able to get admission for this particular course.
+                    </p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button className="btn btn-danger" onClick={() => handleDelete(courseId)}>Proceed to Delete</Button>
+                </Modal.Footer>
+            </Modal>
         </>
 
     );

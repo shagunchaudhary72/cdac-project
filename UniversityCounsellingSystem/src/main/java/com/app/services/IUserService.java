@@ -9,5 +9,11 @@ public interface IUserService {
 	LoginResponse login(String email,String password);
 	
 	User registerAsStudent(User user);
+	
+	User updatePassword(String email,String newPassword);
+	
+	User getUserDetails(String email);
+	
+	User checkUserDetails(String email);
 
 }

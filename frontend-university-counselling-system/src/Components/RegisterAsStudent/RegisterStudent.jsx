@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from "react";
 import "../Login/Login.css";
 import userService from "../../Services/UserService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterStudent = () => {
   const [email, setEmail] = useState("");
@@ -20,8 +20,9 @@ const RegisterStudent = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [ageError, setAgeError] = useState("");
-  const [successMesg, setSuccessMesg] = useState("");
+  //const [successMesg, setSuccessMesg] = useState("");
   const [errorMesg, setErrorMesg] = useState("");
+  const navigate = useNavigate();
 
   useEffect(()=>{
     window.scrollTo(0, 0);
@@ -29,53 +30,52 @@ const RegisterStudent = () => {
 
   let emailTextHandler = (event) => {
     if(emailErr!==""||emailErr!==null) setEmailErr("");
-    if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
+    // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setEmail(event.target.value);
   };
   let passwordTextHandler = (event) => {
     if (passwordError!=="" || passwordError!==null) setPasswordError("");
-    if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
+    // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setPassword(event.target.value);
   };
   let nameTextHandler = (event) => {
     if(nameErr!=="" || nameErr!==null) setNameErr("");
-    if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
+    // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setName(event.target.value);
   };
 
   let confirmEmailTextHandler = (event) => {
     if(confirmEmailErr!=="" || confirmEmailErr!==null) setConfirmEmailErr("");
-    if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
+    // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setConfirmEmail(event.target.value);
   };
 
   let confirmPasswordTextHandler = (event) => {
     if(confirmPasswordError!=="" || confirmPasswordError!==null) setConfirmPasswordError("");
-    if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
+    // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setConfirmPassword(event.target.value);
   };
 
   let phoneNoTextHandler = (event) => {
     if(phoneNoErr!=="" || phoneNoErr!==null) setPhoneNoErr("");
-    if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
+    // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setPhoneNo(event.target.value);
   };
 
   let ageTextHandler = (event) => {
     if(ageError!=="" || ageError!==null) setAgeError("");
-    if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
+    // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
     setAge(event.target.value);
   };
 
   let validation = () => {
-    setSuccessMesg("");
     setErrorMesg("");
     setNameErr("");
     setEmailErr("");
@@ -169,11 +169,14 @@ const RegisterStudent = () => {
           setPassword("");
           setConfirmPassword("");
           setAge("");
-          setSuccessMesg("User Created Successfully");
+          // setSuccessMesg("User Created Successfully");
+          window.sessionStorage.setItem("snackbar_registration","show");
           //toastr.success("Student Profile Created Successfully");
+          navigate("/login");
         })
         .catch((error) => {
-          setErrorMesg("Something went wrong", error);
+          console.log(error)
+          setErrorMesg(error.response.data);
         });
     }
   };
@@ -204,7 +207,7 @@ const RegisterStudent = () => {
                   className="form-control"
                   value={email}
                   onChange={emailTextHandler}
-                  placeholder="name@example.com"
+                  placeholder="name@example.com" 
                 />
                 <label>Email address</label>
                 <span className="text-danger">{emailErr}</span>
@@ -280,9 +283,6 @@ const RegisterStudent = () => {
             </form>
           </div>
         </div>
-        <span className="text-success">
-          <b>{successMesg}</b>
-        </span>
         <span className="text-danger">
           <b>{errorMesg}</b>
         </span>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.app.custom_exceptions.AuthenticationException;
+import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.CollegeRepository;
 import com.app.dao.StudentRepository;
 import com.app.dao.UniversityRepository;
@@ -57,7 +58,7 @@ public class UserServiceImpl implements IUserService {
 			int uniid = universityRepo.findById(1).get().getId();
 			String uniemail = universityRepo.findById(1).get().getEmail();
 			String uniname = universityRepo.findById(1).get().getUniversityName();
-			return new LoginResponse(college.getId(),user.getEmail(),user.getName(),college.getCity(),college.getState(), uniid, uniemail, uniname, user.getPhoneNo(),user.getRole(), college.getCourses());
+			return new LoginResponse(college.getId(),user.getEmail(),user.getName(),college.getCountry(), college.getCity(),college.getState(), uniid, uniemail, uniname, user.getPhoneNo(),user.getRole(), college.getCourses());
 		}
 		/*
 		 * User user = userRepo.authenticateUser(email, password); if(!(user == null)) {
@@ -73,5 +74,27 @@ public class UserServiceImpl implements IUserService {
 	public User registerAsStudent(User user) {
 		return userRepo.save(user);
 	}
+
+
+	@Override
+	public User updatePassword(String email, String newPassword) {
+		User user = userRepo.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("User with email: "+email+" not found in our database"));
+		user.setPassword(newPassword);
+		return userRepo.save(user);
+	}
+
+
+	@Override
+	public User getUserDetails(String email) {
+		return userRepo.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("User with email "+email+" not found"));
+	}
+
+
+	@Override
+	public User checkUserDetails(String email) {
+		return userRepo.findByEmail(email).orElse(null);
+	}
+	
+	
 
 }

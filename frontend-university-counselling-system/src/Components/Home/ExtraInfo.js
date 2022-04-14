@@ -7,11 +7,27 @@ import {
   AiOutlineRight,
 } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import "./ExtraInfo.css";
 
 const ExtraInfo = () => {
+  const navigate = useNavigate();
+  let showHome=()=>{
+    navigate("/");
+  }
+  let showColleges=()=>{
+    navigate("/colleges");
+  }
+
+  let showCourses=()=>{
+    navigate("/courses");
+  }
+
+  let showAbout = () =>{
+    navigate("/about");
+  }
   return (
-    <section className="container-fluid extra-info-section bg-dark text-white">
+    <section className="container-fluid extra-info-section bg-dark text-white ">
       <div className="extra-info-section-left">
         <h3>About University</h3>
         <ul className="extra-info-section-list">
@@ -39,18 +55,18 @@ const ExtraInfo = () => {
       </div>
 
       <div className="extra-info-section-middle">
-        <h3>About University</h3>
+        <h3>Useful Links</h3>
         <ul className="extra-info-section-list">
-          <li>
+          <li onClick={showHome}>
             <AiOutlineRight /> Home
           </li>
-          <li>
+          <li onClick={showAbout}>
             <AiOutlineRight /> About
           </li>
-          <li>
+          <li onClick={showColleges}>
             <AiOutlineRight /> Our Colleges
           </li>
-          <li>
+          <li onClick={showCourses}>
             <AiOutlineRight /> Our Courses
           </li>
           <li>

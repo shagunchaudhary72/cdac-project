@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dao.StudentRepository;
+import com.app.dao.UserRepository;
 import com.app.pojos.EducationQualification;
 import com.app.pojos.Preference;
 import com.app.pojos.Student;
+import com.app.pojos.User;
 import com.app.services.IEducationQualificationService;
 import com.app.services.IPreferenceService;
 import com.app.services.IStudentService;
+import com.app.services.IUserService;
 
 @RestController
 @RequestMapping("/api")
@@ -38,6 +42,12 @@ public class StudentController {
 	
 	@Autowired
 	private IEducationQualificationService eduService;
+	
+	@Autowired
+	private IUserService userService;
+	
+	@Autowired
+	private UserRepository userRepo;
 	
 	@GetMapping("/student/profile/{studentId}") // Get college profile
 	public ResponseEntity<?> showProfile(@PathVariable int studentId) {
@@ -112,6 +122,15 @@ public class StudentController {
 	@GetMapping("/student/counselling_result/{studentId}")
 	public ResponseEntity<?> getResult(@PathVariable int studentId){
 		return ResponseEntity.ok().body(studentService.getResultOfCounselling(studentId));
+	}
+	
+	@PutMapping("/updateStudentProfile/{phoneNo}")
+	public ResponseEntity<?> updateStudentProfile(@RequestBody Student student,@PathVariable String phoneNo){
+		User user = userService.getUserDetails(student.getEmail());
+		user.setName(student.getName());
+		user.setPhoneNo(phoneNo);
+		userRepo.save(user);
+		return ResponseEntity.ok().body(studentService.updateStudent(student));
 	}
 
 }

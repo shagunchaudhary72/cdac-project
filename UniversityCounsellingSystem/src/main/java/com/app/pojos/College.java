@@ -31,9 +31,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "colleges_tbl")
 public class College extends BaseEntity{
 	
-	public College(String name, String email, String city, String state, University uni, String phoneNo) {
+	public College(String name, String email, String country, String city, String state, University uni, String phoneNo) {
 		this.name = name;
 		this.email = email;
+		this.country = country;
 		this.city = city;
 		this.state = state;
 		this.university = uni;
@@ -67,6 +68,9 @@ public class College extends BaseEntity{
 	@JoinTable(name ="colleges_courses",joinColumns =@JoinColumn(name="college_id"),
 	inverseJoinColumns =  @JoinColumn(name="course_id"))
 	private Set<Course> courses = new HashSet<Course>();
+	
+	@Column(name="country",length = 20,nullable = false)
+	private String country;
 	
 	@Column(name="city",length = 20,nullable = false)
 	private String city;

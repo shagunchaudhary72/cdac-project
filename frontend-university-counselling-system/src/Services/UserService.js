@@ -10,4 +10,11 @@ const login = (loginRequest) => {
     return axios.post(USER_API_SERVICE_URL + '/signin',loginRequest);
 }
 
-export default {createUserAndStudent,login};
+const updatePassword = (newPasswordObj) =>{
+    return axios.put(USER_API_SERVICE_URL+'/updatePassword',newPasswordObj);
+}
+
+const userDetails = (email)=>{
+    return axios.get(USER_API_SERVICE_URL+'/details/'+email);
+}
+export default {createUserAndStudent,login,updatePassword,userDetails};

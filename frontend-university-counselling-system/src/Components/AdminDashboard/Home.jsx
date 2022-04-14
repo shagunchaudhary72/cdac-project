@@ -166,7 +166,7 @@ const Home = () => {
                 <h1 className="display-5 text-center" style={{ color: "#194f38" }}>Welcome back, <b>{adminName}</b></h1>
                 <div className="row g-1">
                     <div className="col-5 border border-1 m-5 rounded box" style={{ backgroundColor: "#548a69" }}>
-                        <div onClick={() => handleShow(1)} style={{ cursor: "context-menu" }}>
+                        <div onClick={() => handleShow(1)} style={{ cursor: "pointer" }}>
                             <div className="bg-light my-3 mx-3 rounded text-center rank-box" style={{ fontFamily: "Garamond, serif", color: "black" }}>
                                 {collegeCount}
                             </div>
@@ -176,7 +176,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="col-5 border border-1 m-5 rounded box" style={{ backgroundColor: "#548a69" }}>
-                        <div onClick={() => handleShow(2)} style={{ cursor: "context-menu" }}>
+                        <div onClick={() => handleShow(2)} style={{ cursor: "pointer" }}>
                             <div className="bg-light my-3 mx-3 rounded text-center course-box" style={{ fontFamily: "Garamond, serif", color: "black" }}>
                                 {courseCount}
                             </div>
@@ -186,7 +186,7 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="col-11 border border-1 m-5 rounded box" style={{ backgroundColor: "#548a69" }}>
-                        <div onClick={() => handleShow(3)} style={{ cursor: "context-menu" }}>
+                        <div onClick={() => handleShow(3)} style={{ cursor: "pointer" }}>
                             <div className="bg-light my-3 mx-3 rounded text-center college-box" style={{ fontFamily: "Garamond, serif", color: "black" }}>
                                 {studentCount}
                             </div>
@@ -205,9 +205,11 @@ const Home = () => {
                     </Modal.Header>
                     <Modal.Body>
                         <Container>
+                            <div className="table-responsive">
                             {collegeState && body1}
                             {courseState && body2}
                             {studentSate && body3}
+                            </div>
                         </Container>
                     </Modal.Body>
                     <Modal.Footer>

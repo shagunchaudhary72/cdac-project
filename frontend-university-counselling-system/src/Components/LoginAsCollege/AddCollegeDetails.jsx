@@ -12,6 +12,7 @@ const AddCollegeDetails = () => {
   const universityId = window.sessionStorage.getItem("universityId");
   const universityEmail = window.sessionStorage.getItem("universityEmail");
   const universityName = window.sessionStorage.getItem("universityName");
+  const collegecountry = window.sessionStorage.getItem("country");
   const collegestate = window.sessionStorage.getItem("state");
   const collegecity = window.sessionStorage.getItem("city");
   const collegephoneNo = window.sessionStorage.getItem("phone_no");
@@ -23,6 +24,7 @@ const AddCollegeDetails = () => {
       universityName: universityName,
       email: universityEmail,
     },
+    collegecountry,
     collegestate,
     collegecity,
     collegephoneNo,
@@ -32,6 +34,7 @@ const AddCollegeDetails = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [cutOffRank, setCutOff] = useState("");
@@ -39,9 +42,9 @@ const AddCollegeDetails = () => {
   const [totalSeats, setTotalSeats] = useState("");
   const [vaccantSeats, setVaccantSeats] = useState("");
   const [phoneNo, setCollegePhoneNo] = useState("");
-  // const [logOut, setLogOut] = useState(false);
   const [navigateToLogin, setNavigateToLogin] = useState(false);
 
+  const [navigateToDashboard, setNavigateToDashboard] = useState(false);
   const [percentError, setPercentError] = useState("");
   const [cutOffError, setCutOffError] = useState("");
   const [totalSeatsError, setTotalSeatsError] = useState("");
@@ -68,6 +71,7 @@ const AddCollegeDetails = () => {
     if (
       collegeName !== "" &&
       collegeEmail !== "" &&
+      collegecountry !== "" &&
       collegestate !== "" &&
       collegecity !== "" &&
       collegephoneNo !== ""
@@ -75,6 +79,7 @@ const AddCollegeDetails = () => {
       getCourseList();
       setName(obj.collegeName);
       setEmail(obj.collegeEmail);
+      setCountry(obj.collegecountry);
       setState(obj.collegestate);
       setCity(obj.collegecity);
       setCollegePhoneNo(obj.collegephoneNo);
@@ -122,19 +127,6 @@ const AddCollegeDetails = () => {
     setEmail(event.target.value);
   };
 
-  // let logoutClick = () => {
-  //     window.sessionStorage.removeItem("name");
-  //     window.sessionStorage.removeItem("email");
-  //     window.sessionStorage.removeItem("id");
-  //     window.sessionStorage.removeItem("universityId");
-  //     window.sessionStorage.removeItem("universityEmail");
-  //     window.sessionStorage.removeItem("universityName");
-  //     window.sessionStorage.removeItem("state");
-  //     window.sessionStorage.removeItem("city");
-  //     window.sessionStorage.removeItem("phone_no");
-  //     setLogOut(true);
-  // }
-
   function validation() {
     let percentFlag = true;
     let cutOffFlag = true;
@@ -172,48 +164,29 @@ const AddCollegeDetails = () => {
     return false;
   }
 
-  let addCollegeDetails = (e) => {
+  const addCollegeDetails = (e) => {
     e.preventDefault();
     if (validation() === true) {
       addSelectedCourseList();
       console.log(courses);
-      let college = {
-        id: collegeId,
-        name,
-        email,
-        university: {
-          id: universityId,
-          universityName: universityName,
-          "": universityEmail,
-        },
-        phoneNo,
-        cutOffRank,
-        minimumPercentInBoards,
-        courses,
-        city,
-        state,
-        totalSeats,
-        vaccantSeats,
-      };
+      let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, country, city, state, totalSeats, vaccantSeats }
       console.log(college);
-      collegeService
-        .updateCollegeDetails(college)
-        .then(() => {
-          setSuccessMesg("College Profile Updated");
-          toast.dark("Details updated successfully", {
-            position: "bottom-center",
-          });
-          //window.sessionStorage.setItem("success", "true");
-          setNavigateToLogin(true);
-        })
-        .catch((error) => {
-          toast.warn("Something went wrong", {
-            position: "bottom-center",
-          });
-          console.log("Something went wrong", error);
+      collegeService.updateCollegeDetails(college).then(() => {
+        setSuccessMesg("College Profile Updated");
+        toast.dark("Details updated successfully", {
+          position: "bottom-center"
         });
+        setNavigateToDashboard(true);
+      }).catch(error => {
+        toast.warn("Something went wrong", {
+          position: "bottom-center"
+        });
+
+        console.log("Something went wrong", error);
+
+      });
     }
-  };
+  }
 
   const addSelectedCourseList = () => {
     var markedCheckbox = document.getElementsByName("cl");
@@ -226,9 +199,7 @@ const AddCollegeDetails = () => {
   return (
     <>
       {loggedInCollegeFalse && <Navigate to="/login" />}
-      {/* {logOut && <Navigate to="/login" />} */}
-      {navigateToLogin && <Navigate to="/college_dashboard" />}
-      {/* <button type="button" className="btn1 primary1" onClick={logoutClick}>Logout</button> */}
+      {navigateToDashboard && <Navigate to="/college_dashboard" />}
       <div className="container-fluid w-50 mt-5 add-details-section">
         <div className="m-3">
           <h2 className="fw-bold mb-2 text-uppercase dashboard-data-section-heading">
@@ -308,7 +279,6 @@ const AddCollegeDetails = () => {
                   <span className="text-danger">{percentError}</span>
                 </div>
                 <label>Course List</label>
-
                 <div className="form-floating mb-3">
                   <table width="100%" onChange={getCourseList}>
                     <tbody>

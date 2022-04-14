@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.CollegeUserDTO;
+import com.app.dto.ForgotPassword;
 import com.app.dto.LoginRequest;
 import com.app.dto.StudentRegistration;
 import com.app.pojos.Student;
@@ -27,17 +31,17 @@ public class UserController {
 
 	@Autowired
 	private IUserService userService;
-	
+
 	@Autowired
 	private IStudentService studentService;
-	
+
 	@Autowired
 	private ICollegeService collegeService;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> loginViaRole(@RequestBody LoginRequest request) {
-		System.out.println(request.getEmail() + " " + request.getPassword());
-		return ResponseEntity.ok(userService.login(request.getEmail(), request.getPassword()));
+		System.out.println(request.getEmail().toLowerCase() + " " + request.getPassword());
+		return ResponseEntity.ok(userService.login(request.getEmail().toLowerCase(), request.getPassword()));
 	}
 
 	@PostMapping("/student/register")
@@ -46,18 +50,41 @@ public class UserController {
 		User user = null;
 		Student student = null;
 		try {
-			user = userService.registerAsStudent(studentRegistration.getUser());
-			student = studentService.addStudent(studentRegistration.getStudent());
+			user = userService.checkUserDetails(studentRegistration.getUser().getEmail().toLowerCase());
+			if (user == null) {
+				User userDetails = new User(studentRegistration.getUser().getName().toUpperCase(),studentRegistration.getUser().getEmail().toLowerCase(),studentRegistration.getUser().getPassword(),studentRegistration.getUser().getRole(),studentRegistration.getUser().getPhoneNo());
+				user = userService.registerAsStudent(userDetails);
+				Student studentDetails = new Student(studentRegistration.getStudent().getName().toUpperCase(),studentRegistration.getStudent().getEmail().toLowerCase(),studentRegistration.getStudent().getAge());
+				student = studentService.addStudent(studentDetails);
+			}
+			else {
+				throw new RuntimeException("Email already registered");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(user);
 	}
-	
+
 	@PostMapping("/college/register") // Login Register form's register page
 	public ResponseEntity<?> registerAsCollege(@RequestBody @Valid CollegeUserDTO collegeUserData) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(collegeService.regUserAsCollege(collegeUserData));
+		try {
+			return ResponseEntity.status(HttpStatus.CREATED).body(collegeService.regUserAsCollege(collegeUserData));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+
+	@PutMapping("/updatePassword")
+	public ResponseEntity<?> updatePassword(@RequestBody ForgotPassword userData) {
+		return ResponseEntity.ok().body(userService.updatePassword(userData.getEmail(), userData.getNewPassword()));
+	}
+
+	@GetMapping("/details/{email}")
+	public ResponseEntity<?> getUserDetails(@PathVariable String email) {
+		return ResponseEntity.ok().body(userService.getUserDetails(email));
 	}
 
 }
