@@ -34,7 +34,7 @@ const Features = () => {
           <p className="features-section-data-logo">
             <GiTeacher />
           </p>
-          <h3>Best Fecility</h3>
+          <h3>Best Facility</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
             suscipit fugiat sint totam soluta assume

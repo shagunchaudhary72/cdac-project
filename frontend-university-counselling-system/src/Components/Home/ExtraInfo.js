@@ -26,6 +26,9 @@ const ExtraInfo = () => {
   let showAbout = () =>{
     navigate("/about");
   }
+  let showEvent = () =>{
+    navigate("/events");
+  }
   return (
     <section className="container-fluid extra-info-section bg-dark text-white ">
       <div className="extra-info-section-left">
@@ -69,11 +72,8 @@ const ExtraInfo = () => {
           <li onClick={showCourses}>
             <AiOutlineRight /> Our Courses
           </li>
-          <li>
+          <li onClick={showEvent}>
             <AiOutlineRight /> Upcoming Events
-          </li>
-          <li>
-            <AiOutlineRight /> FAQ
           </li>
         </ul>
       </div>

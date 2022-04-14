@@ -25,7 +25,7 @@ const HomePage = () => {
       <section className="info-section container-fluid">
         <div className="first-section"></div>
         <div className="first-section-info-box">
-          <h6><i>Welcome to the University Counselling System</i></h6>
+          <h6><i>Welcome to University Counselling</i></h6>
           <p>
             {" "} We are here to simplify your counselling experience through our new Counselling system.
             This is the first step towards building your bright future. We are always working in the best interest for you.
