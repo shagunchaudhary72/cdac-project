@@ -67,7 +67,8 @@ public class Student extends BaseEntity {
 		this.address = address;
 		this.marksInComp = marksInComp;
 	}
-
+	
+	
 
 	public void addEducation(EducationQualification eq) {
 		educationQualifationList.add(eq);
