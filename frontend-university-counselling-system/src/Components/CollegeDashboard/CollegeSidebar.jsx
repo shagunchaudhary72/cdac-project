@@ -7,7 +7,7 @@ import { AiFillDashboard, AiTwotoneHome, AiFillSetting } from "react-icons/ai";
 import { ImBooks, ImCross } from "react-icons/im";
 import { BsPeopleFill } from "react-icons/bs";
 import "./Sidebar.css";
-import { FaUserGraduate, FaUniversity  } from "react-icons/fa";
+import { FaUserGraduate, FaUniversity } from "react-icons/fa";
 import { MdVerticalDistribute } from "react-icons/md";
 import Home from "./Home";
 import Dashboard from "./CollegeDashboard";
@@ -16,18 +16,19 @@ import "react-toastify/dist/ReactToastify.css";
 import CollegeDetails from "../CollegeDashboard/CollegeDetails";
 import { UserContext } from "../../App";
 import ListShortlistedStudents from "./ListShortlistedStudents";
+import UserService from "../../Services/UserService";
 
 const CollegeSidebar = () => {
   const { state, dispatch } = useContext(UserContext);
-  const [collegeName, setCollegeName] = useState(
-    window.sessionStorage.getItem("name")
-  );
+  const [collegeName, setCollegeName] = useState("");
   const collegeEmail = window.sessionStorage.getItem("email");
   const [loggedInCollegeFalse, setLoggedInCollegeFalse] = useState(false);
   const [logOut, setLogOut] = useState(false);
   const [show, setShow] = useState("");
   const [show2, setShow2] = useState("");
+  const [show3, setShow3] = useState("");
   const snackbar = window.sessionStorage.getItem("snackbar");
+  const snackbar2 = window.sessionStorage.getItem("passwordUpdated");
   const snackbar3 = window.sessionStorage.getItem("snackbar3");
   const [home, setHome] = useState(true);
   const [dashboard, setDashboard] = useState(false);
@@ -45,6 +46,13 @@ const CollegeSidebar = () => {
     if (collegeName === null || collegeEmail === null) {
       setLoggedInCollegeFalse(true);
     }
+    else{
+        UserService.userDetails(collegeEmail).then(resp=>{
+          setCollegeName(resp.data.name);
+        }).catch(err=>{
+          console.log(err);
+        })
+    }
 
     if (snackbar === "show") {
       setShow(snackbar);
@@ -53,6 +61,14 @@ const CollegeSidebar = () => {
         clearTimeout();
       }, 3000);
       window.sessionStorage.removeItem("snackbar");
+    }
+    if (snackbar2 === "show") {
+      setShow3(snackbar2);
+      setTimeout(function () {
+        setShow3("");
+        clearTimeout();
+      }, 3000);
+      window.sessionStorage.removeItem("snackbar3");
     }
     if (snackbar3 === "show") {
       setShow2(snackbar3);
@@ -89,10 +105,10 @@ const CollegeSidebar = () => {
 
     return (_) => window.removeEventListener("resize", handleResize);
   }, [collegeName, dimensions]);
-  
-      useEffect(()=>{
-        window.scrollTo(0, 0);
-      },[])
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   let logoutClick = () => {
     window.sessionStorage.removeItem("id");
@@ -210,28 +226,28 @@ const CollegeSidebar = () => {
           </a>
           <hr />
           <ul className="nav nav-pills flex-column mb-auto sidebar-list">
-            <li onClick={showHome}  style={{cursor:"context-menu"}}>
+            <li onClick={showHome} style={{ cursor: "context-menu" }}>
               <AiTwotoneHome
                 size={20}
                 style={{ width: "30px", paddingBottom: "4px" }}
               />
               Home
             </li>
-            <li onClick={showDashboard}  style={{cursor:"context-menu"}}>
+            <li onClick={showDashboard} style={{ cursor: "context-menu" }}>
               <AiFillDashboard
                 size={20}
                 style={{ width: "30px", paddingBottom: "4px" }}
               />
               Dashboard
             </li>
-            <li onClick={showDetails}  style={{cursor:"context-menu"}}>
+            <li onClick={showDetails} style={{ cursor: "context-menu" }}>
               <ImBooks
                 size={20}
                 style={{ width: "30px", paddingBottom: "4px" }}
               />
               College Details
             </li>
-            <li onClick={showShortlistedStudents}  style={{cursor:"context-menu"}}>
+            <li onClick={showShortlistedStudents} style={{ cursor: "context-menu" }}>
               <BsPeopleFill
                 size={20}
                 style={{ width: "30px", paddingBottom: "4px" }}
@@ -241,7 +257,7 @@ const CollegeSidebar = () => {
           </ul>
           <div style={{ marginTop: "150%" }}>
             <hr />
-            <div className="dropdown"  style={{cursor:"context-menu"}}>
+            <div className="dropdown" style={{ cursor: "context-menu" }}>
               <a
                 className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                 id="dropdownUser2"
@@ -257,6 +273,9 @@ const CollegeSidebar = () => {
                 <li>
                   <Link to="/college_profile" className="dropdown-item">
                     Profile
+                  </Link>
+                  <Link to="/change_password" className="dropdown-item">
+                    Change Password
                   </Link>
                 </li>
                 <li>
@@ -289,6 +308,9 @@ const CollegeSidebar = () => {
           </div>
           <div className={show2} id="snackbar">
             College details are added..
+          </div>
+          <div className={show3} id="snackbar">
+            Password Updated Successfully..
           </div>
         </div>
       </div>
