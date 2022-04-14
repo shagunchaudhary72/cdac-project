@@ -97,8 +97,6 @@ const Sidebar = () => {
             sidebarRef.current.style.display = "none";
             sidebarTogglerRef.current.style.display = "block";
         }
-
-        console.log(dimensions.width);
         window.addEventListener('resize', handleResize);
 
         return _ => window.removeEventListener('resize', handleResize);
