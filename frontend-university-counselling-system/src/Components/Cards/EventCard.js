@@ -1,16 +1,13 @@
 import React from "react";
 
-const EventCard = ( eventDetails ) => {
+const EventCard = ({eventDetails}) => {
   return (
     <div className="card w-85 my-3">
       <div className="card-body">
-        <h5 className="card-title">Card title</h5>
+        <h5 className="card-title">{eventDetails.title}</h5>
         <p className="card-text">
-          With supporting text below as a natural lead-in to additional content.
+          {eventDetails.news}
         </p>
-        <a href="#" className="btn btn-primary">
-          Button
-        </a>
       </div>
     </div>
   );
