@@ -56,7 +56,7 @@ public class CentralExceptionHandler extends ResponseEntityExceptionHandler {
 	//method to handle runtime exceptions centrally and return error Response in DTO( message, time )
 	@ExceptionHandler( RuntimeException.class)
 	public ResponseEntity<?> runtimeExceptionHandler(RuntimeException ex){
-		ErrorResponse error = new ErrorResponse( "run time exception",ex.getMessage());
+		ErrorResponse error = new ErrorResponse( "run time exception: ",ex.getMessage());
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
 	}
 	

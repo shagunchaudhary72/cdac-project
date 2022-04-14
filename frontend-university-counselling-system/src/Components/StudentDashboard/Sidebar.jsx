@@ -13,6 +13,7 @@ import Home from "./Home";
 import Dashboard from "./Dashboard";
 import { UserContext } from "../../App";
 import {MdVerticalDistribute} from "react-icons/md"
+import UserService from "../../Services/UserService";
 
 const Sidebar = () => {
 
@@ -42,14 +43,20 @@ const Sidebar = () => {
         height: window.innerHeight,
         width: window.innerWidth
       }) 
+    const [name,setName] = useState("");  
 
-    const navigate = useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
         if (studentName === null || studentEmail === null || studentAge === null) {
             setLoggedInStudentFalse(true);
         }
-
+        else{
+            UserService.userDetails(studentEmail).then(resp=>{
+                setName(resp.data.name);
+            }).catch(err=>{
+                console.log(err);
+            })
+        }
         if (snackbar === "show") {
             setShow(snackbar);
             setTimeout(function () { setShow(""); clearTimeout(); }, 3000);
@@ -182,7 +189,7 @@ const Sidebar = () => {
 
                     <a href="#" className="hello-text d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                         <FaUserGraduate style={{ width: "30px" }} />
-                        <span className="fs-4">Hello <span className="text-success"><b>{studentName}</b></span></span>
+                        <span className="fs-4">Hello <span className="text-success"><b>{name}</b></span></span>
                     </a>
                     <hr />
 
@@ -208,7 +215,7 @@ const Sidebar = () => {
                         <hr />
                         <div className="dropdown" style={{cursor:"context-menu"}}>
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                                <strong>{studentName}</strong>
+                                <strong>{name}</strong>
                             </a>
                             <ul className="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                                 <li><Link to="/student/profile" className="dropdown-item" >Profile</Link></li>

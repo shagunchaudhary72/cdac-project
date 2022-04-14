@@ -56,6 +56,7 @@ const AddPreference = () => {
   
 
   let onCollegeHandler = (e) => {
+    setCourse("");
     setCollege(e.target.value);
     if (collegeErr !== "") {
       setCollgeErr("");
