@@ -19,18 +19,20 @@
     z-index: 2;
 }
 
-.first-section-info-box>h2{
+.first-section-info-box>h6{
     padding: 10px 15px 10px 15px;
-    font-size: 5rem;
+    font-size: 2.5rem;
     color: white;
     margin: 0;
     background-color: var(--green-color);
+    text-align: center;
     width: 90%;
 }
 
 .first-section-info-box>p{
     padding: 10px 15px 10px 15px;
     background-color: var(--white-color);
+    text-align: justify;
 }
 
 .registration-btn{
