@@ -154,6 +154,10 @@ const AddCollegeDetails = () => {
       setVaccantSeatsError("Please enter valid number of seats");
       vaccantSeatsFlag = false;
     }
+    else if(totalSeats<vaccantSeats){
+      setVaccantSeatsError("Vaccant Seats should be less than or equal to the Total Seats");
+      vaccantSeatsFlag = false;
+    }
     if (percentFlag && cutOffFlag && totalSeatsFlag && vaccantSeatsFlag) {
       return true;
     }
