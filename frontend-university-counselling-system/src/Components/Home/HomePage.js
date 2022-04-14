@@ -8,31 +8,29 @@ import Features from "./Features";
 
 const HomePage = () => {
   const email = window.sessionStorage.getItem("email");
-  const [hideRegisterButton,setHideRegisterButton] = useState(false);
+  const [hideRegisterButton, setHideRegisterButton] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
-    if(email===null){
+    if (email === null) {
       setHideRegisterButton(true);
     }
-    else{
+    else {
       setHideRegisterButton(false);
     }
   }, [])
-  
+
 
   return (
     <>
       <section className="info-section container-fluid">
         <div className="first-section"></div>
         <div className="first-section-info-box">
-          <h2>Hello</h2>
+          <h6>Welcome to the University Couselling System</h6>
           <p>
+            {" "} We are here to simplify your counselling experience through our new Counselling system.
+            This is the first step towards building your bright future. We are always working in the best interest for you.
+            Get ready to feel the hassle-free experience. Together we will attain new heights!
             {" "}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
-            voluptatum laborum numquam blanditiis harum quisquam eius sed odit
-            fugiat iusto fuga praesentium optio, eaque rerum! Provident
-            similique accusantium nemo autem.{" "}
           </p>
           {hideRegisterButton && <Link
             className="registration-btn registration-btn1"
