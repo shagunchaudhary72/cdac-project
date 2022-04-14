@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AdminService from "../../Services/AdminService";
 import StudentService from "../../Services/StudentService";
 import UserService from "../../Services/UserService";
 
@@ -25,6 +26,7 @@ const ProfileUpdate = () => {
     const [countryError, setCountryError] = useState("");
     const [pincodeError, setPincodeError] = useState("");
     const [marksError, setMarksError] = useState("");
+    const [disable,setDisable] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -52,6 +54,20 @@ const ProfileUpdate = () => {
         else{
             navigate("/login");
         }
+        AdminService.getAcademicDates().then(resp=>{
+            let resultDate = resp.data.resultDate;
+            console.log(Date.parse(resultDate));
+            console.log(Date.parse(new Date()))
+            if(Date.parse(resultDate)<=Date.parse(new Date())){
+                setDisable("disabled")
+            }
+            else{
+                setDisable("");
+            }
+        }).catch(err=>{
+            console.log("Something Went Wrong",err);
+        })
+
     }, [])
 
     let nameTextHandler = (event) => {
@@ -135,14 +151,17 @@ const ProfileUpdate = () => {
     let onUpdateSubmit = (event) => {
         event.preventDefault();
         setErrorMesg("");
-        if(validation()){
-            let student = {"id":studentId,name,email,age,"address":{city,"state":states,country,pincode},"marksInComp":marks}
+        if(validation() && disable===false){
+            let student = {"id":studentId,"name":name.toUpperCase(),email,age,"address":{city,"state":states,country,pincode},"marksInComp":marks}
             StudentService.updateStudentAndUserDetails(student,phoneNo).then(resp=>{
                 window.sessionStorage.setItem("snackbarUpdate","show");
                 navigate("/student_dashboard");
             }).catch(err=>{
                 console.log("Error found",err);
             })
+        }
+        else{
+            alert("Date for Updating Profile is OVER..");
         }
 
     }
@@ -162,7 +181,7 @@ const ProfileUpdate = () => {
                                     className="form-control"
                                     value={name}
                                     onChange={nameTextHandler}
-                                    placeholder="Enter Name"
+                                    placeholder="Enter Name" disabled={disable}
                                 />
                                 <label>Name</label>
                                 <span className="text-danger">{nameErr}</span>
@@ -183,7 +202,7 @@ const ProfileUpdate = () => {
                                     value={phoneNo}
                                     onChange={phoneNoTextHandler}
                                     pattern="[0-9]{10}"
-                                    placeholder="ex: 6362139594"
+                                    placeholder="ex: 6362139594" disabled={disable}
                                 />
                                 <label>Mobile</label>
                                 <span className="text-danger">{phoneNoErr}</span>
@@ -194,7 +213,7 @@ const ProfileUpdate = () => {
                                     className="form-control"
                                     value={age}
                                     onChange={ageTextHandler}
-                                    placeholder="Enter Age"
+                                    placeholder="Enter Age" disabled={disable}
                                 />
                                 <label>Age</label>
                                 <span className="text-danger">{ageError}</span>
@@ -205,7 +224,7 @@ const ProfileUpdate = () => {
                                     className="form-control"
                                     value={city}
                                     onChange={cityTextHandler}
-                                    placeholder="Enter City"
+                                    placeholder="Enter City" disabled={disable}
                                 />
                                 <label>City</label>
                                 <span className="text-danger">{cityError}</span>
@@ -216,7 +235,7 @@ const ProfileUpdate = () => {
                                     className="form-control"
                                     value={states}
                                     onChange={stateTextHandler}
-                                    placeholder="Enter State"
+                                    placeholder="Enter State" disabled={disable}
                                 />
                                 <label>State</label>
                                 <span className="text-danger">{stateError}</span>
@@ -227,7 +246,7 @@ const ProfileUpdate = () => {
                                     className="form-control"
                                     value={country}
                                     onChange={countryTextHandler}
-                                    placeholder="Enter Country"
+                                    placeholder="Enter Country" disabled={disable}
                                 />
                                 <label>Country</label>
                                 <span className="text-danger">{countryError}</span>
@@ -238,7 +257,7 @@ const ProfileUpdate = () => {
                                     className="form-control"
                                     value={pincode}
                                     onChange={pincodeTextHandler}
-                                    placeholder="Enter Country"
+                                    placeholder="Enter Country" disabled={disable}
                                 />
                                 <label>Pincode</label>
                                 <span className="text-danger">{pincodeError}</span>
@@ -249,7 +268,7 @@ const ProfileUpdate = () => {
                                     className="form-control"
                                     value={marks}
                                     onChange={marksTextHandler}
-                                    placeholder="Enter Marks"
+                                    placeholder="Enter Marks" disabled={disable}
                                 />
                                 <label>Marks In CCAT</label>
                                 <span className="text-danger">{marksError}</span>

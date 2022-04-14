@@ -19,9 +19,8 @@ import ListShortlistedStudents from "./ListShortlistedStudents";
 
 const CollegeSidebar = () => {
   const { state, dispatch } = useContext(UserContext);
-  const [collegeName, setCollegeName] = useState(
-    window.sessionStorage.getItem("name")
-  );
+  const name =  window.sessionStorage.getItem("name");
+  const [collegeName, setCollegeName] = useState(name.toUpperCase());
   const collegeEmail = window.sessionStorage.getItem("email");
   const [loggedInCollegeFalse, setLoggedInCollegeFalse] = useState(false);
   const [logOut, setLogOut] = useState(false);

@@ -209,42 +209,42 @@ const RegisterAsCollege = () => {
                         <div className="m-3">
                             <form onSubmit={submitHandler}>
 
-                                <div className="form-outline mb-4">
-                                    <input type="text" id="name" className="form-control form-control-lg"
+                                <div className="form-floating mb-3">
+                                    <input type="text" id="name" className="form-control"
                                         placeholder="Enter College Name" value={name} onChange={setNameHandler} required />
-                                    {/* <label className="form-label" for="name">College Name</label> */}
+                                    <label>College Name</label>
                                 </div>
 
-                                <div className="form-outline mb-4">
+                                <div className="form-floating mb-3">
                                     {emailError && <span style={{ color: 'red' }}>Invalid Email Id</span>}
-                                    <input type="email" id="form3Example3" className="form-control form-control-lg"
+                                    <input type="email" id="form3Example3" className="form-control"
                                         placeholder="Enter a valid email address" value={email} onChange={setEmailHandler} required />
-                                    {/* <label className="form-label" for="form3Example3">Email address</label> */}
+                                    <label>Email address</label>
                                 </div>
 
-                                <div className="form-outline mb-3">
+                                <div className="form-floating mb-3">
                                     {passwordError && <span style={{ color: 'red' }}>Invalid Password</span>}
                                     {passwordValidationError && <span style={{ color: 'red' }}>Password should have atleast one capital letter, one special character and a number. Also, the size of password should lies between 8 to 15 characters</span>}
-                                    <input type="password" id="password" className="form-control form-control-lg"
+                                    <input type="password" id="password" className="form-control"
                                         placeholder="Enter password" value={password} onChange={setPasswordHandler} required />
-                                    {/* <label className="form-label" for="password">Password</label> */}
+                                    <label>Password</label>
                                 </div>
 
-                                <div className="form-outline mb-3">
+                                <div className="form-floating mb-3">
                                     {!passwordMatch && <span style={{ color: 'red' }}>Password does not match</span>}
-                                    <input type="password" id="confirmPassword" value={confirmPassword} className="form-control form-control-lg"
+                                    <input type="password" id="confirmPassword" value={confirmPassword} className="form-control"
                                         placeholder="Confirm password" onChange={setConfimrPasswordHandler} required />
-                                    {/* <label className="form-label" for="confirmPassword">Confirm Password</label> */}
+                                    <label>Confirm Password</label>
                                 </div>
 
-                                <div className="form-outline mb-4">
+                                <div className="form-floating mb-3">
                                     {phoneNoError && <span style={{ color: 'red' }}>Invalid Phone Number</span>}
-                                    <input type="text" id="phno" className="form-control form-control-lg"
+                                    <input type="text" id="phno" className="form-control"
                                         placeholder="Enter Phone Number" value={phone_no} onChange={setPhoneNoHandler} required />
-                                    {/* <label className="form-label" for="phno">Phone Number</label> */}
+                                    <label>Phone Number</label>
                                 </div>
 
-                                <div className="form-outline mb-4">
+                                <div className="form-floating mb-3">
                                     {countryError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     <select name="country" className="form-select" onChange={handlecountry} >
                                         <option value="">--Select Country--</option>
@@ -254,9 +254,10 @@ const RegisterAsCollege = () => {
                                             ))
                                         }
                                     </select>
+                                    <label>Country</label>
                                 </div>
 
-                                <div className="form-outline mb-4">
+                                <div className="form-floating mb-3">
                                     {stateError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     <select className="form-select" name="state" onChange={handlestate}>
                                         <option value="">--Select State--</option>
@@ -266,9 +267,10 @@ const RegisterAsCollege = () => {
                                             ))
                                         }
                                     </select>
+                                    <label>State</label>
                                 </div>
 
-                                <div className="form-outline mb-4">
+                                <div className="form-floating mb-3">
                                     {cityError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     <select className="form-select" name="city" onChange={handlecity}>
                                         <option value="">--Select City--</option>
@@ -278,6 +280,7 @@ const RegisterAsCollege = () => {
                                             ))
                                         }
                                     </select>
+                                    <label>City</label>
                                 </div>
                                 <div className="row g-1">
                                     <button type="submit" className="btn1 primary1">Register</button>

@@ -269,10 +269,10 @@ const AddCollegeDetails = () => {
 
     let addCollegeDetails = (e) => {
         e.preventDefault();
-        if (validation() === true) {
+        if (validation() === true && disable==="") {
             addSelectedCourseList();
             console.log(courses);
-            let college = { "id": collegeId, name, email, university: { "id": universityId, "universityName": universityName, "emailId": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, "country":selectedCountry, "city":selectedCity, "state":selectedState, totalSeats, vaccantSeats };
+            let college = { "id": collegeId, "name":name.toUpperCase(), email, university: { "id": universityId, "universityName": universityName, "emailId": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, "country":selectedCountry, "city":selectedCity, "state":selectedState, totalSeats, vaccantSeats };
             console.log(college);
             window.sessionStorage.setItem("name", name);
             window.sessionStorage.setItem("country", selectedCountry);
@@ -295,6 +295,9 @@ const AddCollegeDetails = () => {
 
             window.sessionStorage.setItem("success", "true");
             window.sessionStorage.setItem("name", name);
+        }
+        else{
+            alert("Date for Updating Profile is OVER..");
         }
     }
 
@@ -337,10 +340,10 @@ const AddCollegeDetails = () => {
                                     <label>Email address</label>
                                     <span className="text-danger">{emailErr}</span>
                                 </div>
-                                <div className="form-outline mb-4">
+                                <div className="form-floating mb-3">
                                     {countryError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     {selectedCountry !== "" ?
-                                        <select name="country" className="form-select" onChange={handlecountry}>
+                                        <select name="country" className="form-select" onChange={handlecountry} disabled={disable}>
                                             <option>{selectedCountry}</option>
                                             {
                                                 country.map((getcon, index) => (
@@ -349,7 +352,7 @@ const AddCollegeDetails = () => {
                                             }
                                         </select>
                                         :
-                                        <select name="country" className="form-select" onChange={handlecountry} >
+                                        <select name="country" className="form-select" onChange={handlecountry} disabled={disable}>
                                             <option value="">--Select Country--</option>
                                             {
                                                 country.map((getcon, index) => (
@@ -359,10 +362,10 @@ const AddCollegeDetails = () => {
                                         </select>
                                     }
                                 </div>
-                                <div className="form-outline mb-4">
+                                <div className="form-floating mb-3">
                                     {stateError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     {selectedState !== "" ?
-                                        <select className="form-select" name="state" onChange={handlestate}>
+                                        <select className="form-select" name="state" onChange={handlestate} disabled={disable}>
                                             <option>{selectedState}</option>
                                             {
                                                 state.map((getst, index) => (
@@ -371,7 +374,7 @@ const AddCollegeDetails = () => {
                                             }
                                         </select>
                                         :
-                                        <select className="form-select" name="state" onChange={handlestate}>
+                                        <select className="form-select" name="state" onChange={handlestate} disabled={disable}>
                                             <option value="">--Select State--</option>
                                             {
                                                 state.map((getst, index) => (
@@ -382,10 +385,10 @@ const AddCollegeDetails = () => {
                                     }
                                 </div>
 
-                                <div className="form-outline mb-4">
+                                <div className="form-floating mb-3">
                                     {cityError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     {selectedCity !== "" ?
-                                        <select className="form-select" name="city" onChange={handlecity}>
+                                        <select className="form-select" name="city" onChange={handlecity} disabled={disable}>
                                             <option>{selectedCity}</option>
                                             {
                                                 city.map((gcity, index) => (
@@ -394,7 +397,7 @@ const AddCollegeDetails = () => {
                                             }
                                         </select>
                                         :
-                                        <select className="form-select" name="city" onChange={handlecity}>
+                                        <select className="form-select" name="city" onChange={handlecity} disabled={disable}>
                                             <option value="">--Select City--</option>
                                             {
                                                 city.map((gcity, index) => (

@@ -72,7 +72,7 @@ const ForgotPassword = () => {
                 navigate("/login");
             }).catch(err=>{
                 console.log(err);
-                setError("Cannot find User with email: "+email);
+                setError(err.response.data.errorDetails);
             })
         }
     }
