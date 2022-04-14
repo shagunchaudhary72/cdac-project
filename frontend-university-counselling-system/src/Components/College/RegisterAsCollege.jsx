@@ -63,6 +63,7 @@ const RegisterAsCollege = () => {
     function setErrorMessagesBlank() {
         setnameError(false);
         setemailError(false);
+        setpasswordValidatonError(false);
         setpasswordError(false);
         setphoneNoError(false);
         setCountryError(false);
@@ -103,6 +104,11 @@ const RegisterAsCollege = () => {
             return false;
         }
 
+        if (password !== (confirmPassword)) {
+            setPasswordMatch(false);
+            return false;
+        }
+
         if (phone_no.length != 10) {
             setphoneNoError(true);
             return false;
@@ -114,14 +120,17 @@ const RegisterAsCollege = () => {
         }
 
         if (selectedCountry === "") {
+            console.log(selectedCountry);
             setCountryError(true);
             return false;
         }
         if (selectedState === "") {
+            console.log(selectedState);
             setStateError(true);
             return false;
         }
         if (selectedCity === "") {
+            console.log(selectedCity);
             setCityError(true);
             return false;
         }
@@ -170,19 +179,15 @@ const RegisterAsCollege = () => {
 
     const setNameHandler = (e) => { setName(e.target.value) }
     const setEmailHandler = (e) => { setEmail(e.target.value.toLowerCase()) }
+
     const setPasswordHandler = (e) => { 
         setpasswordValidatonError("");
-        setPassword(e.target.value) }
+        setPassword(e.target.value) 
+    }
 
     const setConfimrPasswordHandler = (e) => {
+        setPasswordMatch(true);
         setConfimrPassword(e.target.value);
-        if (password === (e.target.value)) {
-            setPasswordMatch(true);
-            console.log("Passwords match")
-        }
-        else {
-            setPasswordMatch(false);
-        }
     }
 
     const setPhoneNoHandler = (e) => {
@@ -271,8 +276,8 @@ const RegisterAsCollege = () => {
                                     </select>
                                     <label>State</label>
                                 </div>
-                                        
-                                {cityError && <span style={{ color: 'red' }}>Please select Country-State-City</span>}        
+
+                                {cityError && <span style={{ color: 'red' }}>Please select Country-State-City</span>}
                                 <div className="form-floating mb-3">
                                     <select className="form-select" name="city" onChange={handlecity}>
                                         <option value="">--Select City--</option>
