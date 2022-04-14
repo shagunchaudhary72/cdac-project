@@ -12,12 +12,13 @@ const ListShortlistedStudents = () => {
     CollegeService.getShortlistedStudents(collegeId)
       .then((response) => {
         let studentList = response.data;
-        if (studentList !== null && studentList.length !== 0) {
+        if (studentList.length !== 0) {
           console.log(studentList);
           setFormList(studentList);
           setFormData(true);
           setNoFormData(false);
-        } else {
+        } 
+        else {
           console.log("Hello");
           setNoFormData(true);
           setFormData(false);
@@ -36,7 +37,7 @@ const ListShortlistedStudents = () => {
             <div className="p-2">
               <h3 className="my-3">Result Status</h3>
               <hr />
-              <p className="text-danger">Not declared yet..</p>
+              <p className="text-danger">No students shortlisted yet..</p>
             </div>
           </div>
         </center>
