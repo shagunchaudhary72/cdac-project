@@ -228,7 +228,7 @@ const AdminDashboard = () => {
                             Result
                          </li>
                     </ul>
-                    <div style={{ marginTop: "150%" }}>
+                    <div style={{ marginTop: "150%" }} className="sidebar-login">
                         <hr />
                         <div className="dropdown" style={{cursor:"context-menu"}}>
                             <a className="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">

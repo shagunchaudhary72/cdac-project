@@ -31,9 +31,6 @@
     align-items: center;
 }
 
-.dashboard-sidebar{
-    z-index: 900 !important;
-}
 
 .dashboard-data-section{
     z-index: 1 !important;
@@ -55,6 +52,18 @@
 
 #close-sidebar{
     display: none;
+}
+
+@media only screen and (min-width:769px){
+/* 
+    .dashboard-sidebar{
+        height: 80vh !important;
+    } */
+
+    .dashboard-data-section{
+        border-left: 0.5px solid grey;
+        /* margin-left: 20vw; */
+    }
 }
 
 @media only screen and (max-width:768px){
