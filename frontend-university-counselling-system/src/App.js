@@ -31,6 +31,7 @@ import Header from "./Components/Home/Header";
 import { initialState, reducer } from "./Reducer/UseReducer";
 import ForgotPassword from "./Components/Login/ForgotPassword";
 import ProfileUpdate from "./Components/StudentDashboard/ProfileUpdate";
+import ChangePassword from "./Components/Login/ChangePassword";
 
 export const UserContext = createContext();
 
@@ -75,6 +76,8 @@ const Routing = () => {
       <Route path="/forgot_password" element={<ForgotPassword />} />
 
       <Route path="/student/profile" element={<ProfileUpdate />} />
+
+      <Route path="/change_password" element={<ChangePassword />} />
 
       <Route path="*" element={<NotFound />} />
 

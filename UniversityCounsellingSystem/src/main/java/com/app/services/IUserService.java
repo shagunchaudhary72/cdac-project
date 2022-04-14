@@ -15,5 +15,7 @@ public interface IUserService {
 	User getUserDetails(String email);
 	
 	User checkUserDetails(String email);
+	
+	User changePassword(String email,String oldPassword, String newPassword);
 
 }

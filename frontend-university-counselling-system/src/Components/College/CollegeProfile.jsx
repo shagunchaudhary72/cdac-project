@@ -135,7 +135,7 @@ const AddCollegeDetails = () => {
                 }
                 else{
                     setDisable("");
-                }
+                } 
             }).catch(err=>{
                 console.log("Something Went Wrong",err);
             })

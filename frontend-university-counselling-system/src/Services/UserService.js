@@ -17,4 +17,8 @@ const updatePassword = (newPasswordObj) =>{
 const userDetails = (email)=>{
     return axios.get(USER_API_SERVICE_URL+'/details/'+email);
 }
-export default {createUserAndStudent,login,updatePassword,userDetails};
+
+const changePassword = (newPasswordObj) =>{
+    return axios.put(USER_API_SERVICE_URL+"/changePassword",newPasswordObj);
+}
+export default {createUserAndStudent,login,updatePassword,userDetails,changePassword};

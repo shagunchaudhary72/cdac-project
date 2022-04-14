@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.ChangePasswordDTO;
 import com.app.dto.CollegeUserDTO;
 import com.app.dto.ForgotPassword;
 import com.app.dto.LoginRequest;
@@ -85,6 +86,11 @@ public class UserController {
 	@GetMapping("/details/{email}")
 	public ResponseEntity<?> getUserDetails(@PathVariable String email) {
 		return ResponseEntity.ok().body(userService.getUserDetails(email));
+	}
+	
+	@PutMapping("/changePassword")
+	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO passwordObj){
+		return ResponseEntity.ok().body(userService.changePassword(passwordObj.getEmail(), passwordObj.getOldPassword(), passwordObj.getNewPassword()));
 	}
 
 }
