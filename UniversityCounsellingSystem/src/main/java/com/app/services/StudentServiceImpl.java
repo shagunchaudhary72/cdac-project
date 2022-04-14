@@ -77,4 +77,10 @@ public class StudentServiceImpl implements IStudentService {
 		return new StudentCounsellingResult(ss.getStudent().getRankInComp(),ss.getCollege().getName()+", "+ss.getCollege().getCity(),ss.getCourse().getCourseName());
 	}
 
+	@Override
+	public Student getDetailsByEmail(String email) {
+		return studentRepo.findByEmail(email);
+	}
+	
+
 }

@@ -22,4 +22,6 @@ public interface IStudentService {
 	
 	StudentCounsellingResult getResultOfCounselling(int id);
 	
+	Student getDetailsByEmail(String email);
+	
 }
