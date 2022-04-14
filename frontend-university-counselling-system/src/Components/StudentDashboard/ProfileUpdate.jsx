@@ -151,9 +151,9 @@ const ProfileUpdate = () => {
     let onUpdateSubmit = (event) => {
         event.preventDefault();
         setErrorMesg("");
-        if(validation() && disable===false){
-            let student = {"id":studentId,"name":name.toUpperCase(),email,age,"address":{city,"state":states,country,pincode},"marksInComp":marks}
-            StudentService.updateStudentAndUserDetails(student,phoneNo).then(resp=>{
+        if(validation() && disable===""){
+            let student = {"name":name.toUpperCase(),email,phoneNo,age,city,"state":states,country,pincode,"marksInComp":marks}
+            StudentService.updateStudentAndUserDetails(student).then(resp=>{
                 window.sessionStorage.setItem("snackbarUpdate","show");
                 navigate("/student_dashboard");
             }).catch(err=>{

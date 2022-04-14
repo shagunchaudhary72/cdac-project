@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.StudentRepository;
 import com.app.dao.UserRepository;
+import com.app.dto.UpdateProfile;
+import com.app.pojos.Address;
 import com.app.pojos.EducationQualification;
 import com.app.pojos.Preference;
 import com.app.pojos.Student;
@@ -124,12 +127,20 @@ public class StudentController {
 		return ResponseEntity.ok().body(studentService.getResultOfCounselling(studentId));
 	}
 	
-	@PutMapping("/updateStudentProfile/{phoneNo}")
-	public ResponseEntity<?> updateStudentProfile(@RequestBody Student student,@PathVariable String phoneNo){
-		User user = userService.getUserDetails(student.getEmail());
-		user.setName(student.getName());
-		user.setPhoneNo(phoneNo);
+	@PutMapping("/updateStudentProfile")
+	public ResponseEntity<?> updateStudentProfile(@RequestBody UpdateProfile studentProfile){
+		User user = userService.getUserDetails(studentProfile.getEmail());
+		user.setName(studentProfile.getName());
+		user.setPhoneNo(studentProfile.getPhoneNo());
 		userRepo.save(user);
+		Student student = studentService.getDetailsByEmail(studentProfile.getEmail());
+		if(student==null) {
+			throw new ResourceNotFoundException("User not exists");
+		}
+		student.setName(studentProfile.getName());
+		student.setAge(studentProfile.getAge());
+		student.setAddress(new Address(studentProfile.getCity(),studentProfile.getState(),studentProfile.getCountry(),studentProfile.getPincode()));
+		student.setMarksInComp(studentProfile.getMarksInComp());
 		return ResponseEntity.ok().body(studentService.updateStudent(student));
 	}
 
