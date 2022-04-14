@@ -42,7 +42,7 @@ public class CentralExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(AuthenticationException.class)
 	public ResponseEntity<?> handleAuthentication(AuthenticationException e){
-		return ResponseEntity.badRequest().body(new ErrorResponse("Authentication Error",e.getMessage()));
+		return ResponseEntity.badRequest().body(new ErrorResponse("Authentication Error: ",e.getMessage()));
 	}
 	
 	//method to handle resource not found exceptions centrally and returns error response using DTO

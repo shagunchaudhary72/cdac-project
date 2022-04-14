@@ -52,7 +52,9 @@ const Sidebar = () => {
         }
         else{
             UserService.userDetails(studentEmail).then(resp=>{
-                setName(resp.data.name);
+                let fullName = resp.data.name;
+                let nameArray = fullName.split(" ");
+                setName(nameArray[0]);
             }).catch(err=>{
                 console.log(err);
             })

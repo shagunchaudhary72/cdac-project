@@ -156,7 +156,7 @@ const Login = () => {
         }
         dispatch({ type: "USER", payload: true })
       }).catch(error => {
-        setErrorMesg("Email or Password is incorrect", error);
+        setErrorMesg(error.response.data.errorDetails);
       })
     }
   }

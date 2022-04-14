@@ -13,5 +13,7 @@ public interface IUserService {
 	User updatePassword(String email,String newPassword);
 	
 	User getUserDetails(String email);
+	
+	User checkUserDetails(String email);
 
 }
