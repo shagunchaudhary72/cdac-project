@@ -94,6 +94,14 @@ public class UserServiceImpl implements IUserService {
 	public User checkUserDetails(String email) {
 		return userRepo.findByEmail(email).orElse(null);
 	}
+
+
+	@Override
+	public User changePassword(String email, String oldPassword, String newPassword) {
+		User user = userRepo.findByEmailAndPassword(email, oldPassword).orElseThrow(()->new ResourceNotFoundException("User with email: "+email+" not found in our database"));
+		user.setPassword(newPassword);
+		return userRepo.save(user);
+	}
 	
 	
 

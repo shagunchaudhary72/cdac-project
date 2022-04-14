@@ -170,7 +170,9 @@ const RegisterAsCollege = () => {
 
     const setNameHandler = (e) => { setName(e.target.value) }
     const setEmailHandler = (e) => { setEmail(e.target.value.toLowerCase()) }
-    const setPasswordHandler = (e) => { setPassword(e.target.value) }
+    const setPasswordHandler = (e) => { 
+        setpasswordValidatonError("");
+        setPassword(e.target.value) }
 
     const setConfimrPasswordHandler = (e) => {
         setConfimrPassword(e.target.value);
@@ -215,37 +217,37 @@ const RegisterAsCollege = () => {
                                     <label>College Name</label>
                                 </div>
 
+                                {emailError && <span style={{ color: 'red' }}>Invalid Email Id</span>}
                                 <div className="form-floating mb-3">
-                                    {emailError && <span style={{ color: 'red' }}>Invalid Email Id</span>}
                                     <input type="email" id="form3Example3" className="form-control"
                                         placeholder="Enter a valid email address" value={email} onChange={setEmailHandler} required />
                                     <label>Email address</label>
                                 </div>
 
+                                {passwordError && <span style={{ color: 'red' }}>Invalid Password</span>}
+                                {passwordValidationError && <span style={{ color: 'red' }}>Password should have atleast one capital letter, one special character and a number. Also, the size of password should lies between 8 to 15 characters</span>}
                                 <div className="form-floating mb-3">
-                                    {passwordError && <span style={{ color: 'red' }}>Invalid Password</span>}
-                                    {passwordValidationError && <span style={{ color: 'red' }}>Password should have atleast one capital letter, one special character and a number. Also, the size of password should lies between 8 to 15 characters</span>}
                                     <input type="password" id="password" className="form-control"
                                         placeholder="Enter password" value={password} onChange={setPasswordHandler} required />
                                     <label>Password</label>
                                 </div>
 
+                                {!passwordMatch && <span style={{ color: 'red' }}>Password does not match</span>}
                                 <div className="form-floating mb-3">
-                                    {!passwordMatch && <span style={{ color: 'red' }}>Password does not match</span>}
                                     <input type="password" id="confirmPassword" value={confirmPassword} className="form-control"
                                         placeholder="Confirm password" onChange={setConfimrPasswordHandler} required />
                                     <label>Confirm Password</label>
                                 </div>
 
+                                {phoneNoError && <span style={{ color: 'red' }}>Invalid Phone Number</span>}
                                 <div className="form-floating mb-3">
-                                    {phoneNoError && <span style={{ color: 'red' }}>Invalid Phone Number</span>}
                                     <input type="text" id="phno" className="form-control"
                                         placeholder="Enter Phone Number" value={phone_no} onChange={setPhoneNoHandler} required />
                                     <label>Phone Number</label>
                                 </div>
 
+                                {countryError && <span style={{ color: 'red' }}>Please select Country-State-City</span>}
                                 <div className="form-floating mb-3">
-                                    {countryError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     <select name="country" className="form-select" onChange={handlecountry} >
                                         <option value="">--Select Country--</option>
                                         {
@@ -257,8 +259,8 @@ const RegisterAsCollege = () => {
                                     <label>Country</label>
                                 </div>
 
+                                {stateError && <span style={{ color: 'red' }}>Please select Country-State-City</span>}
                                 <div className="form-floating mb-3">
-                                    {stateError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     <select className="form-select" name="state" onChange={handlestate}>
                                         <option value="">--Select State--</option>
                                         {
@@ -269,9 +271,9 @@ const RegisterAsCollege = () => {
                                     </select>
                                     <label>State</label>
                                 </div>
-
+                                        
+                                {cityError && <span style={{ color: 'red' }}>Please select Country-State-City</span>}        
                                 <div className="form-floating mb-3">
-                                    {cityError && <span style={{ color: 'red' }}>Field cannot be empty</span>}
                                     <select className="form-select" name="city" onChange={handlecity}>
                                         <option value="">--Select City--</option>
                                         {

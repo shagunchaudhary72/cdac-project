@@ -103,7 +103,7 @@ public class CollegeServiceImpl implements ICollegeService {
 
 	@Override
 	public User regUserAsCollege(CollegeUserDTO collegeUserData) {
-		  User user = userRepo.findByEmail(collegeUserData.getEmail().toLowerCase()).get();
+		  User user = userRepo.findByEmail(collegeUserData.getEmail().toLowerCase()).orElse(null);
 	        if(user != null) {
 	            throw new RuntimeException("Email-Id already registered");
 	        }

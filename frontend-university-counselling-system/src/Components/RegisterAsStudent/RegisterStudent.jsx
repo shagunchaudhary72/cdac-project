@@ -32,7 +32,8 @@ const RegisterStudent = () => {
     if(emailErr!==""||emailErr!==null) setEmailErr("");
     // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
-    setEmail(event.target.value);
+    setEmail(event.target.value.toLowerCase());
+    console.log(email);
   };
   let passwordTextHandler = (event) => {
     if (passwordError!=="" || passwordError!==null) setPasswordError("");
@@ -51,7 +52,7 @@ const RegisterStudent = () => {
     if(confirmEmailErr!=="" || confirmEmailErr!==null) setConfirmEmailErr("");
     // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
-    setConfirmEmail(event.target.value);
+    setConfirmEmail(event.target.value.toLowerCase());
   };
 
   let confirmPasswordTextHandler = (event) => {
@@ -104,7 +105,7 @@ const RegisterStudent = () => {
       flag = false;
     }
 
-    if (confirmEmail !== email) {
+    if (confirmEmail!== email) {
       setConfirmEmailErr("Email is not matching");
       flag = false;
     }
