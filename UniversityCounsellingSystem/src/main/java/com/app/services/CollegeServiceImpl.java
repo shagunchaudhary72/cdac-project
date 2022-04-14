@@ -103,7 +103,7 @@ public class CollegeServiceImpl implements ICollegeService {
 
 	@Override
 	public User regUserAsCollege(CollegeUserDTO collegeUserData) {
-		  User user = userRepo.findByEmail(collegeUserData.getEmail()).get();
+		  User user = userRepo.findByEmail(collegeUserData.getEmail().toLowerCase()).get();
 	        if(user != null) {
 	            throw new RuntimeException("Email-Id already registered");
 	        }
@@ -111,9 +111,9 @@ public class CollegeServiceImpl implements ICollegeService {
 	        University uni = universityRepo.findById(1).orElseThrow(() -> {
 	            throw new RuntimeException("Invalid UniversityId");
 	        });
-	        User userData = new User(collegeUserData.getName(), collegeUserData.getEmail(), collegeUserData.getPassword(),
+	        User userData = new User(collegeUserData.getName().toUpperCase(), collegeUserData.getEmail().toLowerCase(), collegeUserData.getPassword(),
 	                Role.COLLEGE, collegeUserData.getPhone_no());
-	        College collegeData = new College(collegeUserData.getName(), collegeUserData.getEmail(), collegeUserData.getCountry(),
+	        College collegeData = new College(collegeUserData.getName().toUpperCase(), collegeUserData.getEmail().toLowerCase(), collegeUserData.getCountry(),
 	                collegeUserData.getCity(), collegeUserData.getState(), uni, collegeUserData.getPhone_no());
 	        collegeRepo.save(collegeData);
 	        return userRepo.save(userData);

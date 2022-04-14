@@ -40,8 +40,8 @@ public class UserController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> loginViaRole(@RequestBody LoginRequest request) {
-		System.out.println(request.getEmail() + " " + request.getPassword());
-		return ResponseEntity.ok(userService.login(request.getEmail(), request.getPassword()));
+		System.out.println(request.getEmail().toLowerCase() + " " + request.getPassword());
+		return ResponseEntity.ok(userService.login(request.getEmail().toLowerCase(), request.getPassword()));
 	}
 
 	@PostMapping("/student/register")
@@ -50,10 +50,12 @@ public class UserController {
 		User user = null;
 		Student student = null;
 		try {
-			user = userService.getUserDetails(studentRegistration.getUser().getEmail());
+			user = userService.checkUserDetails(studentRegistration.getUser().getEmail().toLowerCase());
 			if (user == null) {
-				user = userService.registerAsStudent(studentRegistration.getUser());
-				student = studentService.addStudent(studentRegistration.getStudent());
+				User userDetails = new User(studentRegistration.getUser().getName().toUpperCase(),studentRegistration.getUser().getEmail().toLowerCase(),studentRegistration.getUser().getPassword(),studentRegistration.getUser().getRole(),studentRegistration.getUser().getPhoneNo());
+				user = userService.registerAsStudent(userDetails);
+				Student studentDetails = new Student(studentRegistration.getStudent().getName().toUpperCase(),studentRegistration.getStudent().getEmail().toLowerCase(),studentRegistration.getStudent().getAge());
+				student = studentService.addStudent(studentDetails);
 			}
 			else {
 				throw new RuntimeException("Email already registered");
