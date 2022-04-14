@@ -1,8 +1,6 @@
 const events = [
-    { id : 1, news:'News 1'},
-    { id : 2, news:'News 2'},
-    { id : 3, news:'News 3'},
-    { id : 4, news:'News 4'},
+    { id : 1,title: "Result Date", news:'Results will be announced on 16-04-2022'},
+    { id : 2,title: "Last Date to Update your Profile", news:'Students should update their profiles and fill up their preferences by 15-04-2022'},
 ]
 
-export default events
+export default events;
