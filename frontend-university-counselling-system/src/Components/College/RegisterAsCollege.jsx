@@ -35,7 +35,7 @@ const RegisterAsCollege = () => {
         setSelectedCountry(Country.getCountryByCode(countryid).name);
         setSelectedState(State.getStateByCodeAndCountry(stateid, countryid).name);
         setSelectedCity(e.target.value);
-        
+
     }
 
     const [name, setName] = useState("");
@@ -56,9 +56,9 @@ const RegisterAsCollege = () => {
     const [successMessageFlag, setSuccessMessageFlag] = useState(false);
     const [navigateToLogin, setNavigateToLogin] = useState(false);
 
-    useEffect(()=>{
+    useEffect(() => {
         window.scrollTo(0, 0);
-      },[])
+    }, [])
 
     function setErrorMessagesBlank() {
         setnameError(false);
@@ -98,10 +98,10 @@ const RegisterAsCollege = () => {
             setpasswordError(true);
             return false;
         }
-        else if(passwordRegex.test(password)===false){
+        else if (passwordRegex.test(password) === false) {
             setpasswordValidatonError(true);
             return false;
-          }
+        }
 
         if (phone_no.length != 10) {
             setphoneNoError(true);
@@ -150,7 +150,7 @@ const RegisterAsCollege = () => {
                 setSuccessMessage("college data added successfully");
                 setSuccessMessageFlag(true);
                 console.log('college data added successfully!!!', response.data);
-                window.sessionStorage.setItem("snackbar","show");
+                window.sessionStorage.setItem("snackbar", "show");
                 setNavigateToLogin(true);
             }
             ).then(setFormDataBlank())
@@ -203,7 +203,7 @@ const RegisterAsCollege = () => {
                 <div className="m-3">
                     <h2 className="fw-bold mb-2 text-uppercase">College Registration</h2>
                     <p className="text-50 text-success mb-3">Please fill up the details</p>
-                    {errorMessageFlag && <span style={{ color: 'red' }}>{errorMessage}</span>}
+
                     {successMessageFlag && <span style={{ color: 'green' }}>{successMessage}</span>}
                     <div className="border border-1 rounded">
                         <div className="m-3">
@@ -287,6 +287,7 @@ const RegisterAsCollege = () => {
                             </form>
                         </div >
                     </div >
+                    {errorMessageFlag && <span style={{ color: 'red' }}>{errorMessage}</span>}
                 </div >
                 <ToastContainer />
             </div >

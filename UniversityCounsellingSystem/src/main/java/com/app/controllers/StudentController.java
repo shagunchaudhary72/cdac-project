@@ -127,6 +127,7 @@ public class StudentController {
 	@PutMapping("/updateStudentProfile/{phoneNo}")
 	public ResponseEntity<?> updateStudentProfile(@RequestBody Student student,@PathVariable String phoneNo){
 		User user = userService.getUserDetails(student.getEmail());
+		user.setName(student.getName());
 		user.setPhoneNo(phoneNo);
 		userRepo.save(user);
 		return ResponseEntity.ok().body(studentService.updateStudent(student));

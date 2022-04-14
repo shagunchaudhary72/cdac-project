@@ -31,10 +31,10 @@ public class UserController {
 
 	@Autowired
 	private IUserService userService;
-	
+
 	@Autowired
 	private IStudentService studentService;
-	
+
 	@Autowired
 	private ICollegeService collegeService;
 
@@ -50,27 +50,38 @@ public class UserController {
 		User user = null;
 		Student student = null;
 		try {
-			user = userService.registerAsStudent(studentRegistration.getUser());
-			student = studentService.addStudent(studentRegistration.getStudent());
+			user = userService.getUserDetails(studentRegistration.getUser().getEmail());
+			if (user == null) {
+				user = userService.registerAsStudent(studentRegistration.getUser());
+				student = studentService.addStudent(studentRegistration.getStudent());
+			}
+			else {
+				throw new RuntimeException("Email already registered");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(user);
 	}
-	
+
 	@PostMapping("/college/register") // Login Register form's register page
 	public ResponseEntity<?> registerAsCollege(@RequestBody @Valid CollegeUserDTO collegeUserData) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(collegeService.regUserAsCollege(collegeUserData));
+		try {
+			return ResponseEntity.status(HttpStatus.CREATED).body(collegeService.regUserAsCollege(collegeUserData));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
 	}
-	
+
 	@PutMapping("/updatePassword")
-	public ResponseEntity<?> updatePassword(@RequestBody ForgotPassword userData){
+	public ResponseEntity<?> updatePassword(@RequestBody ForgotPassword userData) {
 		return ResponseEntity.ok().body(userService.updatePassword(userData.getEmail(), userData.getNewPassword()));
 	}
-	
+
 	@GetMapping("/details/{email}")
-	public ResponseEntity<?> getUserDetails(@PathVariable String email){
+	public ResponseEntity<?> getUserDetails(@PathVariable String email) {
 		return ResponseEntity.ok().body(userService.getUserDetails(email));
 	}
 

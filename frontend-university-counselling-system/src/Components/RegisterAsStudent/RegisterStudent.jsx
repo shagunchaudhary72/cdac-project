@@ -175,7 +175,8 @@ const RegisterStudent = () => {
           navigate("/login");
         })
         .catch((error) => {
-          setErrorMesg("Something went wrong", error);
+          console.log(error)
+          setErrorMesg(error.response.data);
         });
     }
   };
