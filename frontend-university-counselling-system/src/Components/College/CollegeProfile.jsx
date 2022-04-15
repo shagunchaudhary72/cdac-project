@@ -48,6 +48,7 @@ const AddCollegeDetails = () => {
     const universityId = window.sessionStorage.getItem("universityId");
     const universityEmail = window.sessionStorage.getItem("universityEmail");
     const universityName = window.sessionStorage.getItem("universityName");
+    const role = window.sessionStorage.getItem("role");
 
     const [collegeCourses, setCollegeCourses] = useState([]);
 
@@ -98,7 +99,7 @@ const AddCollegeDetails = () => {
 
     useEffect(() => {
         window.sessionStorage.setItem("success", "false");
-        if (collegeName !== "" && collegeEmail !== "" && collegecountry !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "") {
+        if (collegeName !== "" && collegeEmail !== "" && collegecountry !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "" && role==="COLLEGE") {
             collegeService.getCollegeProfile(collegeId).then(
                 (response) => {
                     setName(response.data.name);

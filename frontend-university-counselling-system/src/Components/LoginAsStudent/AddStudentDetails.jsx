@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../Login/Login.css";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import studentService from "../../Services/StudentService";
+import StudentService from "../../Services/StudentService";
 
 const AddStudentDetails = () => {
   const studentName = window.sessionStorage.getItem("name");
@@ -27,8 +28,24 @@ const AddStudentDetails = () => {
   const [marksError, setMarksError] = useState("");
   const [successMesg, setSuccessMesg] = useState("");
   const [errorMesg, setErrorMesg] = useState("");
+  const navigate = useNavigate();
+
+  let checkUpdation = (id) => {
+    StudentService.getStudentDeatils(id).then(resp => {
+      let address = resp.data.address;
+      if (address !== null) {
+        navigate("/student_dashboard");
+      }
+    }).catch(err => {
+      console.log(err);
+    })
+  }
 
   useEffect(() => {
+    if(studentId!=null){
+      checkUpdation(studentId);
+    }
+    //---------------------------------------------------------------------
     if (studentName !== null && studentEmail !== null && studentAge !== null) {
       setName(obj.studentName);
       setEmail(obj.studentEmail);
@@ -152,7 +169,7 @@ const AddStudentDetails = () => {
 
   return (
     <>
-      {loggedInStudentFalse && <Navigate to="/login" />}
+      {loggedInStudentFalse && <Navigate to="/home" />}
       {studentProfileUpdated && <Navigate to="/student_dashboard" />}
       <div className="container-fluid w-50 mt-5 add-details-section">
         <div className="m-3">
