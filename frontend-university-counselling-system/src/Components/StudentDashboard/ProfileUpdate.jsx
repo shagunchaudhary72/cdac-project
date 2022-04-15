@@ -73,7 +73,7 @@ const ProfileUpdate = () => {
     let nameTextHandler = (event) => {
         if (nameErr !== "" || nameErr !== null) setNameErr("");
         if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
-        setName(event.target.value);
+        setName(event.target.value.toUpperCase());
     };
 
 
@@ -127,6 +127,7 @@ const ProfileUpdate = () => {
         setAgeError("");
         let flag = true;
         let ageRegex = /^\d+$/;
+        let marksRegex = /[0-9]+/;
         if (name === "" || name === null) {
             setNameErr("This field is compulsory");
             flag = false;
@@ -143,6 +144,16 @@ const ProfileUpdate = () => {
             setAgeError("Age should be in numbers");
             flag = false;
         }
+        if (marks === null || marks === "") {
+            setMarksError("Marks should not be empty");
+            flag = false;
+          } else if (marksRegex.test(marks) === false) {
+            setMarksError("Please enter numbers");
+            flag = false;
+          } else if (parseInt(marks) < 0 || parseInt(marks) > 300) {
+            setMarksError("Please Enter Marks between 0-300");
+            flag = false;
+          }
         if (flag) {
             return true;
         }
@@ -152,9 +163,10 @@ const ProfileUpdate = () => {
         event.preventDefault();
         setErrorMesg("");
         if(validation() && disable===""){
-            let student = {"name":name.toUpperCase(),email,phoneNo,age,city,"state":states,country,pincode,"marksInComp":marks}
+            let student = {"name":name,email,phoneNo,age,city,"state":states,country,pincode,"marksInComp":marks}
             StudentService.updateStudentAndUserDetails(student).then(resp=>{
                 window.sessionStorage.setItem("snackbarUpdate","show");
+                window.sessionStorage.setItem("name",name);
                 navigate("/student_dashboard");
             }).catch(err=>{
                 console.log("Error found",err);

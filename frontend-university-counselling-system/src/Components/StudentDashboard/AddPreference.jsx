@@ -23,8 +23,8 @@ const AddPreference = () => {
     const [education, setEducation] = useState([]);
     const [disable, setDisable] = useState("")
 
-    const initCourse = (collegeName) => {
-        CollegeService.getCoursesOfCollge(collegeName).then(response => {
+    const initCourse = (name) => {
+        CollegeService.getCoursesOfCollge(name).then(response => {
             console.log(college);
             console.log(response.data);
             setCourses(response.data);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
 import './RegisterAsCollege.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -55,9 +55,14 @@ const RegisterAsCollege = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [successMessageFlag, setSuccessMessageFlag] = useState(false);
     const [navigateToLogin, setNavigateToLogin] = useState(false);
+    const sessionRole = window.sessionStorage.getItem("role");
+    const navigate = useNavigate();
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        if(sessionRole!==null){
+            navigate("/home");
+          }
     }, [])
 
     function setErrorMessagesBlank() {
@@ -114,7 +119,7 @@ const RegisterAsCollege = () => {
             return false;
         }
 
-        if (regex.test(email) === false) {
+        if (phoneRegex.test(phone_no) === false) {
             setphoneNoError(true);
             return false;
         }

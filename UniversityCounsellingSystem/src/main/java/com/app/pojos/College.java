@@ -41,7 +41,7 @@ public class College extends BaseEntity{
 		this.phoneNo = phoneNo;
 	}
 
-	@Column(name="clg_name",length = 50,nullable = false)
+	@Column(name="clg_name",length = 50,nullable = false,unique = true)
 	private String name;
 	
 	@Column(name="clg_email",length = 100,nullable = false, unique = true)

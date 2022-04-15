@@ -23,9 +23,13 @@ const RegisterStudent = () => {
   //const [successMesg, setSuccessMesg] = useState("");
   const [errorMesg, setErrorMesg] = useState("");
   const navigate = useNavigate();
+  const sessionRole = window.sessionStorage.getItem("role");
 
   useEffect(()=>{
     window.scrollTo(0, 0);
+    if(sessionRole!==null){
+      navigate("/home");
+    }
   },[])
 
   let emailTextHandler = (event) => {
@@ -45,7 +49,7 @@ const RegisterStudent = () => {
     if(nameErr!=="" || nameErr!==null) setNameErr("");
     // if (successMesg !== "" || successMesg !== null) setSuccessMesg("");
     if (errorMesg !== "" || errorMesg !== null) setErrorMesg("");
-    setName(event.target.value);
+    setName(event.target.value.toUpperCase());
   };
 
   let confirmEmailTextHandler = (event) => {

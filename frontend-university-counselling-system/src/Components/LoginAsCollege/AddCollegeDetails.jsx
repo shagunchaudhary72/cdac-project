@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../Login/Login.css";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import collegeService from "../../Services/CollegeService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CollegeService from "../../Services/CollegeService";
 
 const AddCollegeDetails = () => {
   const collegeName = window.sessionStorage.getItem("name");
@@ -16,6 +17,9 @@ const AddCollegeDetails = () => {
   const collegestate = window.sessionStorage.getItem("state");
   const collegecity = window.sessionStorage.getItem("city");
   const collegephoneNo = window.sessionStorage.getItem("phone_no");
+  const role = window.sessionStorage.getItem("role");
+
+
   const obj = {
     collegeName,
     collegeEmail,
@@ -53,6 +57,7 @@ const AddCollegeDetails = () => {
   const [errorMesg, setErrorMesg] = useState("");
   const [courseList, setCourseList] = useState("");
   const [gotCourseList, setGotCourseList] = useState(false);
+  const navigate = useNavigate();
 
   const getCourseList = () => {
     collegeService
@@ -67,6 +72,25 @@ const AddCollegeDetails = () => {
       });
   };
 
+  const checkUpdation = (id) => {
+    CollegeService.getCollegeProfile(id).then(resp => {
+      let percentage = resp.data.minimumPercentInBoards;
+      if (percentage !== 0) {
+        navigate("/college_dashboard");
+      }
+    }).catch(err => {
+      console.log(err);
+    })
+
+  }
+
+  useEffect(() => {
+    if (collegeId !== null) {
+      console.log(collegeId);
+      checkUpdation(collegeId);
+    }
+  }, [])
+
   useEffect(() => {
     if (
       collegeName !== "" &&
@@ -74,7 +98,7 @@ const AddCollegeDetails = () => {
       collegecountry !== "" &&
       collegestate !== "" &&
       collegecity !== "" &&
-      collegephoneNo !== ""
+      collegephoneNo !== "" && role === "COLLEGE"
     ) {
       getCourseList();
       setName(obj.collegeName);
@@ -154,7 +178,7 @@ const AddCollegeDetails = () => {
       setVaccantSeatsError("Please enter valid number of seats");
       vaccantSeatsFlag = false;
     }
-    else if(totalSeats<vaccantSeats){
+    else if (totalSeats < vaccantSeats) {
       setVaccantSeatsError("Vaccant Seats should be less than or equal to the Total Seats");
       vaccantSeatsFlag = false;
     }
@@ -202,7 +226,7 @@ const AddCollegeDetails = () => {
 
   return (
     <>
-      {loggedInCollegeFalse && <Navigate to="/login" />}
+      {loggedInCollegeFalse && <Navigate to="/home" />}
       {navigateToDashboard && <Navigate to="/college_dashboard" />}
       <div className="container-fluid w-50 mt-5 add-details-section">
         <div className="m-3">

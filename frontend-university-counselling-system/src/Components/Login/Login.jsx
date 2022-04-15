@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import "./Login.css";
 import UserService from "../../Services/UserService";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 
 const Login = () => {
@@ -24,14 +24,19 @@ const Login = () => {
   const [show1, setShow1] = useState("");
   const [show2, setShow2] = useState("");
   const [show3, setShow3] = useState("");
-  let snackbar2 = window.sessionStorage.getItem("snackbar2");
-  let snackbar = window.sessionStorage.getItem("snackbar");
-  let snackbar3 = window.sessionStorage.getItem("passwordUpdated");
-  let snackbar4 = window.sessionStorage.getItem("snackbar_registration");
+  const snackbar2 = window.sessionStorage.getItem("snackbar2");
+  const snackbar = window.sessionStorage.getItem("snackbar");
+  const snackbar3 = window.sessionStorage.getItem("passwordUpdated");
+  const snackbar4 = window.sessionStorage.getItem("snackbar_registration");
+  const role = window.sessionStorage.getItem("role");
   const [loggedInAsAdmin, setLoggedInAsAdmin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if(role!==null){
+      navigate("/home");
+    }
     if (snackbar2 === "show") {
       setShow(snackbar2);
       setTimeout(function () { setShow(""); clearTimeout(); }, 3000)

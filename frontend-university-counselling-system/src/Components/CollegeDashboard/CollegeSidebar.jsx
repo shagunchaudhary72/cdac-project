@@ -37,21 +37,23 @@ const CollegeSidebar = () => {
   const sidebarRef = useRef(null);
   const sidebarTogglerRef = useRef(null);
   const dashboardDataSectionRef = useRef(null);
+  const role = window.sessionStorage.getItem("role");
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
   });
 
   useEffect(() => {
-    if (collegeName === null || collegeEmail === null) {
+    if (collegeName === null || collegeEmail === null || role!=="COLLEGE") {
       setLoggedInCollegeFalse(true);
     }
     else{
-        UserService.userDetails(collegeEmail).then(resp=>{
-          setCollegeName(resp.data.name);
-        }).catch(err=>{
-          console.log(err);
-        })
+        // UserService.userDetails(collegeEmail).then(resp=>{
+        //   setCollegeName(resp.data.name);
+        // }).catch(err=>{
+        //   console.log(err);
+        // })
+        setCollegeName(window.sessionStorage.getItem("name"));
     }
 
     if (snackbar === "show") {
