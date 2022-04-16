@@ -2,6 +2,7 @@ package com.app.controllers;
 
 import javax.validation.Valid;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,9 @@ public class UserController {
 
 	@Autowired
 	private ICollegeService collegeService;
+	
+//	@Autowired
+//	private BCrypt encoder;
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> loginViaRole(@RequestBody LoginRequest request) {
@@ -53,7 +57,7 @@ public class UserController {
 		try {
 			user = userService.checkUserDetails(studentRegistration.getUser().getEmail().toLowerCase());
 			if (user == null) {
-				User userDetails = new User(studentRegistration.getUser().getName().toUpperCase(),studentRegistration.getUser().getEmail().toLowerCase(),studentRegistration.getUser().getPassword(),studentRegistration.getUser().getRole(),studentRegistration.getUser().getPhoneNo());
+				User userDetails = new User(studentRegistration.getUser().getName().toUpperCase(),studentRegistration.getUser().getEmail().toLowerCase(),BCrypt.hashpw(studentRegistration.getUser().getPassword(),BCrypt.gensalt()),studentRegistration.getUser().getRole(),studentRegistration.getUser().getPhoneNo());
 				user = userService.registerAsStudent(userDetails);
 				Student studentDetails = new Student(studentRegistration.getStudent().getName().toUpperCase(),studentRegistration.getStudent().getEmail().toLowerCase(),studentRegistration.getStudent().getAge());
 				student = studentService.addStudent(studentDetails);

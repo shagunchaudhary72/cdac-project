@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -111,7 +112,7 @@ public class CollegeServiceImpl implements ICollegeService {
 	        University uni = universityRepo.findById(1).orElseThrow(() -> {
 	            throw new RuntimeException("Invalid UniversityId");
 	        });
-	        User userData = new User(collegeUserData.getName().toUpperCase(), collegeUserData.getEmail().toLowerCase(), collegeUserData.getPassword(),
+	        User userData = new User(collegeUserData.getName().toUpperCase(), collegeUserData.getEmail().toLowerCase(),BCrypt.hashpw(collegeUserData.getPassword(),BCrypt.gensalt()),
 	                Role.COLLEGE, collegeUserData.getPhone_no());
 	        College collegeData = new College(collegeUserData.getName().toUpperCase(), collegeUserData.getEmail().toLowerCase(), collegeUserData.getCountry(),
 	                collegeUserData.getCity(), collegeUserData.getState(), uni, collegeUserData.getPhone_no());

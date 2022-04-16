@@ -78,7 +78,7 @@ const AddCollegeDetails = () => {
     const [selectedCourseList, setSelectedCourseList] = useState([]);
     const [detailsUpdated, setDetailsUpdated] = useState(false);
     //const [resultDate,setResultDate] = useState("");
-    const [disable,setDisable] = useState("");
+    const [disable, setDisable] = useState("");
 
     const getCourseList = () => {
         collegeService.getCourseList().then(
@@ -99,7 +99,7 @@ const AddCollegeDetails = () => {
 
     useEffect(() => {
         window.sessionStorage.setItem("success", "false");
-        if (collegeName !== "" && collegeEmail !== "" && collegecountry !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "" && role==="COLLEGE") {
+        if (collegeName !== "" && collegeEmail !== "" && collegecountry !== "" && collegestate !== "" && collegecity !== "" && collegephoneNo !== "" && role === "COLLEGE") {
             collegeService.getCollegeProfile(collegeId).then(
                 (response) => {
                     setName(response.data.name);
@@ -127,24 +127,24 @@ const AddCollegeDetails = () => {
                 })
                 console.log("Something went wrong", error);
             });
-            AdminService.getAcademicDates().then(resp=>{
+            AdminService.getAcademicDates().then(resp => {
                 let resultDate = resp.data.resultDate;
                 console.log(Date.parse(resultDate));
                 console.log(Date.parse(new Date()))
-                if(Date.parse(resultDate)<=Date.parse(new Date())){
+                if (Date.parse(resultDate) <= Date.parse(new Date())) {
                     setDisable("disabled")
                 }
-                else{
+                else {
                     setDisable("");
-                } 
-            }).catch(err=>{
-                console.log("Something Went Wrong",err);
+                }
+            }).catch(err => {
+                console.log("Something Went Wrong", err);
             })
         }
         else {
             setLoggedInCollegeFalse(true);
         }
-        
+
     }, [])
 
     let totalSeatsTextHandler = (e) => {
@@ -235,6 +235,10 @@ const AddCollegeDetails = () => {
             setVaccantSeatsError("Please enter valid number of seats");
             vaccantSeatsFlag = false;
         }
+        if (totalSeats < vaccantSeats) {
+            setVaccantSeatsError("Vaccant Seats should be less than or equal to the Total Seats");
+            vaccantSeatsFlag = false;
+        }
         if (phoneNo.length != 10) {
             setPhoneError("Invalid Phone Number");
             phoneFlag = false;
@@ -270,34 +274,36 @@ const AddCollegeDetails = () => {
 
     let addCollegeDetails = (e) => {
         e.preventDefault();
-        if (validation() === true && disable==="") {
-            addSelectedCourseList();
-            console.log(courses);
-            let college = { "id": collegeId, "name":name.toUpperCase(), email, university: { "id": universityId, "universityName": universityName, "emailId": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, "country":selectedCountry, "city":selectedCity, "state":selectedState, totalSeats, vaccantSeats };
-            console.log(college);
-            window.sessionStorage.setItem("name", name);
-            window.sessionStorage.setItem("country", selectedCountry);
-            window.sessionStorage.setItem("state", selectedState);
-            window.sessionStorage.setItem("city", selectedCity);
-            window.sessionStorage.setItem("phone_no", phoneNo);
-            window.sessionStorage.setItem("universityId", universityId);
-            window.sessionStorage.setItem("universityEmail", universityEmail);
-            window.sessionStorage.setItem("universityName", universityName);
-            // console.log("City"+selectedCity);
-            collegeService.updateCollegeDetails(college).then(() => {
-                setSuccessMesg("College Profile Updated");
-                console.log("College Profile Updated");
-            }).catch(error => {
-                setErrorMesg("Something went wrong", error);
-                console.log(error);
-            });
+        if (disable === "") {
+            if (validation() === true) {
+                addSelectedCourseList();
+                console.log(courses);
+                let college = { "id": collegeId, "name": name.toUpperCase(), email, university: { "id": universityId, "universityName": universityName, "emailId": universityEmail }, phoneNo, cutOffRank, minimumPercentInBoards, courses, "country": selectedCountry, "city": selectedCity, "state": selectedState, totalSeats, vaccantSeats };
+                console.log(college);
+                window.sessionStorage.setItem("name", name);
+                window.sessionStorage.setItem("country", selectedCountry);
+                window.sessionStorage.setItem("state", selectedState);
+                window.sessionStorage.setItem("city", selectedCity);
+                window.sessionStorage.setItem("phone_no", phoneNo);
+                window.sessionStorage.setItem("universityId", universityId);
+                window.sessionStorage.setItem("universityEmail", universityEmail);
+                window.sessionStorage.setItem("universityName", universityName);
+                // console.log("City"+selectedCity);
+                collegeService.updateCollegeDetails(college).then(() => {
+                    setSuccessMesg("College Profile Updated");
+                    console.log("College Profile Updated");
+                }).catch(error => {
+                    setErrorMesg("Something went wrong", error);
+                    console.log(error);
+                });
 
-            setDetailsUpdated(true);
+                setDetailsUpdated(true);
 
-            window.sessionStorage.setItem("success", "true");
-            window.sessionStorage.setItem("name", name);
+                window.sessionStorage.setItem("success", "true");
+                window.sessionStorage.setItem("name", name);
+            }
         }
-        else{
+        else {
             alert("Date for Updating Profile is OVER..");
         }
     }
@@ -332,7 +338,7 @@ const AddCollegeDetails = () => {
                         <div className="m-3">
                             <form onSubmit={addCollegeDetails}>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" disabled={disable}/>
+                                    <input type="text" className="form-control" value={name} onChange={nameTextHandler} placeholder="Enter Name" disabled={disable} />
                                     <label>Name</label>
                                     <span className="text-danger">{nameError}</span>
                                 </div>
@@ -427,12 +433,12 @@ const AddCollegeDetails = () => {
                                     <label>City</label>
                                 </div> */}
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" required disabled={disable}/>
+                                    <input type="text" className="form-control" value={phoneNo} onChange={phoneTextHandler} placeholder="Enter Phone Number" required disabled={disable} />
                                     <label>Phone No</label>
                                     <span className="text-danger">{phoneError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" required disabled={disable}/>
+                                    <input type="text" className="form-control" value={minimumPercentInBoards} onChange={percentTextHandler} placeholder="Enter Marks" required disabled={disable} />
                                     <label>Minimum Percentage Required in Boards</label>
                                     <span className="text-danger">{percentError}</span>
                                 </div>
@@ -444,8 +450,8 @@ const AddCollegeDetails = () => {
                                             {gotCourseList && courseList.map((course) => (
                                                 <tr>{console.log(selectedCourseList)}
                                                     <td>{checkIfExists(course) ?
-                                                        <input type="checkbox" name="cl" id={course.id} value={course.courseName} defaultChecked disabled={disable}/>
-                                                        : <input type="checkbox" name="cl" id={course.id} value={course.courseName} disabled={disable}/>
+                                                        <input type="checkbox" name="cl" id={course.id} value={course.courseName} defaultChecked disabled={disable} />
+                                                        : <input type="checkbox" name="cl" id={course.id} value={course.courseName} disabled={disable} />
                                                     }
                                                     </td>
                                                     <td className="form-control">{course.courseName}</td>
@@ -455,17 +461,17 @@ const AddCollegeDetails = () => {
                                     </table>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={cutOffRank} onChange={cutOffTextHandler} placeholder="Enter CutOff Rank" required disabled={disable}/>
+                                    <input type="text" className="form-control" value={cutOffRank} onChange={cutOffTextHandler} placeholder="Enter CutOff Rank" required disabled={disable} />
                                     <label>Cutt Off Rank</label>
                                     <span className="text-danger">{cutOffError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={totalSeats} onChange={totalSeatsTextHandler} placeholder="Enter Totla Seats" required disabled={disable}/>
+                                    <input type="text" className="form-control" value={totalSeats} onChange={totalSeatsTextHandler} placeholder="Enter Totla Seats" required disabled={disable} />
                                     <label>Total Seats</label>
                                     <span className="text-danger">{totalSeatsError}</span>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" value={vaccantSeats} onChange={vaccantSeatsTextHandler} placeholder="Enter Vaccant Seats" required disabled={disable}/>
+                                    <input type="text" className="form-control" value={vaccantSeats} onChange={vaccantSeatsTextHandler} placeholder="Enter Vaccant Seats" required disabled={disable} />
                                     <label>Vacant Seats</label>
                                     <span className="text-danger">{vaccantSeatsError}</span>
                                 </div>
