@@ -4,53 +4,59 @@ import "../StudentDashboard/StudentDashboard.css";
 
 const UpdateAcademicDates = () => {
     const email = window.sessionStorage.getItem("email");
-    const [resultDate,setResultDate] = useState("");
-    const [updationDate,setUpdationDate] = useState("");
-    const [resultDateErr,setResultDateErr] = useState("");
-    const [updationDateErr,setUpdationDateErr] = useState("");
-    const [show,setShow] = useState("");
+    const [resultDate, setResultDate] = useState("");
+    const [updationDate, setUpdationDate] = useState("");
+    const [resultDateErr, setResultDateErr] = useState("");
+    const [updationDateErr, setUpdationDateErr] = useState("");
+    const [show, setShow] = useState("");
 
-    let resultDateHandler = (e) =>{
-        if(resultDateErr!==null || resultDateErr!==""){
+    let resultDateHandler = (e) => {
+        if (resultDateErr !== null || resultDateErr !== "") {
             setResultDateErr("");
         }
         setResultDate(e.target.value);
     }
 
-    let updationDateHandler = (e) =>{
-        if(updationDateErr!==null || updationDateErr!==""){
+    let updationDateHandler = (e) => {
+        if (updationDateErr !== null || updationDateErr !== "") {
             setUpdationDateErr("");
         }
         setUpdationDate(e.target.value);
     }
 
-    let validation = () =>{
+    let validation = () => {
         let flag = true;
-        if(resultDate===null || resultDate===""){
-            setResultDateErr("This field is mandatory");
-            flag = false;
-        }
-        if(updationDate===null || updationDate===""){
+        if (updationDate === null || updationDate === "") {
             setUpdationDateErr("This field is mandatory");
             flag = false;
         }
-        if(flag){
+        if (resultDate === null || resultDate === "") {
+            setResultDateErr("This field is mandatory");
+            flag = false;
+        }
+        if(updationDate>resultDate){
+            setUpdationDateErr("Form updation date should be before Result Date");
+            setResultDateErr("Result date should be after Form Updation Date");
+            flag = false
+        }
+        if (flag) {
             return true;
         }
     }
 
-    let updateDates = (e) =>{
+    let updateDates = (e) => {
         e.preventDefault();
-        if(validation()){
-            let dates = {resultDate,updationDate};
-            console.log("Hii "+email);
-            AdminService.updateDates(email,dates).then(resp=>{
+        if (validation()) {
+            let dates = { resultDate, updationDate };
+            AdminService.updateDates(email, dates).then(resp => {
+                setResultDate("");
+                setUpdationDate("");
                 setShow("show");
-                setTimeout(()=>{
+                setTimeout(() => {
                     setShow("");
                     clearTimeout();
-                },3000);
-            }).catch(err=>{
+                }, 3000);
+            }).catch(err => {
                 console.log(err);
             })
 
@@ -71,21 +77,21 @@ const UpdateAcademicDates = () => {
                                 <input
                                     type="date"
                                     className="form-control"
-                                    value={resultDate}
-                                    onChange={resultDateHandler}
-                                />
-                                <label>Result Date</label>
-                                <span className="text-danger">{resultDateErr}</span>
-                            </div>
-                            <div className="form-floating mb-3">
-                                <input
-                                    type="date"
-                                    className="form-control"
                                     value={updationDate}
                                     onChange={updationDateHandler}
                                 />
                                 <label>Form Updation Date</label>
                                 <span className="text-danger">{updationDateErr}</span>
+                            </div>
+                            <div className="form-floating mb-3">
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    value={resultDate}
+                                    onChange={resultDateHandler}
+                                />
+                                <label>Result Date</label>
+                                <span className="text-danger">{resultDateErr}</span>
                             </div>
                             <button type="submit" className="btn1 primary1 btn-sm">Update Dates</button>
                         </form>
