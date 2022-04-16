@@ -1,5 +1,7 @@
 package com.app.dto;
 
+import javax.validation.constraints.Pattern;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class ForgotPassword {
 	private String email;
+	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", message = "Invalid Password")
 	private String newPassword;
 }
